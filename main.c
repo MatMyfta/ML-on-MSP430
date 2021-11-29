@@ -4,17 +4,18 @@
 #include <stdint.h>
 #include "main.h"
 
-fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE];
+
+fixed weights[MEMORY_SIZE+UPDATE_THR][K];
 uint16_t y_train[MEMORY_SIZE+UPDATE_THR];
 fixed centroids[K][N_FEATURE];
-fixed weights[MEMORY_SIZE+UPDATE_THR][K];
+#pragma PERSISTENT(max_samples)
+fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {0};
 
 /**
  * main.c
  */
 int main(void)
 {
-
 
 	// Stop watchdog timer
 	WDTCTL = WDTPW | WDTHOLD;
@@ -23,9 +24,12 @@ int main(void)
     // previously configured port settings
     PM5CTL0 &= ~LOCKLPM5;
 
+    // RTC
+    PF_sim_start();
+
 
     #ifdef PRINT
-    fprintf(stdout, "AEP initialization\n\n"); fflush(stdout);
+    printf("AEP initialization\n\n");
     #endif
 
 	uint16_t n_samples;
@@ -187,4 +191,38 @@ void quicksort_idx(uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t indices[ME
       quicksort_idx(y_train, indices,j+1,last);
 
    }
+}
+
+uint16_t update_mem(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], uint16_t indices[MEMORY_SIZE+UPDATE_THR], uint16_t n_samples){
+    uint16_t n_samples_updated = n_samples;
+	uint16_t i,j,k;
+    if (n_samples > MEMORY_SIZE)
+        n_samples_updated = MEMORY_SIZE;
+    uint16_t n_rows_erased=0;
+    uint16_t n_indices_found=0;
+
+	for(i=0; i<n_samples; i++){
+        uint16_t row_to_keep = 0;
+        for(j=0; j<n_samples_updated-n_indices_found; j++){
+            if (i==indices[j]){
+                row_to_keep=1;
+                for(k=j; k<n_samples_updated-n_indices_found-1; k++){
+                    indices[k]=indices[k+1];
+                }
+                n_indices_found++;
+                break;
+            }
+        }
+        if (!row_to_keep){
+            for(j=i-n_rows_erased; j<n_samples-1-n_rows_erased; j++){
+                for(k=0; k<N_FEATURE; k++){
+                    max_samples[j][k]=max_samples[j+1][k];
+                    y_train[j] = y_train[j+1];
+                }
+            }
+            n_rows_erased++;
+        }
+    }
+    n_samples = n_samples_updated;
+    return n_samples;
 }

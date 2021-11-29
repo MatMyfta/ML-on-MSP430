@@ -17,6 +17,7 @@ ORDERED_OBJS += \
 "./kmeans.obj" \
 "./knn_classification.obj" \
 "./main.obj" \
+"./pf_sim.obj" \
 "./pipeline.obj" \
 "./test.obj" \
 "../lnk_msp430fr5994.cmd" \
@@ -150,7 +151,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 AEP.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP430 Linker'
-	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/bin/cl430" -vmspx --data_model=restricted -O0 --opt_for_speed=0 --use_hw_mpy=F5 --advice:power="all" --advice:hw_config="all" --define=__MSP430FR5994__ --define=_MPU_ENABLE -g --printf_support=full --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 -z -m"AEP.map" --heap_size=400 --stack_size=320 --cinit_hold_wdt=on -i"C:/ti/ccs1100/ccs/ccs_base/msp430/include" -i"C:/ti/ccs1100/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccs1100/ccs/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include" --priority --reread_libs --define=_MPU_ENABLE --diag_wrap=off --display_error_number --warn_sections --xml_link_info="AEP_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "AEP.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/bin/cl430" -vmspx --data_model=large -O0 --opt_for_speed=0 --use_hw_mpy=F5 --advice:power="all" --advice:hw_config="all" --define=__MSP430FR5994__ --define=_MPU_ENABLE -g --printf_support=full --diag_warning=225 --diag_wrap=off --display_error_number --verbose_diagnostics --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 -z -m"AEP.map" --heap_size=400 --stack_size=320 --cinit_hold_wdt=on -i"C:/ti/ccs1100/ccs/ccs_base/msp430/include" -i"C:/ti/ccs1100/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccs1100/ccs/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include" --priority --reread_libs --define=_MPU_ENABLE --diag_wrap=off --display_error_number --warn_sections --xml_link_info="AEP_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "AEP.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -164,8 +165,8 @@ AEP.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "dataset.obj" "dt_classification.obj" "dt_training.obj" "fixed.obj" "kmeans.obj" "knn_classification.obj" "main.obj" "pipeline.obj" "test.obj" 
-	-$(RM) "dataset.d" "dt_classification.d" "dt_training.d" "fixed.d" "kmeans.d" "knn_classification.d" "main.d" "pipeline.d" "test.d" 
+	-$(RM) "dataset.obj" "dt_classification.obj" "dt_training.obj" "fixed.obj" "kmeans.obj" "knn_classification.obj" "main.obj" "pf_sim.obj" "pipeline.obj" "test.obj" 
+	-$(RM) "dataset.d" "dt_classification.d" "dt_training.d" "fixed.d" "kmeans.d" "knn_classification.d" "main.d" "pf_sim.d" "pipeline.d" "test.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

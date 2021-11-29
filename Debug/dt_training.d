@@ -34,6 +34,7 @@ dt_training.obj: ../main.h
 dt_training.obj: ../test.h
 dt_training.obj: ../knn_classification.h
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
+dt_training.obj: ../pf_sim.h
 
 ../dt_training.c:
 
@@ -102,4 +103,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_strin
 ../knn_classification.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
+
+../pf_sim.h:
 

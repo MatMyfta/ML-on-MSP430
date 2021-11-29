@@ -1,7 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define AUTO_KNN
+#define AUTO_DT
+//#define PRINT
 
 #ifdef PRINT
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -21,6 +22,7 @@
 #include "dt_classification.h"
 #include "knn_classification.h"
 #include "test.h"
+#include "pf_sim.h"
 
 void quicksort_idx(uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t indices[MEMORY_SIZE + UPDATE_THR], uint16_t first, uint16_t last);
 uint16_t update_mem(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], uint16_t indices[MEMORY_SIZE+UPDATE_THR], uint16_t n_samples);

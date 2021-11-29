@@ -16,6 +16,7 @@ C_SRCS += \
 ../kmeans.c \
 ../knn_classification.c \
 ../main.c \
+../pf_sim.c \
 ../pipeline.c \
 ../test.c 
 
@@ -27,6 +28,7 @@ C_DEPS += \
 ./kmeans.d \
 ./knn_classification.d \
 ./main.d \
+./pf_sim.d \
 ./pipeline.d \
 ./test.d 
 
@@ -38,6 +40,7 @@ OBJS += \
 ./kmeans.obj \
 ./knn_classification.obj \
 ./main.obj \
+./pf_sim.obj \
 ./pipeline.obj \
 ./test.obj 
 
@@ -49,6 +52,7 @@ OBJS__QUOTED += \
 "kmeans.obj" \
 "knn_classification.obj" \
 "main.obj" \
+"pf_sim.obj" \
 "pipeline.obj" \
 "test.obj" 
 
@@ -60,6 +64,7 @@ C_DEPS__QUOTED += \
 "kmeans.d" \
 "knn_classification.d" \
 "main.d" \
+"pf_sim.d" \
 "pipeline.d" \
 "test.d" 
 
@@ -71,6 +76,7 @@ C_SRCS__QUOTED += \
 "../kmeans.c" \
 "../knn_classification.c" \
 "../main.c" \
+"../pf_sim.c" \
 "../pipeline.c" \
 "../test.c" 
 

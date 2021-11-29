@@ -39,6 +39,7 @@ main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xloc
 main.obj: ../test.h
 main.obj: ../knn_classification.h
 main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
+main.obj: ../pf_sim.h
 
 ../main.c:
 
@@ -117,4 +118,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_strin
 ../knn_classification.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
+
+../pf_sim.h:
 

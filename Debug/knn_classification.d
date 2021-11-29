@@ -33,6 +33,7 @@ knn_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LT
 knn_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
 knn_classification.obj: ../test.h
 knn_classification.obj: ../knn_classification.h
+knn_classification.obj: ../pf_sim.h
 
 ../knn_classification.c:
 
@@ -99,4 +100,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_strin
 ../test.h:
 
 ../knn_classification.h:
+
+../pf_sim.h:
 

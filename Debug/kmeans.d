@@ -1,6 +1,12 @@
 # FIXED
 
 kmeans.obj: ../kmeans.c
+kmeans.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/msp430.h
+kmeans.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/msp430fr5994.h
+kmeans.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/in430.h
+kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics.h
+kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_legacy_undefs.h
+kmeans.obj: C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_ti_config.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/linkage.h
@@ -8,11 +14,6 @@ kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/st
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_types.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/cdefs.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_types.h
-kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/time.h
-kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/abi_prefix.h
-kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/timespec.h
-kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_timespec.h
-kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_time.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
@@ -38,8 +39,21 @@ kmeans.obj: ../main.h
 kmeans.obj: ../test.h
 kmeans.obj: ../knn_classification.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
+kmeans.obj: ../pf_sim.h
 
 ../kmeans.c:
+
+C:/ti/ccs1100/ccs/ccs_base/msp430/include/msp430.h:
+
+C:/ti/ccs1100/ccs/ccs_base/msp430/include/msp430fr5994.h:
+
+C:/ti/ccs1100/ccs/ccs_base/msp430/include/in430.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/intrinsics_legacy_undefs.h:
+
+C:/ti/ccs1100/ccs/ccs_base/msp430/include/legacy.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h:
 
@@ -54,16 +68,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_types.h:
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/cdefs.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_types.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/time.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/abi_prefix.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/timespec.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_timespec.h:
-
-C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_time.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
 
@@ -114,4 +118,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limit
 ../knn_classification.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
+
+../pf_sim.h:
 

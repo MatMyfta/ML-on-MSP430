@@ -1,10 +1,11 @@
 #define CONFIDENCE
 
+#include <msp430.h>
 #include <stdio.h>              // printf
-#include <time.h>               // time
 #include <stdlib.h>             // srand, rand
 #include <string.h>             // memcmp, memset
 #include "kmeans.h"
+#include "pf_sim.h"
 #include "main.h"
 
 
@@ -53,6 +54,7 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
         memset(cluster_assignment, 0, sizeof(cluster_assignment));
     }
 
+	#ifdef PRINT
     printf("\n> kmeans:\n\t- Final centroids:\n");
 	printf("\t+------------+------------+------------+------------+\n");
     for(i = 0; i < K; i++) {
@@ -63,6 +65,7 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
         printf("\n");
     }
 	printf("\t+------------+------------+------------+------------+\n");
+	#endif
 
 
     #ifdef CONFIDENCE
@@ -103,9 +106,9 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 // choose the first centroid
 void initial_centroids(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], uint16_t n_samples)
 {
-    time_t t;
-    srand((unsigned) time(&t));
-    uint16_t random = rand() % n_samples;
+    //srand(RTCCTL13);
+    //uint16_t random = rand() % n_samples;
+	uint16_t random = random_num % n_samples;
 
     uint16_t i,j;
     for (i = 0; i < K; i++) {

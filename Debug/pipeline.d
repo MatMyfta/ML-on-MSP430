@@ -32,6 +32,7 @@ pipeline.obj: ../main.h
 pipeline.obj: ../test.h
 pipeline.obj: ../knn_classification.h
 pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
+pipeline.obj: ../pf_sim.h
 
 ../pipeline.c:
 
@@ -96,4 +97,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_strin
 ../knn_classification.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
+
+../pf_sim.h:
 

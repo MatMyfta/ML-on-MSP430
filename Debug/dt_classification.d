@@ -32,6 +32,7 @@ dt_classification.obj: ../dt_classification.h
 dt_classification.obj: ../test.h
 dt_classification.obj: ../knn_classification.h
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
+dt_classification.obj: ../pf_sim.h
 
 ../dt_classification.c:
 
@@ -96,4 +97,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 ../knn_classification.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h:
+
+../pf_sim.h:
 
