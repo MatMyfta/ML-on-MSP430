@@ -10,6 +10,10 @@ uint16_t y_train[MEMORY_SIZE+UPDATE_THR];
 fixed centroids[K][N_FEATURE];
 #pragma PERSISTENT(max_samples)
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {0};
+#pragma PERSISTENT(_X_train)
+fixed _X_train[N_TRAIN][N_FEATURE] = {0};
+#pragma PERSISTENT(_X_test)
+fixed _X_test[N_TEST][N_FEATURE] = {0};
 
 /**
  * main.c
@@ -25,7 +29,7 @@ int main(void)
     PM5CTL0 &= ~LOCKLPM5;
 
     // RTC
-    PF_sim_start();
+    RTC_start();
 
 
     #ifdef PRINT
@@ -48,25 +52,40 @@ int main(void)
 			max_samples[i][j] = F_LIT(X_train[i][j]);
 		}
 	}
+	#ifdef PRINT
+	printf("\t> Initial data read correctly from FRAM\n");
+	#endif
 
     // Read test data
-    fixed _X_test[N_TEST][N_FEATURE];
     for (i = 0; i < N_TEST; i++) {
         for (j = 0; j < N_FEATURE; j++) {
             _X_test[i][j] = F_LIT(X_test[i][j]);
         }
     }
+	#ifdef PRINT
+	printf("\t> Test data read correctly from FRAM\n");
+	#endif
+
+    // Read train data
+    for (i = 0; i < N_TRAIN; i++) {
+        for (j = 0; j < N_FEATURE; j++) {
+            _X_train[i][j] = F_LIT(X_train[i][j]);
+        }
+    }
+	#ifdef PRINT
+	printf("\t> Train data read correctly from FRAM\n\n");
+	#endif
 
     #ifdef PRINT
     #ifdef AUTO_DT
-    printf(ANSI_COLOR_GREEN"* Decision Tree classifier: \n\n");
+    printf("* Decision Tree classifier: \n\n");
     printf("\t- Max Depth: %d\n", MAX_DEPTH);
-    printf("\t- Min Size: %d\n\n" ANSI_COLOR_RESET, MIN_SIZE);
+    printf("\t- Min Size: %d\n\n", MIN_SIZE);
     #endif
 
     #ifdef AUTO_KNN
-    printf(ANSI_COLOR_GREEN "* KNN classifier:\n\n");
-    printf("\t- Number of neighbors: %d\n\n" ANSI_COLOR_RESET, K_NEIGHBOR);
+    printf("* KNN classifier:\n\n");
+    printf("\t- Number of neighbors: %d\n\n", K_NEIGHBOR);
     #endif
     #endif
 
@@ -113,7 +132,6 @@ int main(void)
             #endif
 
 			pred_class_perm = 1 - pred_class;
-
 			if(pred_class == y_test[j])
 				acc++;
 			else if(pred_class_perm == y_test[j])
@@ -123,21 +141,21 @@ int main(void)
 		if (acc_perm > acc)
 			acc = acc_perm;
 
-        #ifdef PRINT
+        #ifdef _PRINT
         #ifdef AUTO_DT
         printf ("^ Decision Tree:\n\n");
-        printf (ANSI_COLOR_GREEN"\t- Number of samples correctly classified using the Decision Tree: %0.0f\n"ANSI_COLOR_RESET, acc);
-        #endif
+        printf ("\t- Number of samples correctly classified using the Decision Tree: %0.0f\n", acc);
+        #endif //AUTO_DT
 
         #ifdef AUTO_KNN
         printf("^ KNN: \n\n");
-        printf (ANSI_COLOR_GREEN"\t- Number of samples correctly classified using the KNN classifier: %0.0f\n"ANSI_COLOR_RESET, acc);
-        #endif
-        #endif
+        printf ("\t- Number of samples correctly classified using the KNN classifier: %0.0f\n", acc);
+        #endif //AUTO_KNN
+        #endif //PRINT
 
 		acc = (acc / N_TEST) * 100.0;
         #ifdef PRINT
-        printf(ANSI_COLOR_YELLOW"\t- Accuracy: %0.2f%s\n\n" ANSI_COLOR_RESET, acc, "%");
+        printf("\t- Accuracy: %0.2f%s\n\n", acc, "%");
         #endif
 
         counter += UPDATE_THR;
@@ -146,8 +164,8 @@ int main(void)
 
 		if(counter > N_TRAIN)
 			break;
-		else
-			n_samples = pipeline(max_samples, root, y_train, n_samples, counter);
+
+		n_samples = pipeline(max_samples, root, y_train, n_samples, counter);
 
 		if(counter - INITIAL_THR == MEMORY_SIZE)
 			increment = INITIAL_THR;

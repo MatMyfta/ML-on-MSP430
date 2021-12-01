@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.0                     
 ******************************************************************************
->> Linked Mon Nov 29 11:27:55 2021
+>> Linked Wed Dec  1 20:02:26 2021
 
 OUTPUT FILE NAME:   <AEP.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 00007c34
+ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 00009800
 
 
 MEMORY CONFIGURATION
@@ -17,10 +17,10 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00001000  00000890  00000770  RWIX
+  RAM                   00001c00   00001000  00000acc  00000534  RWIX
   LEARAM                00002c00   00000ec8  00000000  00000ec8  RWIX
   LEASTACK              00003ac8   00000138  00000000  00000138  RWIX
-  FRAM                  00004000   0000bf80  00003c90  000082f0  RWIX
+  FRAM                  00004000   0000bf80  00005b32  0000644e  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -80,7 +80,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00033ff8  00002d66  00031292  RWIX
+  FRAM2                 00010000   00033ff8  000063f2  0002dc06  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -89,64 +89,72 @@ SECTION ALLOCATION MAP
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .TI.persistent 
-*          0    00004000    000039fa     
+*          0    00004000    000051fa     
                   00004000    00002660     dataset.obj (.TI.persistent:X_train)
-                  00006660    000009a0     test.obj (.TI.persistent:X_test)
-                  00007000    00000960     main.obj (.TI.persistent:max_samples)
-                  00007960    0000009a     test.obj (.TI.persistent:y_test)
+                  00006660    00001330     main.obj (.TI.persistent:_X_train)
+                  00007990    000009a0     test.obj (.TI.persistent:X_test)
+                  00008330    00000960     main.obj (.TI.persistent:max_samples)
+                  00008c90    000004d0     main.obj (.TI.persistent:_X_test)
+                  00009160    0000009a     test.obj (.TI.persistent:y_test)
 
 .binit     0    00004000    00000000     
 
-.cio       0    000079fa    00000000     UNINITIALIZED
+.cio       0    000091fa    00000120     UNINITIALIZED
+                  000091fa    00000120     rts430x_lc_ld_eabi.lib : trgmsg.c.obj (.cio)
 
-.sysmem    0    000079fc    00000190     
-                  000079fc    00000008     rts430x_lc_ld_eabi.lib : memory.c.obj (.sysmem) [fill = 0]
-                  00007a04    00000188     --HOLE-- [fill = 0]
+.sysmem    0    0000931c    00000190     
+                  0000931c    00000008     rts430x_lc_ld_eabi.lib : memory.c.obj (.sysmem) [fill = 0]
+                  00009324    00000188     --HOLE-- [fill = 0]
 
 .ipestruct 
-*          0    00007c00    00000000     UNINITIALIZED
+*          0    00009800    00000000     UNINITIALIZED
 
-.ipe       0    00007c00    00000000     UNINITIALIZED
+.ipe       0    00009800    00000000     UNINITIALIZED
 
 .ipe_const 
-*          0    00007c00    00000000     UNINITIALIZED
+*          0    00009800    00000000     UNINITIALIZED
 
 .ipe:_isr 
-*          0    00007c00    00000000     UNINITIALIZED
+*          0    00009800    00000000     UNINITIALIZED
 
-.cinit     0    00007c5c    00000034     
-                  00007c5c    00000011     (.cinit..data.load) [load image, compression = lzss]
-                  00007c6d    00000001     --HOLE-- [fill = 0]
-                  00007c6e    0000000c     (__TI_handler_table)
-                  00007c7a    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  00007c80    00000010     (__TI_cinit_table)
+.cinit     0    00009aba    00000078     
+                  00009aba    00000056     (.cinit..data.load) [load image, compression = lzss]
+                  00009b10    0000000c     (__TI_handler_table)
+                  00009b1c    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  00009b22    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00004000    00000000     UNINITIALIZED
 
 .text:_isr 
-*          0    00007c00    0000005c     
-                  00007c00    00000034     pf_sim.obj (.text:_isr:Timer_A)
-                  00007c34    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
-                  00007c54    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+*          0    00009800    00000028     
+                  00009800    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
+                  00009820    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
 
-.bss       0    00001c00    00000742     UNINITIALIZED
+.bss       0    00001c00    000007f8     UNINITIALIZED
                   00001c00    000004b0     (.common:weights)
                   000020b0    00000258     (.common:y_train)
-                  00002308    00000010     (.common:centroids)
-                  00002318    00000010     (.common:cluster_assignment)
-                  00002328    00000010     (.common:prev_centroids)
-                  00002338    00000004     rts430x_lc_ld_eabi.lib : memory.c.obj (.bss)
-                  0000233c    00000002     (.common:mod_rand)
-                  0000233e    00000002     (.common:pred_class)
-                  00002340    00000002     (.common:random_num)
+                  00002308    000000a0     (.common:__TI_tmpnams)
+                  000023a8    00000020     (.common:cluster_assignment)
+                  000023c8    00000010     (.common:centroids)
+                  000023d8    00000010     (.common:prev_centroids)
+                  000023e8    00000008     (.common:parmbuf)
+                  000023f0    00000004     rts430x_lc_ld_eabi.lib : memory.c.obj (.bss)
+                  000023f4    00000002     (.common:pred_class)
+                  000023f6    00000002     (.common:random_num)
 
-.data      0    00002342    0000000e     UNINITIALIZED
-                  00002342    00000004     rts430x_lc_ld_eabi.lib : _lock.c.obj (.data:_lock)
-                  00002346    00000004                            : _lock.c.obj (.data:_unlock)
-                  0000234a    00000002     dataset.obj (.data:classes)
-                  0000234c    00000002     pf_sim.obj (.data)
-                  0000234e    00000002     rts430x_lc_ld_eabi.lib : memory.c.obj (.data)
+.data      0    000023f8    00000194     UNINITIALIZED
+                  000023f8    000000c8     rts430x_lc_ld_eabi.lib : defs.c.obj (.data:_ftable)
+                  000024c0    00000078                            : host_device.c.obj (.data:_device)
+                  00002538    0000003c                            : host_device.c.obj (.data:_stream)
+                  00002574    00000004                            : exit_gvars.c.obj (.data:__TI_cleanup_ptr)
+                  00002578    00000004                            : exit_gvars.c.obj (.data:__TI_dtors_ptr)
+                  0000257c    00000004                            : _lock.c.obj (.data:_lock)
+                  00002580    00000004                            : _lock.c.obj (.data:_unlock)
+                  00002584    00000002                            : defs.c.obj (.data)
+                  00002586    00000002                            : errno.c.obj (.data)
+                  00002588    00000002                            : exit.c.obj (.data)
+                  0000258a    00000002                            : memory.c.obj (.data)
 
 .stack     0    00002ac0    00000140     UNINITIALIZED
                   00002ac0    00000004     rts430x_lc_ld_eabi.lib : boot.c.obj (.stack)
@@ -253,7 +261,7 @@ TIMER0_A1
 
 TIMER0_A0 
 *          0    0000ffea    00000002     
-                  0000ffea    00000002     pf_sim.obj (.int45)
+                  0000ffea    00000002     rts430x_lc_ld_eabi.lib : int45.asm.obj (.int45)
 
 ADC12_B    0    0000ffec    00000002     
                   0000ffec    00000002     rts430x_lc_ld_eabi.lib : int46.asm.obj (.int46)
@@ -287,93 +295,166 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_ld_eabi.lib : boot.c.obj (.reset)
 
-.text      0    00010000    00002d66     
+.const     0    00009828    00000292     
+                  00009828    00000101     rts430x_lc_ld_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
+                  00009929    00000001     --HOLE-- [fill = 0]
+                  0000992a    000000de     main.obj (.const:.string)
+                  00009a08    0000008c     kmeans.obj (.const:.string)
+                  00009a94    00000026     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.const:.string)
+
+.text      0    00010000    000063f2     
                   00010000    0000072a     rts430x_lc_ld_eabi.lib : addd.c.obj (.text:__mspabi_addd)
-                  0001072a    0000032c     dt_training.obj (.text:gini_index)
-                  00010a56    00000298     rts430x_lc_ld_eabi.lib : mpyd.c.obj (.text:__mspabi_mpyd)
-                  00010cee    00000288     dt_training.obj (.text:split)
-                  00010f76    0000025a     kmeans.obj (.text:kmeans)
-                  000111d0    00000230     main.obj (.text:main)
-                  00011400    000001b6     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:aligned_alloc)
-                  000115b6    00000164                            : frcmpyd.c.obj (.text:__TI_frcmpyd)
-                  0001171a    0000014c                            : memory.c.obj (.text:free)
-                  00011866    0000013e                            : memory.c.obj (.text:realloc)
-                  000119a4    00000136     dt_training.obj (.text:get_split)
-                  00011ada    00000132     rts430x_lc_ld_eabi.lib : fs_add.asm.obj (.text)
-                  00011c0c    00000110     main.obj (.text:quicksort_idx)
-                  00011d1c    00000108     kmeans.obj (.text:update_centroids)
-                  00011e24    000000e2     pipeline.obj (.text:pipeline)
-                  00011f06    000000c2     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:split)
-                  00011fc8    000000c2     main.obj (.text:update_mem)
-                  0001208a    000000b8     rts430x_lc_ld_eabi.lib : fs_mpy.asm.obj (.text)
-                  00012142    000000b2                            : cvtdf.c.obj (.text:__mspabi_cvtdf)
-                  000121f4    000000a0     kmeans.obj (.text:clustering)
-                  00012294    00000090     rts430x_lc_ld_eabi.lib : fs_div.asm.obj (.text)
-                  00012324    0000008a     fixed.obj (.text:f_sqrt)
-                  000123ae    0000007e     dt_training.obj (.text:split_samples)
-                  0001242c    00000078     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  000124a4    00000076                            : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  0001251a    00000076     kmeans.obj (.text:kmeanspp)
-                  00012590    00000068     rts430x_lc_ld_eabi.lib : fs_toi.asm.obj (.text)
-                  000125f8    00000064                            : cvtfd.c.obj (.text:__mspabi_cvtfd)
-                  0001265c    00000062     kmeans.obj (.text:initial_centroids)
-                  000126be    0000005c     rts430x_lc_ld_eabi.lib : mult64_f5hw.asm.obj (.text:__mpyll)
-                  0001271a    00000058                            : div32u.asm.obj (.text)
-                  00012772    0000004a                            : fs_cmp.asm.obj (.text)
-                  000127bc    00000048     pf_sim.obj (.text:rtc_init)
-                  00012804    00000046     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:free_list_insert)
-                  0001284a    00000046                            : fs_tou.asm.obj (.text)
-                  00012890    00000042     dt_training.obj (.text:to_terminal)
-                  000128d2    00000040     rts430x_lc_ld_eabi.lib : asr64.c.obj (.text:__mspabi_srall)
-                  00012912    00000040                            : div32s.asm.obj (.text)
-                  00012952    0000003e     dt_classification.obj (.text:decision_tree_classifier)
-                  00012990    0000003e     rts430x_lc_ld_eabi.lib : asr32.asm.obj (.text:l_asr_const)
-                  000129ce    0000003e                            : lsl32.asm.obj (.text:l_lsl_const)
-                  00012a0c    0000003c                            : memcpy.c.obj (.text:memcpy)
-                  00012a48    0000003a                            : lsl64.c.obj (.text:__mspabi_sllll)
-                  00012a82    0000003a                            : lsr64.c.obj (.text:__mspabi_srlll)
-                  00012abc    00000036                            : fs_itof.asm.obj (.text)
-                  00012af2    00000034                            : memcmp.c.obj (.text:memcmp)
-                  00012b26    00000032                            : subd.c.obj (.text:__mspabi_subd)
-                  00012b58    0000002c     MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib : mpu_init.o (.text:__mpu_init)
-                  00012b84    0000002c     rts430x_lc_ld_eabi.lib : mult3264_f5hw.asm.obj (.text:__mpyull)
-                  00012bb0    0000002c                            : div16s.asm.obj (.text)
-                  00012bdc    0000002a                            : memory.c.obj (.text:free_list_remove)
-                  00012c06    00000024                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00012c2a    00000024                            : fs_utof.asm.obj (.text)
-                  00012c4e    00000022     kmeans.obj (.text:update_cluster_assignment)
-                  00012c70    00000020     rts430x_lc_ld_eabi.lib : memset.c.obj (.text:memset)
-                  00012c90    0000001c     dt_training.obj (.text:decision_tree_training)
-                  00012cac    0000001a     pf_sim.obj (.text:Timer_A0_set)
-                  00012cc6    00000018     dt_training.obj (.text:GetNewNode)
-                  00012cde    00000018     rts430x_lc_ld_eabi.lib : mult16_f5hw.asm.obj (.text)
-                  00012cf6    00000016                            : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00012d0c    00000016                            : memory.c.obj (.text:heap_start)
-                  00012d22    00000016                            : div16u.asm.obj (.text)
-                  00012d38    0000000e     pf_sim.obj (.text:PF_sim_start)
-                  00012d46    0000000c     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:malloc)
-                  00012d52    00000006                            : exit.c.obj (.text:abort)
-                  00012d58    00000006     pf_sim.obj (.text:reset)
-                  00012d5e    00000004     rts430x_lc_ld_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  00012d62    00000002                            : _lock.c.obj (.text:_nop)
-                  00012d64    00000002                            : startup.c.obj (.text:_system_post_cinit)
+                  0001072a    00000466                            : frcdivd.c.obj (.text:__TI_frcdivd)
+                  00010b90    0000034e                            : div64u.c.obj (.text:__mspabi_divull)
+                  00010ede    0000031c     kmeans.obj (.text:kmeans)
+                  000111fa    0000030c     main.obj (.text:main)
+                  00011506    000002ee     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:__TI_printfi:_setfield___TI_printfi)
+                  000117f4    000002de                            : e_sqrt.c.obj (.text:sqrt)
+                  00011ad2    000002ae                            : _printfi.c.obj (.text:__TI_printfi:__TI_printfi)
+                  00011d80    00000298                            : mpyd.c.obj (.text:__mspabi_mpyd)
+                  00012018    00000268                            : _printfi.c.obj (.text:_pproc_fgea)
+                  00012280    00000224                            : _printfi.c.obj (.text:acvt)
+                  000124a4    00000222                            : divd.c.obj (.text:__mspabi_divd)
+                  000126c6    0000020c                            : _printfi.c.obj (.text:__TI_printfi:_getarg_diouxp___TI_printfi)
+                  000128d2    00000200     knn_classification.obj (.text:knn_classification)
+                  00012ad2    000001e6     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:ecvt)
+                  00012cb8    000001c8                            : _printfi.c.obj (.text:fcvt)
+                  00012e80    000001b6                            : memory.c.obj (.text:aligned_alloc)
+                  00013036    000001aa                            : _printfi.c.obj (.text:_pconv_e)
+                  000131e0    0000018e                            : qsort.c.obj (.text:qsort)
+                  0001336e    00000170                            : _printfi.c.obj (.text:_pconv_a)
+                  000134de    00000164                            : frcmpyd.c.obj (.text:__TI_frcmpyd)
+                  00013642    0000015e                            : _printfi.c.obj (.text:__TI_printfi:_ltostr___TI_printfi)
+                  000137a0    0000015a                            : fputs.c.obj (.text:fputs)
+                  000138fa    0000015a                            : s_scalbn.c.obj (.text:scalbn)
+                  00013a54    0000014c                            : memory.c.obj (.text:free)
+                  00013ba0    00000148                            : _printfi.c.obj (.text:__TI_printfi:_pproc_diouxp___TI_printfi)
+                  00013ce8    0000013e                            : memory.c.obj (.text:realloc)
+                  00013e26    00000132                            : fs_add.asm.obj (.text)
+                  00013f58    00000118     kmeans.obj (.text:clustering)
+                  00014070    00000110     main.obj (.text:quicksort_idx)
+                  00014180    00000102     kmeans.obj (.text:kmeanspp)
+                  00014282    000000fc     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:_pconv_g)
+                  0001437e    000000fa                            : setvbuf.c.obj (.text:setvbuf)
+                  00014478    000000ea                            : _printfi.c.obj (.text:__TI_printfi:_pproc_fwp___TI_printfi)
+                  00014562    000000d8                            : cmpd.c.obj (.text:__mspabi_cmpd)
+                  0001463a    000000d6                            : _printfi.c.obj (.text:__TI_printfi:_pproc_wstr___TI_printfi)
+                  00014710    000000c2                            : memory.c.obj (.text:split)
+                  000147d2    000000c2     main.obj (.text:update_mem)
+                  00014894    000000b8     rts430x_lc_ld_eabi.lib : fs_mpy.asm.obj (.text)
+                  0001494c    000000b4                            : _printfi.c.obj (.text:__TI_printfi:_pproc_str___TI_printfi)
+                  00014a00    000000b4                            : _printfi.c.obj (.text:_mcpy)
+                  00014ab4    000000b2                            : cvtdf.c.obj (.text:__mspabi_cvtdf)
+                  00014b66    000000a6                            : s_frexp.c.obj (.text:frexp)
+                  00014c0c    0000009e                            : fltlid.c.obj (.text:__mspabi_fltlid)
+                  00014caa    0000009a                            : hostlseek.c.obj (.text:HOSTlseek)
+                  00014d44    00000096                            : _ltoa.c.obj (.text:__TI_ltoa)
+                  00014dda    00000090                            : _printfi.c.obj (.text:_ecpy)
+                  00014e6a    00000090                            : fputc.c.obj (.text:fputc)
+                  00014efa    00000090                            : fs_div.asm.obj (.text)
+                  00014f8a    0000008c     kmeans.obj (.text:update_centroids)
+                  00015016    0000008a     pipeline.obj (.text:pipeline)
+                  000150a0    00000086     rts430x_lc_ld_eabi.lib : _io_perm.c.obj (.text:__TI_wrt_ok)
+                  00015126    00000078                            : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  0001519e    00000078                            : _printfi.c.obj (.text:_pconv_f)
+                  00015216    00000076                            : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  0001528c    00000074                            : hostrename.c.obj (.text:HOSTrename)
+                  00015300    00000074                            : fclose.c.obj (.text:__TI_closefile)
+                  00015374    00000074                            : fseek.c.obj (.text:fseeko)
+                  000153e8    00000070                            : hostopen.c.obj (.text:HOSTopen)
+                  00015458    0000006c                            : hostwrite.c.obj (.text:HOSTwrite)
+                  000154c4    0000006a                            : hostread.c.obj (.text:HOSTread)
+                  0001552e    00000068                            : fs_toi.asm.obj (.text)
+                  00015596    00000066                            : fixdli.c.obj (.text:__mspabi_fixdli)
+                  000155fc    00000064                            : cvtfd.c.obj (.text:__mspabi_cvtfd)
+                  00015660    00000062                            : atoi.c.obj (.text:atoi)
+                  000156c2    00000062                            : getdevice.c.obj (.text:getdevice)
+                  00015724    00000062     kmeans.obj (.text:initial_centroids)
+                  00015786    00000060     rts430x_lc_ld_eabi.lib : fflush.c.obj (.text:__TI_doflush)
+                  000157e6    0000005c                            : mult64_f5hw.asm.obj (.text:__mpyll)
+                  00015842    0000005c     knn_classification.obj (.text:struct_cmp_by_score_dec)
+                  0001589e    0000005a     rts430x_lc_ld_eabi.lib : close.c.obj (.text:close)
+                  000158f8    00000058                            : div32u.asm.obj (.text)
+                  00015950    0000004e                            : hostclose.c.obj (.text:HOSTclose)
+                  0001599e    0000004e                            : _printfi.c.obj (.text:_fcpy)
+                  000159ec    0000004e                            : strncpy.c.obj (.text:strncpy)
+                  00015a3a    0000004a                            : exit.c.obj (.text:exit)
+                  00015a84    0000004a                            : printf.c.obj (.text:printf)
+                  00015ace    0000004a                            : fs_cmp.asm.obj (.text)
+                  00015b18    0000004a     kmeans.obj (.text:update_cluster_assignment)
+                  00015b62    00000048     pf_sim.obj (.text:rtc_init)
+                  00015baa    00000046     rts430x_lc_ld_eabi.lib : hostunlink.c.obj (.text:HOSTunlink)
+                  00015bf0    00000046                            : memory.c.obj (.text:free_list_insert)
+                  00015c36    00000046                            : fs_tou.asm.obj (.text)
+                  00015c7c    00000040                            : asr64.c.obj (.text:__mspabi_srall)
+                  00015cbc    00000040                            : div32s.asm.obj (.text)
+                  00015cfc    0000003e                            : asr32.asm.obj (.text:l_asr_const)
+                  00015d3a    0000003e                            : lsl32.asm.obj (.text:l_lsl_const)
+                  00015d78    0000003e                            : lsr32.asm.obj (.text:l_lsr_const)
+                  00015db6    0000003e                            : lseek.c.obj (.text:lseek)
+                  00015df4    0000003c                            : memcpy.c.obj (.text:memcpy)
+                  00015e30    0000003c                            : write.c.obj (.text:write)
+                  00015e6c    0000003a                            : lsl64.c.obj (.text:__mspabi_sllll)
+                  00015ea6    0000003a                            : lsr64.c.obj (.text:__mspabi_srlll)
+                  00015ee0    00000036                            : fopen.c.obj (.text:__TI_cleanup)
+                  00015f16    00000036                            : trgmsg.c.obj (.text:__TI_writemsg)
+                  00015f4c    00000036                            : getdevice.c.obj (.text:finddevice)
+                  00015f82    00000036                            : fs_itof.asm.obj (.text)
+                  00015fb8    00000034                            : memccpy.c.obj (.text:memccpy)
+                  00015fec    00000034                            : memcmp.c.obj (.text:memcmp)
+                  00016020    00000032                            : trgmsg.c.obj (.text:__TI_readmsg)
+                  00016052    00000032                            : subd.c.obj (.text:__mspabi_subd)
+                  00016084    00000030                            : unlink.c.obj (.text:unlink)
+                  000160b4    0000002e                            : negd.c.obj (.text:__mspabi_negd)
+                  000160e2    0000002e                            : s_copysign.c.obj (.text:copysign)
+                  00016110    0000002c     MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib : mpu_init.o (.text:__mpu_init)
+                  0001613c    0000002c     rts430x_lc_ld_eabi.lib : mult3264_f5hw.asm.obj (.text:__mpyull)
+                  00016168    0000002a                            : memory.c.obj (.text:free_list_remove)
+                  00016192    00000028                            : fixdi.c.obj (.text:__mspabi_fixdi)
+                  000161ba    00000028                            : wcslen.c.obj (.text:wcslen)
+                  000161e2    00000026                            : qsort.c.obj (.text:swap_item)
+                  00016208    00000024                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  0001622c    00000024                            : fs_utof.asm.obj (.text)
+                  00016250    00000024                            : mult32_f5hw.asm.obj (.text)
+                  00016274    00000020                            : memchr.c.obj (.text:memchr)
+                  00016294    00000020                            : memset.c.obj (.text:memset)
+                  000162b4    0000001c                            : strchr.c.obj (.text:strchr)
+                  000162d0    0000001c                            : strcmp.c.obj (.text:strcmp)
+                  000162ec    00000018                            : mult16_f5hw.asm.obj (.text)
+                  00016304    00000016                            : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  0001631a    00000016                            : memory.c.obj (.text:heap_start)
+                  00016330    00000016                            : div16u.asm.obj (.text)
+                  00016346    00000012                            : strcpy.c.obj (.text:strcpy)
+                  00016358    00000012                            : strlen.c.obj (.text:strlen)
+                  0001636a    00000012                            : toupper.c.obj (.text:toupper)
+                  0001637c    00000010     pf_sim.obj (.text:RTC_start)
+                  0001638c    00000010     rts430x_lc_ld_eabi.lib : lsl32.asm.obj (.text:l_lsl)
+                  0001639c    00000010                            : lsr32.asm.obj (.text:l_lsr)
+                  000163ac    0000000c                            : fltid.c.obj (.text:__mspabi_fltid)
+                  000163b8    0000000c                            : memory.c.obj (.text:malloc)
+                  000163c4    0000000c     pf_sim.obj (.text:random_number)
+                  000163d0    0000000a     rts430x_lc_ld_eabi.lib : abs.c.obj (.text:abs)
+                  000163da    00000006                            : printf.c.obj (.text:_outc)
+                  000163e0    00000006                            : exit.c.obj (.text:abort)
+                  000163e6    00000004                            : printf.c.obj (.text:_outs)
+                  000163ea    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  000163ee    00000002                            : _lock.c.obj (.text:_nop)
+                  000163f0    00000002                            : startup.c.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
-       dataset.obj                  0       0         9826   
-       main.obj                     1026    0         4216   
+       main.obj                     1246    222       10360  
+       dataset.obj                  0       0         9824   
        test.obj                     0       0         2618   
-       dt_training.obj              2014    0         0      
-       kmeans.obj                   1276    0         32     
-       pipeline.obj                 226     0         2      
-       pf_sim.obj                   170     2         6      
-       fixed.obj                    138     0         0      
-       dt_classification.obj        62      0         0      
+       kmeans.obj                   1646    140       48     
+       knn_classification.obj       604     0         0      
+       pipeline.obj                 138     0         2      
+       pf_sim.obj                   100     0         2      
     +--+----------------------------+-------+---------+---------+
-       Total:                       4912    2         16700  
+       Total:                       3734    362       22854  
                                                              
     C:\ti\ccs1100\ccs\ccs_base\msp430\lib\FR59xx\MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib
        mpu_init.o                   44      0         0      
@@ -381,45 +462,100 @@ MODULE SUMMARY
        Total:                       44      0         0      
                                                              
     C:\ti\ccs1100\ccs\tools\compiler\ti-cgt-msp430_21.6.0.LTS\lib\rts430x_lc_ld_eabi.lib
+       _printfi.c.obj               6940    38        0      
        addd.c.obj                   1834    0         0      
        memory.c.obj                 1428    0         6      
+       frcdivd.c.obj                1126    0         0      
+       div64u.c.obj                 846     0         0      
+       e_sqrt.c.obj                 734     0         0      
        mpyd.c.obj                   664     0         0      
+       divd.c.obj                   546     0         0      
+       qsort.c.obj                  436     0         0      
+       trgmsg.c.obj                 104     0         288    
+       defs.c.obj                   0       0         362    
        frcmpyd.c.obj                356     0         0      
+       fputs.c.obj                  346     0         0      
+       s_scalbn.c.obj               346     0         0      
        fs_add.asm.obj               306     0         0      
+       ctype.c.obj                  0       257       0      
+       setvbuf.c.obj                250     0         0      
+       cmpd.c.obj                   216     0         0      
        fs_mpy.asm.obj               184     0         0      
+       host_device.c.obj            0       0         180    
        cvtdf.c.obj                  178     0         0      
+       s_frexp.c.obj                166     0         0      
+       fltlid.c.obj                 158     0         0      
+       hostlseek.c.obj              154     0         0      
+       getdevice.c.obj              152     0         0      
+       _ltoa.c.obj                  150     0         0      
+       fputc.c.obj                  144     0         0      
        fs_div.asm.obj               144     0         0      
+       _io_perm.c.obj               134     0         0      
        autoinit.c.obj               120     0         0      
+       hostopen.c.obj               112     0         8      
        copy_decompress_lzss.c.obj   118     0         0      
+       fclose.c.obj                 116     0         0      
+       fseek.c.obj                  116     0         0      
+       hostrename.c.obj             116     0         0      
+       hostwrite.c.obj              108     0         0      
+       hostread.c.obj               106     0         0      
        fs_toi.asm.obj               104     0         0      
+       fixdli.c.obj                 102     0         0      
        cvtfd.c.obj                  100     0         0      
+       atoi.c.obj                   98      0         0      
+       fflush.c.obj                 96      0         0      
        mult64_f5hw.asm.obj          92      0         0      
+       close.c.obj                  90      0         0      
        div32u.asm.obj               88      0         0      
+       printf.c.obj                 84      0         0      
+       exit.c.obj                   80      0         2      
+       hostclose.c.obj              78      0         0      
+       lsl32.asm.obj                78      0         0      
+       lsr32.asm.obj                78      0         0      
+       strncpy.c.obj                78      0         0      
        fs_cmp.asm.obj               74      0         0      
        fs_tou.asm.obj               70      0         0      
+       hostunlink.c.obj             70      0         0      
        asr64.c.obj                  64      0         0      
        div32s.asm.obj               64      0         0      
        asr32.asm.obj                62      0         0      
-       lsl32.asm.obj                62      0         0      
+       lseek.c.obj                  62      0         0      
        memcpy.c.obj                 60      0         0      
+       write.c.obj                  60      0         0      
        lsl64.c.obj                  58      0         0      
        lsr64.c.obj                  58      0         0      
+       fopen.c.obj                  54      0         0      
        fs_itof.asm.obj              54      0         0      
+       memccpy.c.obj                52      0         0      
        memcmp.c.obj                 52      0         0      
        subd.c.obj                   50      0         0      
-       div16s.asm.obj               44      0         0      
+       unlink.c.obj                 48      0         0      
+       negd.c.obj                   46      0         0      
+       s_copysign.c.obj             46      0         0      
        mult3264_f5hw.asm.obj        44      0         0      
+       fixdi.c.obj                  40      0         0      
+       wcslen.c.obj                 40      0         0      
        copy_zero_init.c.obj         36      0         0      
        fs_utof.asm.obj              36      0         0      
+       mult32_f5hw.asm.obj          36      0         0      
        boot.c.obj                   32      2         0      
+       memchr.c.obj                 32      0         0      
        memset.c.obj                 32      0         0      
+       strchr.c.obj                 28      0         0      
+       strcmp.c.obj                 28      0         0      
        mult16_f5hw.asm.obj          24      0         0      
        copy_decompress_none.c.obj   22      0         0      
        div16u.asm.obj               22      0         0      
+       strcpy.c.obj                 18      0         0      
+       strlen.c.obj                 18      0         0      
+       toupper.c.obj                18      0         0      
+       fltid.c.obj                  12      0         0      
        _lock.c.obj                  2       0         8      
+       abs.c.obj                    10      0         0      
+       exit_gvars.c.obj             0       0         8      
        isr_trap.asm.obj             8       0         0      
-       exit.c.obj                   6       0         0      
        pre_init.c.obj               4       0         0      
+       errno.c.obj                  0       0         2      
        int18.asm.obj                0       2         0      
        int19.asm.obj                0       2         0      
        int20.asm.obj                0       2         0      
@@ -447,6 +583,7 @@ MODULE SUMMARY
        int42.asm.obj                0       2         0      
        int43.asm.obj                0       2         0      
        int44.asm.obj                0       2         0      
+       int45.asm.obj                0       2         0      
        int46.asm.obj                0       2         0      
        int47.asm.obj                0       2         0      
        int48.asm.obj                0       2         0      
@@ -458,25 +595,25 @@ MODULE SUMMARY
        int54.asm.obj                0       2         0      
        startup.c.obj                2       0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       6758    74        14     
+       Total:                       21848   371       864    
                                                              
        Heap:                        0       0         400    
        Stack:                       0       0         320    
-       Linker Generated:            0       51        0      
+       Linker Generated:            0       120       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 11714   127       17434  
+       Grand Total:                 25626   853       24438  
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00007c80 records: 2, size/record: 8, table size: 16
-	.data: load addr=00007c5c, load size=00000011 bytes, run addr=00002342, run size=0000000e bytes, compression=lzss
-	.bss: load addr=00007c7a, load size=00000006 bytes, run addr=00001c00, run size=00000742 bytes, compression=zero_init
+__TI_cinit_table @ 00009b22 records: 2, size/record: 8, table size: 16
+	.data: load addr=00009aba, load size=00000056 bytes, run addr=000023f8, run size=00000194 bytes, compression=lzss
+	.bss: load addr=00009b1c, load size=00000006 bytes, run addr=00001c00, run size=000007f8 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00007c6e records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00009b10 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -747,7 +884,8 @@ address   name
 000004bc  BIN2BCD                                
 000004bd  BIN2BCD_H                              
 000004bc  BIN2BCD_L                              
-00012d52  C$$EXIT                                
+000163e0  C$$EXIT                                
+00015f48  C$$IO$$                                
 0000043e  CAPTIO0CTL                             
 0000043f  CAPTIO0CTL_H                           
 0000043e  CAPTIO0CTL_L                           
@@ -937,7 +1075,13 @@ address   name
 00000146  GCCTL1                                 
 00000147  GCCTL1_H                               
 00000146  GCCTL1_L                               
-00012cc6  GetNewNode                             
+00015950  HOSTclose                              
+00014caa  HOSTlseek                              
+000153e8  HOSTopen                               
+000154c4  HOSTread                               
+0001528c  HOSTrename                             
+00015baa  HOSTunlink                             
+00015458  HOSTwrite                              
 00000a80  LEACAP                                 
 00000a82  LEACAPH                                
 00000a80  LEACAPL                                
@@ -1340,7 +1484,6 @@ address   name
 00000296  PESELC                                 
 00000297  PESELC_H                               
 00000296  PESELC_L                               
-00012d38  PF_sim_start                           
 00000324  PJDIR                                  
 00000325  PJDIR_H                                
 00000324  PJDIR_L                                
@@ -1449,6 +1592,7 @@ address   name
 000004b6  RTCYEAR                                
 000004b7  RTCYEAR_H                              
 000004b6  RTCYEAR_L                              
+0001637c  RTC_start                              
 00000100  SFRIE1                                 
 00000101  SFRIE1_H                               
 00000100  SFRIE1_L                               
@@ -1680,7 +1824,6 @@ address   name
 000003d0  TB0R                                   
 000003d1  TB0R_H                                 
 000003d0  TB0R_L                                 
-00007c00  Timer_A                                
 000005d0  UCA0ABCTL                              
 000005d1  UCA0ABCTL_H                            
 000005d0  UCA0ABCTL_L                            
@@ -2032,21 +2175,32 @@ address   name
 0000015c  WDTCTL                                 
 0000015d  WDTCTL_H                               
 0000015c  WDTCTL_L                               
-00006660  X_test                                 
+00007990  X_test                                 
 00004000  X_train                                
+000091fa  _CIOBUF_                               
+00008c90  _X_test                                
+00006660  _X_train                               
 00002c00  __STACK_END                            
 00000140  __STACK_SIZE                           
 00000190  __SYSMEM_SIZE                          
-00007c80  __TI_CINIT_Base                        
-00007c90  __TI_CINIT_Limit                       
-00007c90  __TI_CINIT_Warm                        
-00007c6e  __TI_Handler_Table_Base                
-00007c7a  __TI_Handler_Table_Limit               
-00007c54  __TI_ISR_TRAP                          
-0001242c  __TI_auto_init_nobinit_nopinit_hold_wdt
-000124a4  __TI_decompress_lzss                   
-00012cf6  __TI_decompress_none                   
-000115b6  __TI_frcmpyd                           
+00009b22  __TI_CINIT_Base                        
+00009b32  __TI_CINIT_Limit                       
+00009b32  __TI_CINIT_Warm                        
+00009b10  __TI_Handler_Table_Base                
+00009b1c  __TI_Handler_Table_Limit               
+00009820  __TI_ISR_TRAP                          
+00015126  __TI_auto_init_nobinit_nopinit_hold_wdt
+00015ee0  __TI_cleanup                           
+00002574  __TI_cleanup_ptr                       
+00015300  __TI_closefile                         
+00015216  __TI_decompress_lzss                   
+00016304  __TI_decompress_none                   
+00015786  __TI_doflush                           
+00002578  __TI_dtors_ptr                         
+00002588  __TI_enable_exit_profile_output        
+0001072a  __TI_frcdivd                           
+000134de  __TI_frcmpyd                           
+00002584  __TI_ft_end                            
 0000ffb4  __TI_int18                             
 0000ffb6  __TI_int19                             
 0000ffb8  __TI_int20                             
@@ -2084,126 +2238,191 @@ address   name
 0000fff8  __TI_int52                             
 0000fffa  __TI_int53                             
 0000fffc  __TI_int54                             
+00014d44  __TI_ltoa                              
 ffffffff  __TI_pprof_out_hndl                    
+00011ad2  __TI_printfi                           
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-00012c06  __TI_zero_init                         
+00016020  __TI_readmsg                           
+00002308  __TI_tmpnams                           
+00015f16  __TI_writemsg                          
+000150a0  __TI_wrt_ok                            
+00016208  __TI_zero_init                         
 ffffffff  __c_args__                             
 00000001  __mpu_enable                           
-00012b58  __mpu_init                             
+00016110  __mpu_init                             
 00010000  __mspabi_addd                          
-00011ae0  __mspabi_addf                          
-00012772  __mspabi_cmpf                          
-00012142  __mspabi_cvtdf                         
-000125f8  __mspabi_cvtfd                         
-00012294  __mspabi_divf                          
-00012bb0  __mspabi_divi                          
-00012912  __mspabi_divli                         
-00012d22  __mspabi_divu                          
-0001271a  __mspabi_divul                         
-00012590  __mspabi_fixfi                         
-0001284a  __mspabi_fixfu                         
-00012abc  __mspabi_fltif                         
-00012c2a  __mspabi_fltuf                         
-00010a56  __mspabi_mpyd                          
-0001208a  __mspabi_mpyf                          
-00012cde  __mspabi_mpyi_f5hw                     
-000126be  __mspabi_mpyll_f5hw                    
-00012b84  __mspabi_mpyull_f5hw                   
-00012bb0  __mspabi_remi                          
-00012912  __mspabi_remli                         
-00012d22  __mspabi_remu                          
-0001271a  __mspabi_remul                         
-00012a06  __mspabi_slll_1                        
-000129e2  __mspabi_slll_10                       
-000129de  __mspabi_slll_11                       
-000129da  __mspabi_slll_12                       
-000129d6  __mspabi_slll_13                       
-000129d2  __mspabi_slll_14                       
-000129ce  __mspabi_slll_15                       
-00012a02  __mspabi_slll_2                        
-000129fe  __mspabi_slll_3                        
-000129fa  __mspabi_slll_4                        
-000129f6  __mspabi_slll_5                        
-000129f2  __mspabi_slll_6                        
-000129ee  __mspabi_slll_7                        
-000129ea  __mspabi_slll_8                        
-000129e6  __mspabi_slll_9                        
-00012a48  __mspabi_sllll                         
-000129c8  __mspabi_sral_1                        
-000129a4  __mspabi_sral_10                       
-000129a0  __mspabi_sral_11                       
-0001299c  __mspabi_sral_12                       
-00012998  __mspabi_sral_13                       
-00012994  __mspabi_sral_14                       
-00012990  __mspabi_sral_15                       
-000129c4  __mspabi_sral_2                        
-000129c0  __mspabi_sral_3                        
-000129bc  __mspabi_sral_4                        
-000129b8  __mspabi_sral_5                        
-000129b4  __mspabi_sral_6                        
-000129b0  __mspabi_sral_7                        
-000129ac  __mspabi_sral_8                        
-000129a8  __mspabi_sral_9                        
-000128d2  __mspabi_srall                         
-00012a82  __mspabi_srlll                         
-00012b26  __mspabi_subd                          
-00011ada  __mspabi_subf                          
-00007c34  _c_int00_noargs_mpu                    
-00002342  _lock                                  
-00012d62  _nop                                   
+00013e2c  __mspabi_addf                          
+00014562  __mspabi_cmpd                          
+00015ace  __mspabi_cmpf                          
+00014ab4  __mspabi_cvtdf                         
+000155fc  __mspabi_cvtfd                         
+000124a4  __mspabi_divd                          
+00014efa  __mspabi_divf                          
+00015cbc  __mspabi_divli                         
+00016330  __mspabi_divu                          
+000158f8  __mspabi_divul                         
+00010b90  __mspabi_divull                        
+00016192  __mspabi_fixdi                         
+00015596  __mspabi_fixdli                        
+0001552e  __mspabi_fixfi                         
+00015c36  __mspabi_fixfu                         
+000163ac  __mspabi_fltid                         
+00015f82  __mspabi_fltif                         
+00014c0c  __mspabi_fltlid                        
+0001622c  __mspabi_fltuf                         
+00011d80  __mspabi_mpyd                          
+00014894  __mspabi_mpyf                          
+000162ec  __mspabi_mpyi_f5hw                     
+00016250  __mspabi_mpyl_f5hw                     
+000157e6  __mspabi_mpyll_f5hw                    
+0001613c  __mspabi_mpyull_f5hw                   
+000160b4  __mspabi_negd                          
+00015cbc  __mspabi_remli                         
+00016330  __mspabi_remu                          
+000158f8  __mspabi_remul                         
+0001638c  __mspabi_slll                          
+00015d72  __mspabi_slll_1                        
+00015d4e  __mspabi_slll_10                       
+00015d4a  __mspabi_slll_11                       
+00015d46  __mspabi_slll_12                       
+00015d42  __mspabi_slll_13                       
+00015d3e  __mspabi_slll_14                       
+00015d3a  __mspabi_slll_15                       
+00015d6e  __mspabi_slll_2                        
+00015d6a  __mspabi_slll_3                        
+00015d66  __mspabi_slll_4                        
+00015d62  __mspabi_slll_5                        
+00015d5e  __mspabi_slll_6                        
+00015d5a  __mspabi_slll_7                        
+00015d56  __mspabi_slll_8                        
+00015d52  __mspabi_slll_9                        
+00015e6c  __mspabi_sllll                         
+00015d34  __mspabi_sral_1                        
+00015d10  __mspabi_sral_10                       
+00015d0c  __mspabi_sral_11                       
+00015d08  __mspabi_sral_12                       
+00015d04  __mspabi_sral_13                       
+00015d00  __mspabi_sral_14                       
+00015cfc  __mspabi_sral_15                       
+00015d30  __mspabi_sral_2                        
+00015d2c  __mspabi_sral_3                        
+00015d28  __mspabi_sral_4                        
+00015d24  __mspabi_sral_5                        
+00015d20  __mspabi_sral_6                        
+00015d1c  __mspabi_sral_7                        
+00015d18  __mspabi_sral_8                        
+00015d14  __mspabi_sral_9                        
+00015c7c  __mspabi_srall                         
+0001639c  __mspabi_srll                          
+00015db0  __mspabi_srll_1                        
+00015d8c  __mspabi_srll_10                       
+00015d88  __mspabi_srll_11                       
+00015d84  __mspabi_srll_12                       
+00015d80  __mspabi_srll_13                       
+00015d7c  __mspabi_srll_14                       
+00015d78  __mspabi_srll_15                       
+00015dac  __mspabi_srll_2                        
+00015da8  __mspabi_srll_3                        
+00015da4  __mspabi_srll_4                        
+00015da0  __mspabi_srll_5                        
+00015d9c  __mspabi_srll_6                        
+00015d98  __mspabi_srll_7                        
+00015d94  __mspabi_srll_8                        
+00015d90  __mspabi_srll_9                        
+00015ea6  __mspabi_srlll                         
+00016052  __mspabi_subd                          
+00013e26  __mspabi_subf                          
+00009800  _c_int00_noargs_mpu                    
+00009828  _ctypes_                               
+000024c0  _device                                
+000023f8  _ftable                                
+0000257c  _lock                                  
+000163ee  _nop                                   
 0000fffe  _reset_vector                          
 00002ac0  _stack                                 
-000079fc  _sys_memory                            
-00012d64  _system_post_cinit                     
-00012d5e  _system_pre_init                       
-00002346  _unlock                                
-00012d52  abort                                  
-00011400  aligned_alloc                          
-00002308  centroids                              
-0000234a  classes                                
-00002318  cluster_assignment                     
-000121f4  clustering                             
-00012952  decision_tree_classifier               
-00012c90  decision_tree_training                 
-00012324  f_sqrt                                 
-00007c00  fram_ipe_end                           
-00007c00  fram_ipe_start                         
+00002538  _stream                                
+0000931c  _sys_memory                            
+000163f0  _system_post_cinit                     
+000163ea  _system_pre_init                       
+00002580  _unlock                                
+000163e0  abort                                  
+000163d0  abs                                    
+00012e80  aligned_alloc                          
+00015660  atoi                                   
+000023c8  centroids                              
+0001589e  close                                  
+000023a8  cluster_assignment                     
+00013f58  clustering                             
+000160e2  copysign                               
+000160e2  copysignl                              
+00002586  errno                                  
+00015a3a  exit                                   
+00015f4c  finddevice                             
+00014e6a  fputc                                  
+000137a0  fputs                                  
+00009800  fram_ipe_end                           
+00009800  fram_ipe_start                         
 00004000  fram_rw_start                          
-00007c00  fram_rx_start                          
-0001171a  free                                   
-000119a4  get_split                              
-0001072a  gini_index                             
-0001265c  initial_centroids                      
-00010f76  kmeans                                 
-0001251a  kmeanspp                               
-000111d0  main                                   
-00012d46  malloc                                 
-00007000  max_samples                            
-00011400  memalign                               
-00012af2  memcmp                                 
-00012a0c  memcpy                                 
-00012c70  memset                                 
-0000233c  mod_rand                               
+00009800  fram_rx_start                          
+00013a54  free                                   
+00014b66  frexp                                  
+00014b66  frexpl                                 
+00015374  fseek                                  
+00015374  fseeko                                 
+000156c2  getdevice                              
+00015724  initial_centroids                      
+00010ede  kmeans                                 
+00014180  kmeanspp                               
+000128d2  knn_classification                     
+000138fa  ldexp                                  
+000138fa  ldexpl                                 
+00015db6  lseek                                  
+000111fa  main                                   
+000163b8  malloc                                 
+00008330  max_samples                            
+00012e80  memalign                               
+00015fb8  memccpy                                
+00016274  memchr                                 
+00015fec  memcmp                                 
+00015df4  memcpy                                 
+00016294  memset                                 
 0000a501  mpu_ctl0_value                         
 00001513  mpu_sam_value                          
-000007c0  mpu_segment_border1                    
-000007c0  mpu_segment_border2                    
-00011e24  pipeline                               
-0000233e  pred_class                             
-00002328  prev_centroids                         
-00011c0c  quicksort_idx                          
-00002340  random_num                             
-00011866  realloc                                
-00010cee  split                                  
-000123ae  split_samples                          
-0000234c  timer_count                            
-00012890  to_terminal                            
-00011d1c  update_centroids                       
-00012c4e  update_cluster_assignment              
-00011fc8  update_mem                             
+00000980  mpu_segment_border1                    
+00000980  mpu_segment_border2                    
+000023e8  parmbuf                                
+00015016  pipeline                               
+000023f4  pred_class                             
+000023d8  prev_centroids                         
+00015a84  printf                                 
+00014e6a  putc                                   
+000131e0  qsort                                  
+00014070  quicksort_idx                          
+000023f6  random_num                             
+000163c4  random_number                          
+00013ce8  realloc                                
+00016084  remove                                 
+000138fa  scalbn                                 
+000138fa  scalbnl                                
+0001437e  setvbuf                                
+000117f4  sqrt                                   
+000117f4  sqrtl                                  
+000162b4  strchr                                 
+000162d0  strcmp                                 
+00016346  strcpy                                 
+00016358  strlen                                 
+000159ec  strncpy                                
+00015842  struct_cmp_by_score_dec                
+0001636a  toupper                                
+00016084  unlink                                 
+00014f8a  update_centroids                       
+00015b18  update_cluster_assignment              
+000147d2  update_mem                             
+000161ba  wcslen                                 
 00001c00  weights                                
-00007960  y_test                                 
+00015e30  write                                  
+00009160  y_test                                 
 000020b0  y_train                                
 
 
@@ -3356,8 +3575,6 @@ address   name
 0000072f  UCB3IV_H                               
 000007c0  TA4CTL                                 
 000007c0  TA4CTL_L                               
-000007c0  mpu_segment_border1                    
-000007c0  mpu_segment_border2                    
 000007c1  TA4CTL_H                               
 000007c2  TA4CCTL0                               
 000007c2  TA4CCTL0_L                             
@@ -3637,6 +3854,8 @@ address   name
 000008cf  CEIV_H                                 
 00000980  CRC32DIW0                              
 00000980  CRC32DIW0_L                            
+00000980  mpu_segment_border1                    
+00000980  mpu_segment_border2                    
 00000981  CRC32DIW0_H                            
 00000982  CRC32DIW1                              
 00000982  CRC32DIW1_L                            
@@ -3761,35 +3980,45 @@ address   name
 00001513  mpu_sam_value                          
 00001c00  weights                                
 000020b0  y_train                                
-00002308  centroids                              
-00002318  cluster_assignment                     
-00002328  prev_centroids                         
-0000233c  mod_rand                               
-0000233e  pred_class                             
-00002340  random_num                             
-00002342  _lock                                  
-00002346  _unlock                                
-0000234a  classes                                
-0000234c  timer_count                            
+00002308  __TI_tmpnams                           
+000023a8  cluster_assignment                     
+000023c8  centroids                              
+000023d8  prev_centroids                         
+000023e8  parmbuf                                
+000023f4  pred_class                             
+000023f6  random_num                             
+000023f8  _ftable                                
+000024c0  _device                                
+00002538  _stream                                
+00002574  __TI_cleanup_ptr                       
+00002578  __TI_dtors_ptr                         
+0000257c  _lock                                  
+00002580  _unlock                                
+00002584  __TI_ft_end                            
+00002586  errno                                  
+00002588  __TI_enable_exit_profile_output        
 00002ac0  _stack                                 
 00002c00  __STACK_END                            
 00004000  X_train                                
 00004000  fram_rw_start                          
-00006660  X_test                                 
-00007000  max_samples                            
-00007960  y_test                                 
-000079fc  _sys_memory                            
-00007c00  Timer_A                                
-00007c00  fram_ipe_end                           
-00007c00  fram_ipe_start                         
-00007c00  fram_rx_start                          
-00007c34  _c_int00_noargs_mpu                    
-00007c54  __TI_ISR_TRAP                          
-00007c6e  __TI_Handler_Table_Base                
-00007c7a  __TI_Handler_Table_Limit               
-00007c80  __TI_CINIT_Base                        
-00007c90  __TI_CINIT_Limit                       
-00007c90  __TI_CINIT_Warm                        
+00006660  _X_train                               
+00007990  X_test                                 
+00008330  max_samples                            
+00008c90  _X_test                                
+00009160  y_test                                 
+000091fa  _CIOBUF_                               
+0000931c  _sys_memory                            
+00009800  _c_int00_noargs_mpu                    
+00009800  fram_ipe_end                           
+00009800  fram_ipe_start                         
+00009800  fram_rx_start                          
+00009820  __TI_ISR_TRAP                          
+00009828  _ctypes_                               
+00009b10  __TI_Handler_Table_Base                
+00009b1c  __TI_Handler_Table_Limit               
+00009b22  __TI_CINIT_Base                        
+00009b32  __TI_CINIT_Limit                       
+00009b32  __TI_CINIT_Warm                        
 0000a501  mpu_ctl0_value                         
 0000ffb4  __TI_int18                             
 0000ffb6  __TI_int19                             
@@ -3830,105 +4059,177 @@ address   name
 0000fffc  __TI_int54                             
 0000fffe  _reset_vector                          
 00010000  __mspabi_addd                          
-0001072a  gini_index                             
-00010a56  __mspabi_mpyd                          
-00010cee  split                                  
-00010f76  kmeans                                 
-000111d0  main                                   
-00011400  aligned_alloc                          
-00011400  memalign                               
-000115b6  __TI_frcmpyd                           
-0001171a  free                                   
-00011866  realloc                                
-000119a4  get_split                              
-00011ada  __mspabi_subf                          
-00011ae0  __mspabi_addf                          
-00011c0c  quicksort_idx                          
-00011d1c  update_centroids                       
-00011e24  pipeline                               
-00011fc8  update_mem                             
-0001208a  __mspabi_mpyf                          
-00012142  __mspabi_cvtdf                         
-000121f4  clustering                             
-00012294  __mspabi_divf                          
-00012324  f_sqrt                                 
-000123ae  split_samples                          
-0001242c  __TI_auto_init_nobinit_nopinit_hold_wdt
-000124a4  __TI_decompress_lzss                   
-0001251a  kmeanspp                               
-00012590  __mspabi_fixfi                         
-000125f8  __mspabi_cvtfd                         
-0001265c  initial_centroids                      
-000126be  __mspabi_mpyll_f5hw                    
-0001271a  __mspabi_divul                         
-0001271a  __mspabi_remul                         
-00012772  __mspabi_cmpf                          
-0001284a  __mspabi_fixfu                         
-00012890  to_terminal                            
-000128d2  __mspabi_srall                         
-00012912  __mspabi_divli                         
-00012912  __mspabi_remli                         
-00012952  decision_tree_classifier               
-00012990  __mspabi_sral_15                       
-00012994  __mspabi_sral_14                       
-00012998  __mspabi_sral_13                       
-0001299c  __mspabi_sral_12                       
-000129a0  __mspabi_sral_11                       
-000129a4  __mspabi_sral_10                       
-000129a8  __mspabi_sral_9                        
-000129ac  __mspabi_sral_8                        
-000129b0  __mspabi_sral_7                        
-000129b4  __mspabi_sral_6                        
-000129b8  __mspabi_sral_5                        
-000129bc  __mspabi_sral_4                        
-000129c0  __mspabi_sral_3                        
-000129c4  __mspabi_sral_2                        
-000129c8  __mspabi_sral_1                        
-000129ce  __mspabi_slll_15                       
-000129d2  __mspabi_slll_14                       
-000129d6  __mspabi_slll_13                       
-000129da  __mspabi_slll_12                       
-000129de  __mspabi_slll_11                       
-000129e2  __mspabi_slll_10                       
-000129e6  __mspabi_slll_9                        
-000129ea  __mspabi_slll_8                        
-000129ee  __mspabi_slll_7                        
-000129f2  __mspabi_slll_6                        
-000129f6  __mspabi_slll_5                        
-000129fa  __mspabi_slll_4                        
-000129fe  __mspabi_slll_3                        
-00012a02  __mspabi_slll_2                        
-00012a06  __mspabi_slll_1                        
-00012a0c  memcpy                                 
-00012a48  __mspabi_sllll                         
-00012a82  __mspabi_srlll                         
-00012abc  __mspabi_fltif                         
-00012af2  memcmp                                 
-00012b26  __mspabi_subd                          
-00012b58  __mpu_init                             
-00012b84  __mspabi_mpyull_f5hw                   
-00012bb0  __mspabi_divi                          
-00012bb0  __mspabi_remi                          
-00012c06  __TI_zero_init                         
-00012c2a  __mspabi_fltuf                         
-00012c4e  update_cluster_assignment              
-00012c70  memset                                 
-00012c90  decision_tree_training                 
-00012cc6  GetNewNode                             
-00012cde  __mspabi_mpyi_f5hw                     
-00012cf6  __TI_decompress_none                   
-00012d22  __mspabi_divu                          
-00012d22  __mspabi_remu                          
-00012d38  PF_sim_start                           
-00012d46  malloc                                 
-00012d52  C$$EXIT                                
-00012d52  abort                                  
-00012d5e  _system_pre_init                       
-00012d62  _nop                                   
-00012d64  _system_post_cinit                     
+0001072a  __TI_frcdivd                           
+00010b90  __mspabi_divull                        
+00010ede  kmeans                                 
+000111fa  main                                   
+000117f4  sqrt                                   
+000117f4  sqrtl                                  
+00011ad2  __TI_printfi                           
+00011d80  __mspabi_mpyd                          
+000124a4  __mspabi_divd                          
+000128d2  knn_classification                     
+00012e80  aligned_alloc                          
+00012e80  memalign                               
+000131e0  qsort                                  
+000134de  __TI_frcmpyd                           
+000137a0  fputs                                  
+000138fa  ldexp                                  
+000138fa  ldexpl                                 
+000138fa  scalbn                                 
+000138fa  scalbnl                                
+00013a54  free                                   
+00013ce8  realloc                                
+00013e26  __mspabi_subf                          
+00013e2c  __mspabi_addf                          
+00013f58  clustering                             
+00014070  quicksort_idx                          
+00014180  kmeanspp                               
+0001437e  setvbuf                                
+00014562  __mspabi_cmpd                          
+000147d2  update_mem                             
+00014894  __mspabi_mpyf                          
+00014ab4  __mspabi_cvtdf                         
+00014b66  frexp                                  
+00014b66  frexpl                                 
+00014c0c  __mspabi_fltlid                        
+00014caa  HOSTlseek                              
+00014d44  __TI_ltoa                              
+00014e6a  fputc                                  
+00014e6a  putc                                   
+00014efa  __mspabi_divf                          
+00014f8a  update_centroids                       
+00015016  pipeline                               
+000150a0  __TI_wrt_ok                            
+00015126  __TI_auto_init_nobinit_nopinit_hold_wdt
+00015216  __TI_decompress_lzss                   
+0001528c  HOSTrename                             
+00015300  __TI_closefile                         
+00015374  fseek                                  
+00015374  fseeko                                 
+000153e8  HOSTopen                               
+00015458  HOSTwrite                              
+000154c4  HOSTread                               
+0001552e  __mspabi_fixfi                         
+00015596  __mspabi_fixdli                        
+000155fc  __mspabi_cvtfd                         
+00015660  atoi                                   
+000156c2  getdevice                              
+00015724  initial_centroids                      
+00015786  __TI_doflush                           
+000157e6  __mspabi_mpyll_f5hw                    
+00015842  struct_cmp_by_score_dec                
+0001589e  close                                  
+000158f8  __mspabi_divul                         
+000158f8  __mspabi_remul                         
+00015950  HOSTclose                              
+000159ec  strncpy                                
+00015a3a  exit                                   
+00015a84  printf                                 
+00015ace  __mspabi_cmpf                          
+00015b18  update_cluster_assignment              
+00015baa  HOSTunlink                             
+00015c36  __mspabi_fixfu                         
+00015c7c  __mspabi_srall                         
+00015cbc  __mspabi_divli                         
+00015cbc  __mspabi_remli                         
+00015cfc  __mspabi_sral_15                       
+00015d00  __mspabi_sral_14                       
+00015d04  __mspabi_sral_13                       
+00015d08  __mspabi_sral_12                       
+00015d0c  __mspabi_sral_11                       
+00015d10  __mspabi_sral_10                       
+00015d14  __mspabi_sral_9                        
+00015d18  __mspabi_sral_8                        
+00015d1c  __mspabi_sral_7                        
+00015d20  __mspabi_sral_6                        
+00015d24  __mspabi_sral_5                        
+00015d28  __mspabi_sral_4                        
+00015d2c  __mspabi_sral_3                        
+00015d30  __mspabi_sral_2                        
+00015d34  __mspabi_sral_1                        
+00015d3a  __mspabi_slll_15                       
+00015d3e  __mspabi_slll_14                       
+00015d42  __mspabi_slll_13                       
+00015d46  __mspabi_slll_12                       
+00015d4a  __mspabi_slll_11                       
+00015d4e  __mspabi_slll_10                       
+00015d52  __mspabi_slll_9                        
+00015d56  __mspabi_slll_8                        
+00015d5a  __mspabi_slll_7                        
+00015d5e  __mspabi_slll_6                        
+00015d62  __mspabi_slll_5                        
+00015d66  __mspabi_slll_4                        
+00015d6a  __mspabi_slll_3                        
+00015d6e  __mspabi_slll_2                        
+00015d72  __mspabi_slll_1                        
+00015d78  __mspabi_srll_15                       
+00015d7c  __mspabi_srll_14                       
+00015d80  __mspabi_srll_13                       
+00015d84  __mspabi_srll_12                       
+00015d88  __mspabi_srll_11                       
+00015d8c  __mspabi_srll_10                       
+00015d90  __mspabi_srll_9                        
+00015d94  __mspabi_srll_8                        
+00015d98  __mspabi_srll_7                        
+00015d9c  __mspabi_srll_6                        
+00015da0  __mspabi_srll_5                        
+00015da4  __mspabi_srll_4                        
+00015da8  __mspabi_srll_3                        
+00015dac  __mspabi_srll_2                        
+00015db0  __mspabi_srll_1                        
+00015db6  lseek                                  
+00015df4  memcpy                                 
+00015e30  write                                  
+00015e6c  __mspabi_sllll                         
+00015ea6  __mspabi_srlll                         
+00015ee0  __TI_cleanup                           
+00015f16  __TI_writemsg                          
+00015f48  C$$IO$$                                
+00015f4c  finddevice                             
+00015f82  __mspabi_fltif                         
+00015fb8  memccpy                                
+00015fec  memcmp                                 
+00016020  __TI_readmsg                           
+00016052  __mspabi_subd                          
+00016084  remove                                 
+00016084  unlink                                 
+000160b4  __mspabi_negd                          
+000160e2  copysign                               
+000160e2  copysignl                              
+00016110  __mpu_init                             
+0001613c  __mspabi_mpyull_f5hw                   
+00016192  __mspabi_fixdi                         
+000161ba  wcslen                                 
+00016208  __TI_zero_init                         
+0001622c  __mspabi_fltuf                         
+00016250  __mspabi_mpyl_f5hw                     
+00016274  memchr                                 
+00016294  memset                                 
+000162b4  strchr                                 
+000162d0  strcmp                                 
+000162ec  __mspabi_mpyi_f5hw                     
+00016304  __TI_decompress_none                   
+00016330  __mspabi_divu                          
+00016330  __mspabi_remu                          
+00016346  strcpy                                 
+00016358  strlen                                 
+0001636a  toupper                                
+0001637c  RTC_start                              
+0001638c  __mspabi_slll                          
+0001639c  __mspabi_srll                          
+000163ac  __mspabi_fltid                         
+000163b8  malloc                                 
+000163c4  random_number                          
+000163d0  abs                                    
+000163e0  C$$EXIT                                
+000163e0  abort                                  
+000163ea  _system_pre_init                       
+000163ee  _nop                                   
+000163f0  _system_post_cinit                     
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
-[1719 symbols]
+[1801 symbols]

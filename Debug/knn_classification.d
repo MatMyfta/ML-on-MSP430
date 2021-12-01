@@ -25,13 +25,13 @@ knn_classification.obj: ../dataset.h
 knn_classification.obj: ../fixed.h
 knn_classification.obj: ../pipeline.h
 knn_classification.obj: ../kmeans.h
+knn_classification.obj: ../test.h
 knn_classification.obj: ../dt_training.h
 knn_classification.obj: ../pipeline.h
 knn_classification.obj: ../dt_classification.h
 knn_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
 knn_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h
 knn_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
-knn_classification.obj: ../test.h
 knn_classification.obj: ../knn_classification.h
 knn_classification.obj: ../pf_sim.h
 
@@ -85,6 +85,8 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limit
 
 ../kmeans.h:
 
+../test.h:
+
 ../dt_training.h:
 
 ../pipeline.h:
@@ -96,8 +98,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h:
-
-../test.h:
 
 ../knn_classification.h:
 

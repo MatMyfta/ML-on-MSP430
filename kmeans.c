@@ -9,7 +9,9 @@
 #include "main.h"
 
 
-fixed cluster_assignment[K][N_FEATURE];
+// Cannot be in fixed type because it causes an overflow in update_cluster_assignment().
+// So I prefer to use the float type.
+float cluster_assignment[K][N_FEATURE];
 fixed prev_centroids[K][N_FEATURE];
 
 uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], fixed weights[MEMORY_SIZE][K],  uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t n_samples)
@@ -21,12 +23,15 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
     float weight;
 
     uint16_t i,j,k,n,l;                     // loop indexes
+	#ifdef PRINT
+	printf("\n> kmeans:\n");
+	#endif
 
     initial_centroids(max_samples, centroids, n_samples);
 
     // run until no further change in the results
     while (iteration < 50 && stop < 2) {
-        uint16_t samples_per_cluster[K] = {0};
+        uint16_t samples_per_cluster[K] = {0,0};
 
         // clustering
         for (j = 0; j < n_samples; j++) {
@@ -55,7 +60,7 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
     }
 
 	#ifdef PRINT
-    printf("\n> kmeans:\n\t- Final centroids:\n");
+    printf("\t- Final centroids:\n");
 	printf("\t+------------+------------+------------+------------+\n");
     for(i = 0; i < K; i++) {
         printf("\t|");
@@ -97,7 +102,7 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 
     n_samples = n_samples - counter;
 	#ifdef PRINT
-    printf(ANSI_COLOR_RED "\t- Removed %d samples, total: %d\n\n" ANSI_COLOR_RESET, counter, n_samples);
+    printf("\t- Removed %d samples, total: %d\n\n", counter, n_samples);
 	#endif
 
     return n_samples;
@@ -106,9 +111,7 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 // choose the first centroid
 void initial_centroids(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], uint16_t n_samples)
 {
-    //srand(RTCCTL13);
-    //uint16_t random = rand() % n_samples;
-	uint16_t random = random_num % n_samples;
+	uint16_t random = random_number() % n_samples;
 
     uint16_t i,j;
     for (i = 0; i < K; i++) {
@@ -124,16 +127,16 @@ void initial_centroids(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fix
 
 uint16_t kmeanspp(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], uint16_t n_samples, uint16_t next_centroid)
 {
-    fixed max = -1000;
+    float max = -1000;
     uint16_t random, dist;
     uint16_t i,k,j;
     for (i = 0; i < n_samples; i++) {
         for (k = 0; k < next_centroid; k++) {
             for (j = 0; j < N_FEATURE; j++) {
                 fixed tmp = max_samples[i][j]-centroids[k][j];
-                dist += F_MUL(tmp, tmp);
+                dist += F_TO_FLOAT(tmp) * F_TO_FLOAT(tmp);
             }
-            if (F_GT(dist, max)) {
+            if (dist > max) {
                 max = dist;
                 random = i;
             }
@@ -145,26 +148,26 @@ uint16_t kmeanspp(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed ce
 
 uint16_t clustering(fixed X[], fixed centroids[K][N_FEATURE], fixed weights[MEMORY_SIZE][K], uint16_t samples_per_cluster[], uint16_t index)
 {
-    fixed y = F_LIT(0), min_distance = F_LIT(1000000);
+    float y = 0, min_distance = 1000000;
     uint16_t cluster = 0;
 
     uint16_t k,j;
     for (k = 0; k < K; k++) {
         for (j = 0; j < N_FEATURE; j++) {
             fixed tmp = X[j]-centroids[k][j];
-            y += F_MUL(tmp,tmp);
+            y += F_TO_FLOAT(tmp) * F_TO_FLOAT(tmp);
         }
 
-        weights[index][k] = y;				// weight is the distance between index and centroid
-        y = (y == 0 ? 0 : F_SQRT(y));
+        weights[index][k] = F_LIT(y);				// weight is the distance between index and centroid
+        y = sqrt(y);
 
-        if (F_LT(y, min_distance)) {
+        if (y < min_distance) {
             min_distance = y;
             cluster = k;
         }
         y = 0;
     }
-    samples_per_cluster[cluster] += 1;
+    samples_per_cluster[cluster]++;
     return cluster;
 }
 
@@ -172,7 +175,7 @@ void update_cluster_assignment(fixed max_samples[MEMORY_SIZE+UPDATE_THR], uint16
 {
     uint16_t i;
     for (i = 0; i < N_FEATURE; i++) {
-        cluster_assignment[index][i] += max_samples[i];
+        cluster_assignment[index][i] += F_TO_FLOAT(max_samples[i]);
     }
 }
 
@@ -180,9 +183,11 @@ void update_centroids(fixed centroids[K][N_FEATURE], uint16_t samples_per_cluste
 {
     uint16_t j;
     for (j = 0; j < N_FEATURE; j++) {
-        if (samples_per_cluster[0] != 0) 
-            centroids[0][j] = F_DIV(cluster_assignment[0][j], F_LIT(samples_per_cluster[0]));
-        if (samples_per_cluster[1] != 0) 
-            centroids[1][j] = F_DIV(cluster_assignment[1][j], F_LIT(samples_per_cluster[1]));
+        if (samples_per_cluster[0] != 0) {
+            centroids[0][j] = F_LIT(cluster_assignment[0][j] / samples_per_cluster[0] );
+        }
+        if (samples_per_cluster[1] != 0) {
+            centroids[1][j] = F_LIT( cluster_assignment[1][j] / samples_per_cluster[1] );
+        }
     }
 }

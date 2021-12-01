@@ -26,10 +26,10 @@ dt_classification.obj: ../dataset.h
 dt_classification.obj: ../fixed.h
 dt_classification.obj: ../pipeline.h
 dt_classification.obj: ../kmeans.h
+dt_classification.obj: ../test.h
 dt_classification.obj: ../dt_training.h
 dt_classification.obj: ../pipeline.h
 dt_classification.obj: ../dt_classification.h
-dt_classification.obj: ../test.h
 dt_classification.obj: ../knn_classification.h
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
 dt_classification.obj: ../pf_sim.h
@@ -86,13 +86,13 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../kmeans.h:
 
+../test.h:
+
 ../dt_training.h:
 
 ../pipeline.h:
 
 ../dt_classification.h:
-
-../test.h:
 
 ../knn_classification.h:
 

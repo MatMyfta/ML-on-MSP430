@@ -5,13 +5,6 @@ uint16_t pred_class;
 uint16_t pipeline(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t n_samples, uint16_t counter)
 {
     uint16_t i,j;
-    fixed _X_train[N_TRAIN][N_FEATURE];
-
-    for (i = 0; i < N_TRAIN; i++) {
-        for (j = 0; j < N_FEATURE; j++) {
-            _X_train[i][j] = F_LIT(X_train[i][j]);
-        }
-    }
 
     for(i = 0; i < UPDATE_THR; i++) {
         #ifdef AUTO_DT

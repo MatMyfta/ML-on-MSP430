@@ -1,15 +1,7 @@
 #include <msp430.h>
 #include "pf_sim.h"
 
-#define MIN_PF 100		//minimum power failure count
-
-int timer_count = 200;	//initial power failure count
 unsigned int volatile random_num;	// read temperature value
-int mod_rand;
-
-static void reset() {
-	PMMCTL0 = 0x0008;	// power-on reset (POR)
-}
 
 static void rtc_init() {
     PJSEL0 = BIT4 | BIT5;                   	// Initialize LFXT pins
@@ -32,28 +24,14 @@ static void rtc_init() {
         RTCCTL13 &= ~(RTCHOLD);                 // Start RTC
 }
 
-static void Timer_A0_set(){
-    TA0CCR0 = timer_count;			//max 65535
-    TA0CTL = TASSEL__ACLK + MC_1;	//set the max period for 16bit timer operation
-    TA0CCTL0 = CCIE;				//enable compare reg 0
-    _BIS_SR( GIE);					//ENABLE GLOBAL INTERRRUPTS
-}
-
-void PF_sim_start()
+void RTC_start()
 {
     rtc_init();
     P3DIR =0xFF;
-    Timer_A0_set();
+    random_num=RTCPS;
 }
 
-// Timer A0 interrupt service routine
-#pragma vector=TIMER0_A0_VECTOR
-__interrupt void Timer_A (void)
-{
-	random_num=RTCPS;   // 16-bits register(RTC) to generate random number
-	mod_rand= random_num % 101; // map 16-bit to 0-100 range
-	random_num = MIN_PF + mod_rand*8; // 100 to 900 random number
-	timer_count=random_num;
-	P3OUT^=0x02;
-	reset();
+unsigned int random_number() {
+    random_num=RTCPS;
+    return random_num;
 }

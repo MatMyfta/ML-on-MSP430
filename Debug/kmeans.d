@@ -28,6 +28,7 @@ kmeans.obj: ../kmeans.h
 kmeans.obj: ../dataset.h
 kmeans.obj: ../fixed.h
 kmeans.obj: ../pipeline.h
+kmeans.obj: ../test.h
 kmeans.obj: ../dt_training.h
 kmeans.obj: ../pipeline.h
 kmeans.obj: ../dt_classification.h
@@ -36,7 +37,6 @@ kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/ma
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h
 kmeans.obj: ../main.h
-kmeans.obj: ../test.h
 kmeans.obj: ../knn_classification.h
 kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
 kmeans.obj: ../pf_sim.h
@@ -97,6 +97,8 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../pipeline.h:
 
+../test.h:
+
 ../dt_training.h:
 
 ../pipeline.h:
@@ -112,8 +114,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h:
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h:
 
 ../main.h:
-
-../test.h:
 
 ../knn_classification.h:
 

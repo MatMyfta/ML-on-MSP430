@@ -27,6 +27,7 @@ main.obj: ../dataset.h
 main.obj: ../fixed.h
 main.obj: ../pipeline.h
 main.obj: ../kmeans.h
+main.obj: ../test.h
 main.obj: ../dt_training.h
 main.obj: ../pipeline.h
 main.obj: ../dt_classification.h
@@ -36,7 +37,6 @@ main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_def
 main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h
 main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h
 main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
-main.obj: ../test.h
 main.obj: ../knn_classification.h
 main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdlib.h
 main.obj: ../pf_sim.h
@@ -95,6 +95,8 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../kmeans.h:
 
+../test.h:
+
 ../dt_training.h:
 
 ../pipeline.h:
@@ -112,8 +114,6 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limit
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h:
-
-../test.h:
 
 ../knn_classification.h:
 
