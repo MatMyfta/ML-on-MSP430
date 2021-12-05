@@ -1,12 +1,14 @@
-#define CONFIDENCE
-
-#include <msp430.h>
 #include <stdio.h>              // printf
-#include <stdlib.h>             // srand, rand
 #include <string.h>             // memcmp, memset
 #include "kmeans.h"
-#include "pf_sim.h"
 #include "main.h"
+
+#ifndef DEBUG
+#include "pf_sim.h"
+#else
+#include <time.h>               // time
+#include <stdlib.h>             // srand, rand
+#endif
 
 
 // Cannot be in fixed type because it causes an overflow in update_cluster_assignment().
@@ -20,9 +22,10 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
     uint16_t iteration = 0;
     uint16_t stop = 0;
     uint16_t counter = 0;
-    float weight;
 
-    uint16_t i,j,k,n,l;                     // loop indexes
+    uint16_t i, j, k;
+
+
 	#ifdef PRINT
 	printf("\n> kmeans:\n");
 	#endif
@@ -74,21 +77,25 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 
 
     #ifdef CONFIDENCE
+	float weight = 0;
     /* weight calculation */
     for(i = 0; i < n_samples; i++) {
         weight = 0;
         for(j = 0; j < K; j++) {
 			// weight = (1 / weights[1][j])^2
-            float tmp = F_TO_FLOAT(weights[i][j]);
-            weight += 1/(tmp*tmp);
+            float _tmp = F_TO_FLOAT(weights[i][j]);
+            float _tmp2 = _tmp * _tmp;
+            weight += 1.0/(_tmp2);
         }
+        uint16_t k;
         for(k = 0; k < K; k++) {
-            // weights_ik = 1 / (weight * weights_ik^2)
-			float tmp = F_TO_FLOAT(weights[i][k]);
-			float _x = 1 / (weight * tmp * tmp);
+            // weights[i][k] = 1 / (weight * weights[i][k]^2)
+			float _tmp = F_TO_FLOAT(weights[i][k]);
+			float _x = 1.0 / (weight * _tmp * _tmp);
             weights[i][k] = F_LIT(_x);
 		}
     }
+    uint16_t n, l;
     for(n = 0; n < n_samples; n++) {
         if(weights[n][y_train[n]] > CONFIDENCE_THR) {
             for(l = 0; l < N_FEATURE; l++)
@@ -111,7 +118,15 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 // choose the first centroid
 void initial_centroids(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], uint16_t n_samples)
 {
-	uint16_t random = random_number() % n_samples;
+    uint16_t random;
+
+    #ifdef DEBUG
+    time_t t;
+    srand((unsigned) time(&t));
+    random = rand() % n_samples;
+    #else
+	random = random_number() % n_samples;
+    #endif
 
     uint16_t i,j;
     for (i = 0; i < K; i++) {
@@ -154,20 +169,20 @@ uint16_t clustering(fixed X[], fixed centroids[K][N_FEATURE], fixed weights[MEMO
     uint16_t k,j;
     for (k = 0; k < K; k++) {
         for (j = 0; j < N_FEATURE; j++) {
-            fixed tmp = X[j]-centroids[k][j];
-            y += F_TO_FLOAT(tmp) * F_TO_FLOAT(tmp);
+            float tmp = F_TO_FLOAT(X[j]-centroids[k][j]);
+            y += tmp*tmp;
         }
 
         weights[index][k] = F_LIT(y);				// weight is the distance between index and centroid
-        y = sqrt(y);
+        y = (y == 0 ? 0 : F_SQRT(y));
 
-        if (y < min_distance) {
+        if (F_LT(y, min_distance)) {
             min_distance = y;
             cluster = k;
         }
         y = 0;
     }
-    samples_per_cluster[cluster]++;
+    samples_per_cluster[cluster] += 1;
     return cluster;
 }
 

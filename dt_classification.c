@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <math.h>
-#include <string.h>
-#include "main.h"
-#include "dataset.h"
-#include "dt_training.h"
+#include "dt_classification.h"
 
 uint16_t decision_tree_classifier(struct Node* root, fixed X[])
 {

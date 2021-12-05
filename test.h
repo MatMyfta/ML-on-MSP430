@@ -6,6 +6,6 @@
 #define N_TEST 154
 
 extern uint8_t y_test[N_TEST];
-extern float X_test[N_TEST][N_FEATURE];
+extern fixed X_test[N_TEST][N_FEATURE];
 
 #endif

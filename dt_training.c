@@ -1,6 +1,6 @@
 #include <stdlib.h>
+#include <string.h>
 #include "dt_training.h"
-#include "dataset.h"
 
 uint16_t counter = 1;
 uint16_t n = 0;

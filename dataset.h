@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include "fixed.h"
 
-extern uint8_t classes[N_CLASSES];
-extern float X_train[N_TRAIN][N_FEATURE];
-extern uint8_t labels[N_TRAIN];
+extern uint16_t classes[N_CLASSES];
+extern fixed X_train[N_TRAIN][N_FEATURE];
+extern uint16_t labels[N_TRAIN];
 
 #endif

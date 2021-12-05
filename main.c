@@ -1,19 +1,21 @@
+#ifndef DEBUG
 #include <msp430.h>
+#include "pf_sim.h"
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include "main.h"
 
-
-fixed weights[MEMORY_SIZE+UPDATE_THR][K];
-uint16_t y_train[MEMORY_SIZE+UPDATE_THR];
 fixed centroids[K][N_FEATURE];
+#ifndef DEBUG
+#pragma PERSISTENT(weights)
+#pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
+#endif
+fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {0};
+uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {0};
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {0};
-#pragma PERSISTENT(_X_train)
-fixed _X_train[N_TRAIN][N_FEATURE] = {0};
-#pragma PERSISTENT(_X_test)
-fixed _X_test[N_TEST][N_FEATURE] = {0};
 
 /**
  * main.c
@@ -21,6 +23,7 @@ fixed _X_test[N_TEST][N_FEATURE] = {0};
 int main(void)
 {
 
+	#ifndef DEBUG
 	// Stop watchdog timer
 	WDTCTL = WDTPW | WDTHOLD;
 
@@ -30,6 +33,7 @@ int main(void)
 
     // RTC
     RTC_start();
+	#endif
 
 
     #ifdef PRINT
@@ -38,8 +42,8 @@ int main(void)
 
 	uint16_t n_samples;
     uint16_t pred_class, pred_class_perm;
-    float acc = 0;
-    float acc_perm = 0;
+    fixed acc = F_LIT(0);
+    fixed acc_perm = F_LIT(0);
 	uint16_t counter = 0;
 	uint16_t increment = 0;
 	uint16_t i, j;
@@ -49,32 +53,9 @@ int main(void)
 	// READ INITIAL DATA
 	for (i = 0; i < n_samples; i++) {
 		for (j = 0; j < N_FEATURE; j++) {
-			max_samples[i][j] = F_LIT(X_train[i][j]);
+			max_samples[i][j] = X_train[i][j];
 		}
 	}
-	#ifdef PRINT
-	printf("\t> Initial data read correctly from FRAM\n");
-	#endif
-
-    // Read test data
-    for (i = 0; i < N_TEST; i++) {
-        for (j = 0; j < N_FEATURE; j++) {
-            _X_test[i][j] = F_LIT(X_test[i][j]);
-        }
-    }
-	#ifdef PRINT
-	printf("\t> Test data read correctly from FRAM\n");
-	#endif
-
-    // Read train data
-    for (i = 0; i < N_TRAIN; i++) {
-        for (j = 0; j < N_FEATURE; j++) {
-            _X_train[i][j] = F_LIT(X_train[i][j]);
-        }
-    }
-	#ifdef PRINT
-	printf("\t> Train data read correctly from FRAM\n\n");
-	#endif
 
     #ifdef PRINT
     #ifdef AUTO_DT
@@ -96,15 +77,6 @@ int main(void)
 		n_samples = kmeans(max_samples, centroids, weights, y_train, n_samples);
 
 		if (n_samples > MEMORY_SIZE) {
-
-            uint16_t indices[MEMORY_SIZE + UPDATE_THR];
-
-            for(i=0; i<n_samples; i++)
-                indices[i]=i;
-
-            quicksort_idx(y_train, indices, 0, n_samples-1);
-            n_samples = update_mem(max_samples, indices, n_samples);
-
 			// FIFO
 			for(i = 0; i < MEMORY_SIZE; i++) {
 				for(j = 0; j < N_FEATURE; j++)
@@ -124,24 +96,25 @@ int main(void)
 		for (j = 0; j < N_TEST; j++) {
 
             #ifdef AUTO_DT
-			pred_class = decision_tree_classifier(root, _X_test[j]);
+			pred_class = decision_tree_classifier(root, X_test[j]);
             #endif
 
             #ifdef AUTO_KNN
-            pred_class = knn_classification(_X_test[j], max_samples, y_train, n_samples);
+            pred_class = knn_classification(X_test[j], max_samples, y_train, n_samples);
             #endif
 
 			pred_class_perm = 1 - pred_class;
+
 			if(pred_class == y_test[j])
-				acc++;
+				acc += F_LIT(1);
 			else if(pred_class_perm == y_test[j])
-				acc_perm++;
+				acc_perm += F_LIT(1);
 		}
 
 		if (acc_perm > acc)
 			acc = acc_perm;
 
-        #ifdef _PRINT
+        #ifdef PRINT
         #ifdef AUTO_DT
         printf ("^ Decision Tree:\n\n");
         printf ("\t- Number of samples correctly classified using the Decision Tree: %0.0f\n", acc);
@@ -153,14 +126,14 @@ int main(void)
         #endif //AUTO_KNN
         #endif //PRINT
 
-		acc = (acc / N_TEST) * 100.0;
+		acc = F_LIT(F_TO_FLOAT(acc)/N_TEST * 100.0);
         #ifdef PRINT
         printf("\t- Accuracy: %0.2f%s\n\n", acc, "%");
         #endif
 
         counter += UPDATE_THR;
-		acc = 0;
-		acc_perm = 0;
+		acc = F_LIT(0);
+		acc_perm = F_LIT(0);
 
 		if(counter > N_TRAIN)
 			break;

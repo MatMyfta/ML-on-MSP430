@@ -2,10 +2,11 @@
 #define KMEANS_H
 
 #define K 2
+#define CONFIDENCE
 #define CONFIDENCE_THR F_LIT(0.9)
 
 #include <stdint.h>
-#include "main.h"
+#include "fixed.h"
 #include "dataset.h"
 #include "pipeline.h"
 

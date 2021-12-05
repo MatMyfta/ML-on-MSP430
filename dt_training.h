@@ -5,6 +5,7 @@
 #define MIN_SIZE 10
 
 #include <stdint.h>
+#include "dataset.h"
 #include "pipeline.h"
 #include "fixed.h"
 
