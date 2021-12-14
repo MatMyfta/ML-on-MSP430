@@ -13,8 +13,8 @@ dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_stdint.h
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h
 dt_classification.obj: ../dt_training.h
-dt_classification.obj: ../dataset.h
 dt_classification.obj: ../fixed.h
+dt_classification.obj: ../dataset.h
 dt_classification.obj: ../pipeline.h
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h
 dt_classification.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdarg.h
@@ -52,9 +52,9 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../dt_training.h:
 
-../dataset.h:
-
 ../fixed.h:
+
+../dataset.h:
 
 ../pipeline.h:
 

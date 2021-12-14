@@ -1,7 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define AUTO_KNN
+#define CONF
+#define AUTO_DT
 
 //#define DEBUG
 

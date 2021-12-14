@@ -18,4 +18,5 @@ uint16_t decision_tree_classifier(struct Node* root, fixed X[])
 			return root->right_class;
 		}
 	}
+    return 0;
 }

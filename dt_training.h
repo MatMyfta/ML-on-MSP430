@@ -5,11 +5,11 @@
 #define MIN_SIZE 10
 
 #include <stdint.h>
+#include "fixed.h"
 #include "dataset.h"
 #include "pipeline.h"
-#include "fixed.h"
 
-typedef struct Node{
+struct Node {
 	fixed threshold;
     uint16_t feature;
 	uint16_t Left_group[MEMORY_SIZE];
@@ -20,7 +20,7 @@ typedef struct Node{
 	uint16_t right_class;
 	struct Node* left;
 	struct Node* right;
-} Node;
+};
 
 
 struct Node* decision_tree_training(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size);

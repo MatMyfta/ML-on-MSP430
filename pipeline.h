@@ -1,11 +1,11 @@
 #ifndef PIPELINE_H
 #define PIPELINE_H
 
-typedef struct Node Node;
-
 #define INITIAL_THR 50
 #define UPDATE_THR 100
 #define MEMORY_SIZE 200
+
+struct Node;
 
 #include <stdio.h>
 #include <stdint.h>

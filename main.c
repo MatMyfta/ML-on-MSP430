@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "main.h"
+#include "kmeans.h"
+#include "knn_classification.h"
+#include "test.h"
 
 fixed centroids[K][N_FEATURE];
 #ifndef DEBUG
@@ -13,9 +16,9 @@ fixed centroids[K][N_FEATURE];
 #pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
 #endif
-fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {0};
-uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {0};
-fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {0};
+fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {{0}};
+uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {{0}};
+fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {{0}};
 
 /**
  * main.c
@@ -77,13 +80,24 @@ int main(void)
 		n_samples = kmeans(max_samples, centroids, weights, y_train, n_samples);
 
 		if (n_samples > MEMORY_SIZE) {
-			// FIFO
+			#ifdef CONF
+            uint16_t indices[MEMORY_SIZE + UPDATE_THR];
+
+            for(i=0; i<n_samples; i++)
+                indices[i]=i;
+
+            quicksort_idx(y_train, indices, 0, n_samples-1);
+            n_samples = update_mem(max_samples, indices, n_samples);
+            #endif
+
+			#ifdef FIFO
 			for(i = 0; i < MEMORY_SIZE; i++) {
 				for(j = 0; j < N_FEATURE; j++)
 					max_samples[i][j] = max_samples[i+(n_samples - MEMORY_SIZE)][j];
 				y_train[i] = y_train[i+(n_samples - MEMORY_SIZE)];
 			}
 			n_samples = MEMORY_SIZE;
+			#endif
 		}
 
 		struct Node* root = (struct Node*)realloc(NULL, sizeof(struct Node));
@@ -126,7 +140,9 @@ int main(void)
         #endif //AUTO_KNN
         #endif //PRINT
 
-		acc = F_LIT(F_TO_FLOAT(acc)/N_TEST * 100.0);
+        // acc = acc / 4928 * 100
+		// acc = F_LIT((float) (F_TO_FLOAT(acc)/N_TEST * 100.0));
+
         #ifdef PRINT
         printf("\t- Accuracy: %0.2f%s\n\n", acc, "%");
         #endif

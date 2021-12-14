@@ -1,5 +1,6 @@
 #include <stdio.h>              // printf
 #include <string.h>             // memcmp, memset
+#include <math.h>
 #include "kmeans.h"
 #include "main.h"
 
@@ -78,21 +79,22 @@ uint16_t kmeans(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed cent
 
     #ifdef CONFIDENCE
 	float weight = 0;
+	double tmp;
     /* weight calculation */
     for(i = 0; i < n_samples; i++) {
         weight = 0;
         for(j = 0; j < K; j++) {
 			// weight = (1 / weights[1][j])^2
-            float _tmp = F_TO_FLOAT(weights[i][j]);
-            float _tmp2 = _tmp * _tmp;
-            weight += 1.0/(_tmp2);
+            tmp = (double) F_TO_FLOAT(weights[i][j]);
+            tmp *= tmp;
+            weight += (float) (1.0/(tmp));
         }
         uint16_t k;
         for(k = 0; k < K; k++) {
             // weights[i][k] = 1 / (weight * weights[i][k]^2)
-			float _tmp = F_TO_FLOAT(weights[i][k]);
-			float _x = 1.0 / (weight * _tmp * _tmp);
-            weights[i][k] = F_LIT(_x);
+			tmp = (double) F_TO_FLOAT(weights[i][k]);
+			tmp = (double) (1.0 / (weight * tmp * tmp));
+            weights[i][k] = F_LIT((float) tmp);
 		}
     }
     uint16_t n, l;
@@ -173,10 +175,10 @@ uint16_t clustering(fixed X[], fixed centroids[K][N_FEATURE], fixed weights[MEMO
             y += tmp*tmp;
         }
 
+        y = (y == 0 ? 0 : sqrt(y));
         weights[index][k] = F_LIT(y);				// weight is the distance between index and centroid
-        y = (y == 0 ? 0 : F_SQRT(y));
 
-        if (F_LT(y, min_distance)) {
+        if (y < min_distance) {
             min_distance = y;
             cluster = k;
         }

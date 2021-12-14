@@ -11,7 +11,7 @@
 struct neighbour
 {
   uint16_t id;
-  float score;
+  fixed score;
 };
 
 uint16_t knn_classification(fixed X[], fixed training_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t n_samples);

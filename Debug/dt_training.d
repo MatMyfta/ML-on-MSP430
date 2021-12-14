@@ -15,8 +15,8 @@ dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/inclu
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_types.h
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_stdint.h
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h
-dt_training.obj: ../dataset.h
 dt_training.obj: ../fixed.h
+dt_training.obj: ../dataset.h
 dt_training.obj: ../pipeline.h
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h
 dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdarg.h
@@ -58,9 +58,9 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_stdin
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
-../dataset.h:
-
 ../fixed.h:
+
+../dataset.h:
 
 ../pipeline.h:
 
