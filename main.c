@@ -4,6 +4,7 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <stdint.h>
 #include "main.h"
 #include "kmeans.h"
@@ -15,10 +16,12 @@ fixed centroids[K][N_FEATURE];
 #pragma PERSISTENT(weights)
 #pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
+#pragma PERSISTENT(root)
 #endif
 fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {{0}};
 uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {{0}};
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {{0}};
+struct Node* root = NULL;
 
 /**
  * main.c
@@ -100,7 +103,7 @@ int main(void)
 			#endif
 		}
 
-		struct Node* root = (struct Node*)realloc(NULL, sizeof(struct Node));
+		root = (struct Node*)realloc(NULL, sizeof(struct Node));
         #ifdef AUTO_DT
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
         #endif

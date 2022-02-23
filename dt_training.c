@@ -5,6 +5,9 @@
 uint16_t counter = 1;
 uint16_t n = 0;
 
+#pragma PERSISTENT(newNode)
+struct Node* newNode = NULL;
+
 struct Node* decision_tree_training(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size)
 {
 	get_split(max_samples, root, NULL, y_train, size);
@@ -19,6 +22,9 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
     uint16_t j;
 
 	for(j = 0; j < size; j++) {
+		if (j == 133) {
+			printf("");
+		}
 		/* first split of the samples */
 		if(group == NULL)
 			sample_index = j;
@@ -124,7 +130,7 @@ struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], str
 
 struct Node* GetNewNode()
 {
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode = (struct Node*)malloc(sizeof(struct Node));
 	newNode->left = NULL;
 	newNode->right = NULL;
 	return newNode;

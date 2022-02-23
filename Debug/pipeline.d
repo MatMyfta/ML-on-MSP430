@@ -22,6 +22,12 @@ pipeline.obj: ../test.h
 pipeline.obj: ../dt_training.h
 pipeline.obj: ../dt_classification.h
 pipeline.obj: ../knn_classification.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h
+pipeline.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
 pipeline.obj: ../main.h
 
 ../pipeline.c:
@@ -67,6 +73,18 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 ../dt_classification.h:
 
 ../knn_classification.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h:
 
 ../main.h:
 

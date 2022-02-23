@@ -1,7 +1,12 @@
 #include "dataset.h"
+#include "main.h"
 
-uint16_t classes[N_CLASSES] = { 0,  1};
+uint16_t classes[N_CLASSES] = {0,1};
+
+#ifndef DEBUG
 #pragma PERSISTENT(X_train)
+#pragma PERSISTENT(labels)
+#endif
 fixed X_train[N_TRAIN][N_FEATURE] = { { F_LIT(122.0), F_LIT(18.0), F_LIT(29.8), F_LIT(22.0) },
             { F_LIT(193.0), F_LIT(31.0), F_LIT(34.9), F_LIT(25.0) },
             { F_LIT(129.0), F_LIT(12.0), F_LIT(27.5), F_LIT(31.0) },

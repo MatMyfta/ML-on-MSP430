@@ -13,6 +13,23 @@ dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/m
 dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_stdint.h
 dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h
 dataset.obj: ../fixed.h
+dataset.obj: ../main.h
+dataset.obj: ../pipeline.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdarg.h
+dataset.obj: ../kmeans.h
+dataset.obj: ../pipeline.h
+dataset.obj: ../test.h
+dataset.obj: ../dt_training.h
+dataset.obj: ../dt_classification.h
+dataset.obj: ../knn_classification.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h
+dataset.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h
+dataset.obj: ../main.h
 
 ../dataset.c:
 
@@ -39,4 +56,38 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_stdin
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 
 ../fixed.h:
+
+../main.h:
+
+../pipeline.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdio.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdarg.h:
+
+../kmeans.h:
+
+../pipeline.h:
+
+../test.h:
+
+../dt_training.h:
+
+../dt_classification.h:
+
+../knn_classification.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/string.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/xlocale/_string.h:
+
+../main.h:
 

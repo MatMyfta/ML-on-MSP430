@@ -28,6 +28,7 @@ kmeans.obj: ../dt_training.h
 kmeans.obj: ../pipeline.h
 kmeans.obj: ../dt_classification.h
 kmeans.obj: ../knn_classification.h
+kmeans.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
 kmeans.obj: ../main.h
 kmeans.obj: ../pf_sim.h
 
@@ -86,6 +87,8 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/sys/_stdint.h:
 ../dt_classification.h:
 
 ../knn_classification.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
 
 ../main.h:
 

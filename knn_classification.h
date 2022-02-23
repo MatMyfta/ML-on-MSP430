@@ -1,12 +1,17 @@
 #ifndef KNN_CLASSIFICATION_H
+
 #define KNN_CLASSIFICATION_H
 
-
-#include <stdint.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+#include <string.h>
+#include "main.h"
 #include "dataset.h"
+#include "kmeans.h"
 #include "pipeline.h"
 
-#define K_NEIGHBOR 5
+#define K_NEIGHBOR 13
 
 struct neighbour
 {

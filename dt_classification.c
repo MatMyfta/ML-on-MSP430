@@ -18,5 +18,5 @@ uint16_t decision_tree_classifier(struct Node* root, fixed X[])
 			return root->right_class;
 		}
 	}
-    return 0;
+    // no return statement, because it can cause a logical error in the algorithm
 }

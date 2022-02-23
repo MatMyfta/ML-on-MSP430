@@ -26,6 +26,10 @@ dt_training.obj: ../test.h
 dt_training.obj: ../dt_training.h
 dt_training.obj: ../dt_classification.h
 dt_training.obj: ../knn_classification.h
+dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h
+dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h
+dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h
+dt_training.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h
 dt_training.obj: ../main.h
 
 ../dt_training.c:
@@ -79,6 +83,14 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdarg.h:
 ../dt_classification.h:
 
 ../knn_classification.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/stdbool.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/math.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/_defs.h:
+
+C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-msp430_21.6.0.LTS/include/machine/_limits.h:
 
 ../main.h:
 
