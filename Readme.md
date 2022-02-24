@@ -6,6 +6,8 @@ Sample project of a Machine Learning algorithm running on MSP430FR5994 launchpad
 
 The algorithm is an adaptation of the AEP algorithm for the MSP430 FR5994 controller, in particular the changes involve the memory usage of the algorithm. For instance, the `int` type is changed with the `uint16_t` type implemented in the `stdint.h` library; another important type modification is the float, that is the main memory harvesting type because of the implementation of the dataset, and it is changed with the `fixed` type implemented in the `fixed.h` library (from libfixed).
 
+At the moment the algorithms working are k-means and kNN. The decision tree algorithm is having some execution problems yet.
+
 ### Dataset
 
 The dataset is the original dataset presented in the AEP algorithm.
@@ -13,6 +15,19 @@ The dataset is the original dataset presented in the AEP algorithm.
 ## Usage
 
 The main usage difference against the original AEP algorithm is the possibility of using the `DEBUG` label in order to print some information in the console, in this way it is possible to debug the code during the execution.
+
+## Results
+
+The following table shows the results gained with multiple executions of the algorithm with k parameter tuning.
+
+| Iteration number | Accuracy % |
+|------------------|------------|
+| 1 | 84.38% |
+| 2 | 81.25% |
+| 3 | 78.13% |
+| 4 | 81.25% |
+| 5 | 81.25% |
+| 6 | 81.25% |
 
 ## References
 
