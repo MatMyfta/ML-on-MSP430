@@ -28,7 +28,8 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
 		/* first split of the samples */
 		if(group == NULL)
 			sample_index = j;
-		/* instead of saving the whole samples (features of a child), we saved the samples indexes and use them */
+		/* instead of saving the whole samples (features of a child), 
+		we saved the samples indexes and use them */
 		else
 			sample_index = group[j];
 		
@@ -51,12 +52,27 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
 
 fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 {
+<<<<<<< HEAD
 	fixed first_class_counter = 0;
 	fixed second_class_counter = 0;
 	fixed score, score2;
 	fixed gini = 0;
 	uint16_t r_lc = root->left_counter;
 	uint16_t r_rc = root->right_counter;
+=======
+	/*float first_class_counter = 0;
+	float second_class_counter = 0;
+	float score, score2;
+	float gini = 0;
+	float r_lc = F_TO_FLOAT(root->left_counter);
+	float r_rc = F_TO_FLOAT(root->right_counter);*/
+    fixed first_class_counter = 0;
+    fixed second_class_counter = 0;
+    fixed score, score2;
+    fixed gini = 0;
+    fixed r_lc = root->left_counter;
+    fixed r_rc = root->right_counter;
+>>>>>>> changed dataset
 	uint16_t sample_index;
 	uint16_t j;
 
@@ -69,11 +85,18 @@ fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 				second_class_counter+=F_LIT(1);
 		}
 		//score =  (first_class_counter/r_lc)*(first_class_counter/r_lc) + (second_class_counter/r_lc)*(second_class_counter/r_lc);
+<<<<<<< HEAD
 		fixed fcc = F_DIV(first_class_counter, F_LIT(r_lc));
 		fixed scc = F_DIV(second_class_counter, F_LIT(r_lc));
 		score = F_MUL(fcc,fcc) + F_MUL(scc,scc);
 		//gini = (1.0 - score) * (r_lc / (r_lc + r_rc));
 		gini = F_MUL(F_LIT(1)-score, F_DIV(F_LIT(r_lc), F_LIT(r_lc)+F_LIT(r_rc)));
+=======
+		fixed fcc = F_DIV(first_class_counter,r_lc);
+		fixed scc = F_DIV(second_class_counter,r_lc);
+		score = F_MUL(fcc,fcc)+F_MUL(scc,scc);
+		gini = F_MUL((F_LIT(1.0) - score),F_DIV(r_lc,(r_lc + r_rc)));
+>>>>>>> changed dataset
 		first_class_counter = 0;
 		second_class_counter = 0;
 	}
@@ -85,12 +108,19 @@ fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 			else
 				second_class_counter+=F_LIT(1);
 		}
+<<<<<<< HEAD
 		//score2 =  (first_class_counter / r_rc)*(first_class_counter / r_rc) + (second_class_counter / r_rc)*(second_class_counter / r_rc);
 		fixed fcc = F_DIV(first_class_counter, F_LIT(r_rc));
 		fixed scc = F_DIV(second_class_counter, F_LIT(r_rc));
 		score2 = F_MUL(fcc,fcc) + F_MUL(scc,scc);
 		//gini += (1.0 - score2) * (r_rc/(r_lc + r_rc));
 		gini += F_MUL(F_LIT(1)-score2, F_DIV(F_LIT(r_rc), F_LIT(r_lc)+F_LIT(r_rc)));
+=======
+		fixed fcc = F_DIV(first_class_counter,r_rc);
+		fixed scc = F_DIV(second_class_counter,r_rc);
+		score2 = F_MUL(fcc,fcc)+F_MUL(scc,scc);
+		gini += F_MUL((F_LIT(1.0) - score2),F_DIV(r_rc,(r_lc + r_rc)));
+>>>>>>> changed dataset
 	}
 	return gini;
 }

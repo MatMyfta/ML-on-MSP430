@@ -1,10 +1,17 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.0                     
 ******************************************************************************
+<<<<<<< HEAD
 >> Linked Wed Mar  2 16:02:21 2022
 
 OUTPUT FILE NAME:   <AEP.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 00009c00
+=======
+>> Linked Fri Feb 25 23:55:57 2022
+
+OUTPUT FILE NAME:   <AEP.out>
+ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 0000c000
+>>>>>>> changed dataset
 
 
 MEMORY CONFIGURATION
@@ -17,10 +24,17 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
+<<<<<<< HEAD
   RAM                   00001c00   00001000  000003ec  00000c14  RWIX
   LEARAM                00002c00   00000ec8  00000000  00000ec8  RWIX
   LEASTACK              00003ac8   00000138  00000000  00000138  RWIX
   FRAM                  00004000   0000bf80  00005dd6  000061aa  RWIX
+=======
+  RAM                   00001c00   00001000  00000404  00000bfc  RWIX
+  LEARAM                00002c00   00000ec8  00000000  00000ec8  RWIX
+  LEASTACK              00003ac8   00000138  00000000  00000138  RWIX
+  FRAM                  00004000   0000bf80  000081ce  00003db2  RWIX
+>>>>>>> changed dataset
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -80,7 +94,11 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
+<<<<<<< HEAD
   FRAM2                 00010000   00033ff8  000065f2  0002da06  RWIX
+=======
+  FRAM2                 00010000   00033ff8  000066c6  0002d932  RWIX
+>>>>>>> changed dataset
 
 
 SECTION ALLOCATION MAP
@@ -88,7 +106,11 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
+<<<<<<< HEAD
 .data      0    00001c00    0000019c     UNINITIALIZED
+=======
+.data      0    00001c00    00000194     UNINITIALIZED
+>>>>>>> changed dataset
                   00001c00    000000c8     rts430x_lc_ld_eabi.lib : defs.c.obj (.data:_ftable)
                   00001cc8    00000078                            : host_device.c.obj (.data:_device)
                   00001d40    0000003c                            : host_device.c.obj (.data:_stream)
@@ -96,6 +118,7 @@ section   page    origin      length       input sections
                   00001d80    00000004                            : exit_gvars.c.obj (.data:__TI_dtors_ptr)
                   00001d84    00000004                            : _lock.c.obj (.data:_lock)
                   00001d88    00000004                            : _lock.c.obj (.data:_unlock)
+<<<<<<< HEAD
                   00001d8c    00000004     dataset.obj (.data:classes)
                   00001d90    00000004     dt_training.obj (.data)
                   00001d94    00000002     rts430x_lc_ld_eabi.lib : defs.c.obj (.data)
@@ -139,11 +162,54 @@ section   page    origin      length       input sections
                   00009db4    0000000c     (__TI_handler_table)
                   00009dc0    00000006     (.cinit..bss.load) [load image, compression = zero_init]
                   00009dc6    00000010     (__TI_cinit_table)
+=======
+                  00001d8c    00000002                            : defs.c.obj (.data)
+                  00001d8e    00000002                            : errno.c.obj (.data)
+                  00001d90    00000002                            : exit.c.obj (.data)
+                  00001d92    00000002                            : memory.c.obj (.data)
+
+.TI.persistent 
+*          0    00004000    00007c34     
+                  00004000    00004cc0     dataset.obj (.TI.persistent:X_train)
+                  00008cc0    00001340     test.obj (.TI.persistent:X_test)
+                  0000a000    000012c0     main.obj (.TI.persistent:max_samples)
+                  0000b2c0    000004b0     main.obj (.TI.persistent:weights)
+                  0000b770    00000268     test.obj (.TI.persistent:y_test)
+                  0000b9d8    00000258     main.obj (.TI.persistent:y_train)
+                  0000bc30    00000004     main.obj (.TI.persistent)
+
+.binit     0    00004000    00000000     
+
+.cio       0    0000bc34    00000120     UNINITIALIZED
+                  0000bc34    00000120     rts430x_lc_ld_eabi.lib : trgmsg.c.obj (.cio)
+
+.sysmem    0    0000bd54    00000190     
+                  0000bd54    00000008     rts430x_lc_ld_eabi.lib : memory.c.obj (.sysmem) [fill = 0]
+                  0000bd5c    00000188     --HOLE-- [fill = 0]
+
+.ipestruct 
+*          0    0000c000    00000000     UNINITIALIZED
+
+.ipe       0    0000c000    00000000     UNINITIALIZED
+
+.ipe_const 
+*          0    0000c000    00000000     UNINITIALIZED
+
+.ipe:_isr 
+*          0    0000c000    00000000     UNINITIALIZED
+
+.cinit     0    0000c154    0000007a     
+                  0000c154    00000058     (.cinit..data.load) [load image, compression = lzss]
+                  0000c1ac    0000000c     (__TI_handler_table)
+                  0000c1b8    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000c1be    00000010     (__TI_cinit_table)
+>>>>>>> changed dataset
 
 .init_array 
 *          0    00004000    00000000     UNINITIALIZED
 
 .text:_isr 
+<<<<<<< HEAD
 *          0    00009c00    00000028     
                   00009c00    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
                   00009c20    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
@@ -157,6 +223,21 @@ section   page    origin      length       input sections
                   00001ea4    00000004     rts430x_lc_ld_eabi.lib : memory.c.obj (.bss)
                   00001ea8    00000002     (.common:pred_class)
                   00001eaa    00000002     (.common:random_num)
+=======
+*          0    0000c000    00000028     
+                  0000c000    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
+                  0000c020    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+
+.bss       0    00001d94    00000130     UNINITIALIZED
+                  00001d94    000000a0     (.common:__TI_tmpnams)
+                  00001e34    00000040     (.common:cluster_assignment)
+                  00001e74    00000020     (.common:centroids)
+                  00001e94    00000020     (.common:prev_centroids)
+                  00001eb4    00000008     (.common:parmbuf)
+                  00001ebc    00000004     rts430x_lc_ld_eabi.lib : memory.c.obj (.bss)
+                  00001ec0    00000002     (.common:pred_class)
+                  00001ec2    00000002     (.common:random_num)
+>>>>>>> changed dataset
 
 .stack     0    00002ac0    00000140     UNINITIALIZED
                   00002ac0    00000004     rts430x_lc_ld_eabi.lib : boot.c.obj (.stack)
@@ -297,6 +378,7 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_ld_eabi.lib : boot.c.obj (.reset)
 
+<<<<<<< HEAD
 .const     0    00009c28    00000132     
                   00009c28    00000101     rts430x_lc_ld_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
                   00009d29    00000001     --HOLE-- [fill = 0]
@@ -444,12 +526,161 @@ SYSNMI     0    0000fffc    00000002
                   000165ea    00000004                            : pre_init.c.obj (.text:_system_pre_init)
                   000165ee    00000002                            : _lock.c.obj (.text:_nop)
                   000165f0    00000002                            : startup.c.obj (.text:_system_post_cinit)
+=======
+.const     0    0000c028    0000012c     
+                  0000c028    00000101     rts430x_lc_ld_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
+                  0000c129    00000001     --HOLE-- [fill = 0]
+                  0000c12a    00000026                            : _printfi.c.obj (.const:.string)
+                  0000c150    00000004     main.obj (.const:.string)
+
+.text      0    00010000    000066c6     
+                  00010000    0000072a     rts430x_lc_ld_eabi.lib : addd.c.obj (.text:__mspabi_addd)
+                  0001072a    00000466                            : frcdivd.c.obj (.text:__TI_frcdivd)
+                  00010b90    000003de     kmeans.obj (.text:kmeans)
+                  00010f6e    0000034e     rts430x_lc_ld_eabi.lib : div64u.c.obj (.text:__mspabi_divull)
+                  000112bc    000002ee                            : _printfi.c.obj (.text:__TI_printfi:_setfield___TI_printfi)
+                  000115aa    000002de                            : e_sqrt.c.obj (.text:sqrt)
+                  00011888    000002ae                            : _printfi.c.obj (.text:__TI_printfi:__TI_printfi)
+                  00011b36    00000298                            : mpyd.c.obj (.text:__mspabi_mpyd)
+                  00011dce    00000268                            : _printfi.c.obj (.text:_pproc_fgea)
+                  00012036    00000224                            : _printfi.c.obj (.text:acvt)
+                  0001225a    00000222                            : divd.c.obj (.text:__mspabi_divd)
+                  0001247c    0000020c                            : _printfi.c.obj (.text:__TI_printfi:_getarg_diouxp___TI_printfi)
+                  00012688    00000208     main.obj (.text:main)
+                  00012890    000001ec     main.obj (.text:quicksort_idx)
+                  00012a7c    000001e6     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:ecvt)
+                  00012c62    000001dc     knn_classification.obj (.text:knn_classification)
+                  00012e3e    000001c8     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:fcvt)
+                  00013006    000001b6                            : memory.c.obj (.text:aligned_alloc)
+                  000131bc    000001aa                            : _printfi.c.obj (.text:_pconv_e)
+                  00013366    0000018e                            : qsort.c.obj (.text:qsort)
+                  000134f4    00000170                            : _printfi.c.obj (.text:_pconv_a)
+                  00013664    00000164                            : frcmpyd.c.obj (.text:__TI_frcmpyd)
+                  000137c8    00000162     kmeans.obj (.text:clustering)
+                  0001392a    0000015e     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:__TI_printfi:_ltostr___TI_printfi)
+                  00013a88    0000015a                            : fputs.c.obj (.text:fputs)
+                  00013be2    0000015a                            : s_scalbn.c.obj (.text:scalbn)
+                  00013d3c    00000150     main.obj (.text:update_mem)
+                  00013e8c    0000014c     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:free)
+                  00013fd8    00000148                            : _printfi.c.obj (.text:__TI_printfi:_pproc_diouxp___TI_printfi)
+                  00014120    0000013e                            : memory.c.obj (.text:realloc)
+                  0001425e    00000132                            : fs_add.asm.obj (.text)
+                  00014390    0000012e     kmeans.obj (.text:kmeanspp)
+                  000144be    000000fc     rts430x_lc_ld_eabi.lib : _printfi.c.obj (.text:_pconv_g)
+                  000145ba    000000fa                            : setvbuf.c.obj (.text:setvbuf)
+                  000146b4    000000ea                            : _printfi.c.obj (.text:__TI_printfi:_pproc_fwp___TI_printfi)
+                  0001479e    000000d8                            : cmpd.c.obj (.text:__mspabi_cmpd)
+                  00014876    000000d6                            : _printfi.c.obj (.text:__TI_printfi:_pproc_wstr___TI_printfi)
+                  0001494c    000000ce     pipeline.obj (.text:pipeline)
+                  00014a1a    000000c2     rts430x_lc_ld_eabi.lib : memory.c.obj (.text:split)
+                  00014adc    000000b8                            : fs_mpy.asm.obj (.text)
+                  00014b94    000000b4                            : _printfi.c.obj (.text:__TI_printfi:_pproc_str___TI_printfi)
+                  00014c48    000000b4                            : _printfi.c.obj (.text:_mcpy)
+                  00014cfc    000000b4     kmeans.obj (.text:update_centroids)
+                  00014db0    000000b2     rts430x_lc_ld_eabi.lib : cvtdf.c.obj (.text:__mspabi_cvtdf)
+                  00014e62    000000a6                            : s_frexp.c.obj (.text:frexp)
+                  00014f08    000000a2     kmeans.obj (.text:initial_centroids)
+                  00014faa    0000009e     rts430x_lc_ld_eabi.lib : fltlid.c.obj (.text:__mspabi_fltlid)
+                  00015048    0000009a                            : hostlseek.c.obj (.text:HOSTlseek)
+                  000150e2    00000096                            : _ltoa.c.obj (.text:__TI_ltoa)
+                  00015178    00000090                            : _printfi.c.obj (.text:_ecpy)
+                  00015208    00000090                            : fputc.c.obj (.text:fputc)
+                  00015298    00000090                            : fs_div.asm.obj (.text)
+                  00015328    00000086                            : _io_perm.c.obj (.text:__TI_wrt_ok)
+                  000153ae    00000086     knn_classification.obj (.text:f_div)
+                  00015434    00000078     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  000154ac    00000078                            : _printfi.c.obj (.text:_pconv_f)
+                  00015524    00000076                            : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  0001559a    00000074                            : hostrename.c.obj (.text:HOSTrename)
+                  0001560e    00000074                            : fclose.c.obj (.text:__TI_closefile)
+                  00015682    00000074                            : fseek.c.obj (.text:fseeko)
+                  000156f6    00000070                            : hostopen.c.obj (.text:HOSTopen)
+                  00015766    00000070     kmeans.obj (.text:update_cluster_assignment)
+                  000157d6    0000006c     rts430x_lc_ld_eabi.lib : hostwrite.c.obj (.text:HOSTwrite)
+                  00015842    0000006a                            : hostread.c.obj (.text:HOSTread)
+                  000158ac    00000068                            : fs_toi.asm.obj (.text)
+                  00015914    00000066                            : fixdli.c.obj (.text:__mspabi_fixdli)
+                  0001597a    00000064                            : cvtfd.c.obj (.text:__mspabi_cvtfd)
+                  000159de    00000062                            : atoi.c.obj (.text:atoi)
+                  00015a40    00000062                            : getdevice.c.obj (.text:getdevice)
+                  00015aa2    00000060                            : fflush.c.obj (.text:__TI_doflush)
+                  00015b02    0000005c                            : mult64_f5hw.asm.obj (.text:__mpyll)
+                  00015b5e    0000005a                            : close.c.obj (.text:close)
+                  00015bb8    00000058                            : div32u.asm.obj (.text)
+                  00015c10    0000004e                            : hostclose.c.obj (.text:HOSTclose)
+                  00015c5e    0000004e                            : _printfi.c.obj (.text:_fcpy)
+                  00015cac    0000004e                            : strncpy.c.obj (.text:strncpy)
+                  00015cfa    0000004a                            : exit.c.obj (.text:exit)
+                  00015d44    0000004a                            : printf.c.obj (.text:printf)
+                  00015d8e    0000004a                            : fs_cmp.asm.obj (.text)
+                  00015dd8    00000048     pf_sim.obj (.text:rtc_init)
+                  00015e20    00000046     rts430x_lc_ld_eabi.lib : hostunlink.c.obj (.text:HOSTunlink)
+                  00015e66    00000046                            : memory.c.obj (.text:free_list_insert)
+                  00015eac    00000046                            : fs_tou.asm.obj (.text)
+                  00015ef2    00000040                            : asr64.c.obj (.text:__mspabi_srall)
+                  00015f32    00000040                            : div32s.asm.obj (.text)
+                  00015f72    0000003e                            : asr32.asm.obj (.text:l_asr_const)
+                  00015fb0    0000003e                            : lsl32.asm.obj (.text:l_lsl_const)
+                  00015fee    0000003e                            : lsr32.asm.obj (.text:l_lsr_const)
+                  0001602c    0000003e                            : lseek.c.obj (.text:lseek)
+                  0001606a    0000003c                            : memcpy.c.obj (.text:memcpy)
+                  000160a6    0000003c                            : write.c.obj (.text:write)
+                  000160e2    0000003a                            : lsl64.c.obj (.text:__mspabi_sllll)
+                  0001611c    0000003a                            : lsr64.c.obj (.text:__mspabi_srlll)
+                  00016156    00000036                            : fopen.c.obj (.text:__TI_cleanup)
+                  0001618c    00000036                            : trgmsg.c.obj (.text:__TI_writemsg)
+                  000161c2    00000036                            : getdevice.c.obj (.text:finddevice)
+                  000161f8    00000036                            : fs_itof.asm.obj (.text)
+                  0001622e    00000034                            : memccpy.c.obj (.text:memccpy)
+                  00016262    00000034                            : memcmp.c.obj (.text:memcmp)
+                  00016296    00000032                            : trgmsg.c.obj (.text:__TI_readmsg)
+                  000162c8    00000032                            : subd.c.obj (.text:__mspabi_subd)
+                  000162fa    00000032     knn_classification.obj (.text:struct_cmp_by_score_dec)
+                  0001632c    00000030     rts430x_lc_ld_eabi.lib : unlink.c.obj (.text:unlink)
+                  0001635c    0000002e                            : negd.c.obj (.text:__mspabi_negd)
+                  0001638a    0000002e                            : s_copysign.c.obj (.text:copysign)
+                  000163b8    0000002c     MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib : mpu_init.o (.text:__mpu_init)
+                  000163e4    0000002c     rts430x_lc_ld_eabi.lib : mult3264_f5hw.asm.obj (.text:__mpyull)
+                  00016410    0000002c                            : div16s.asm.obj (.text)
+                  0001643c    0000002a                            : memory.c.obj (.text:free_list_remove)
+                  00016466    00000028                            : fixdi.c.obj (.text:__mspabi_fixdi)
+                  0001648e    00000028                            : wcslen.c.obj (.text:wcslen)
+                  000164b6    00000026                            : qsort.c.obj (.text:swap_item)
+                  000164dc    00000024                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00016500    00000024                            : fs_utof.asm.obj (.text)
+                  00016524    00000024                            : mult32_f5hw.asm.obj (.text)
+                  00016548    00000020                            : memchr.c.obj (.text:memchr)
+                  00016568    00000020                            : memset.c.obj (.text:memset)
+                  00016588    0000001c                            : strchr.c.obj (.text:strchr)
+                  000165a4    0000001c                            : strcmp.c.obj (.text:strcmp)
+                  000165c0    00000018                            : mult16_f5hw.asm.obj (.text)
+                  000165d8    00000016                            : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  000165ee    00000016                            : memory.c.obj (.text:heap_start)
+                  00016604    00000016                            : div16u.asm.obj (.text)
+                  0001661a    00000012                            : strcpy.c.obj (.text:strcpy)
+                  0001662c    00000012                            : strlen.c.obj (.text:strlen)
+                  0001663e    00000012                            : toupper.c.obj (.text:toupper)
+                  00016650    00000010     pf_sim.obj (.text:RTC_start)
+                  00016660    00000010     rts430x_lc_ld_eabi.lib : lsl32.asm.obj (.text:l_lsl)
+                  00016670    00000010                            : lsr32.asm.obj (.text:l_lsr)
+                  00016680    0000000c                            : fltid.c.obj (.text:__mspabi_fltid)
+                  0001668c    0000000c                            : memory.c.obj (.text:malloc)
+                  00016698    0000000c     pf_sim.obj (.text:random_number)
+                  000166a4    0000000a     rts430x_lc_ld_eabi.lib : abs.c.obj (.text:abs)
+                  000166ae    00000006                            : printf.c.obj (.text:_outc)
+                  000166b4    00000006                            : exit.c.obj (.text:abort)
+                  000166ba    00000004                            : printf.c.obj (.text:_outs)
+                  000166be    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  000166c2    00000002                            : _lock.c.obj (.text:_nop)
+                  000166c4    00000002                            : startup.c.obj (.text:_system_post_cinit)
+>>>>>>> changed dataset
 
 MODULE SUMMARY
 
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
+<<<<<<< HEAD
        dataset.obj                  0       0         9828   
        dt_training.obj              2154    0         6334   
        main.obj                     804     10        3932   
@@ -457,10 +688,22 @@ MODULE SUMMARY
        kmeans.obj                   2172    0         64     
        fixed.obj                    326     0         0      
        pipeline.obj                 204     0         2      
+=======
+       dataset.obj                  0       0         19648  
+       main.obj                     1348    4         6636   
+       test.obj                     0       0         5544   
+       kmeans.obj                   2100    0         96     
+       knn_classification.obj       660     0         0      
+       pipeline.obj                 206     0         2      
+>>>>>>> changed dataset
        pf_sim.obj                   100     0         2      
        dt_classification.obj        92      0         0      
     +--+----------------------------+-------+---------+---------+
+<<<<<<< HEAD
        Total:                       5852    10        22934  
+=======
+       Total:                       4414    4         31928  
+>>>>>>> changed dataset
                                                              
     C:\ti\ccs1100\ccs\ccs_base\msp430\lib\FR59xx\MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib
        mpu_init.o                   44      0         0      
@@ -470,11 +713,21 @@ MODULE SUMMARY
     C:\ti\ccs1100\ccs\tools\compiler\ti-cgt-msp430_21.6.0.LTS\lib\rts430x_lc_ld_eabi.lib
        _printfi.c.obj               6940    38        0      
        addd.c.obj                   1834    0         0      
+<<<<<<< HEAD
        frcdivd.c.obj                1126    0         0      
        memory.c.obj                 1110    0         6      
        div64u.c.obj                 846     0         0      
        mpyd.c.obj                   664     0         0      
        divd.c.obj                   546     0         0      
+=======
+       memory.c.obj                 1428    0         6      
+       frcdivd.c.obj                1126    0         0      
+       div64u.c.obj                 846     0         0      
+       e_sqrt.c.obj                 734     0         0      
+       mpyd.c.obj                   664     0         0      
+       divd.c.obj                   546     0         0      
+       qsort.c.obj                  436     0         0      
+>>>>>>> changed dataset
        trgmsg.c.obj                 104     0         288    
        defs.c.obj                   0       0         362    
        frcmpyd.c.obj                356     0         0      
@@ -495,7 +748,10 @@ MODULE SUMMARY
        fputc.c.obj                  144     0         0      
        fs_div.asm.obj               144     0         0      
        _io_perm.c.obj               134     0         0      
+<<<<<<< HEAD
        fs_tol.asm.obj               126     0         0      
+=======
+>>>>>>> changed dataset
        autoinit.c.obj               120     0         0      
        hostopen.c.obj               112     0         8      
        copy_decompress_lzss.c.obj   118     0         0      
@@ -504,6 +760,10 @@ MODULE SUMMARY
        hostrename.c.obj             116     0         0      
        hostwrite.c.obj              108     0         0      
        hostread.c.obj               106     0         0      
+<<<<<<< HEAD
+=======
+       fs_toi.asm.obj               104     0         0      
+>>>>>>> changed dataset
        fixdli.c.obj                 102     0         0      
        cvtfd.c.obj                  100     0         0      
        atoi.c.obj                   98      0         0      
@@ -514,26 +774,45 @@ MODULE SUMMARY
        printf.c.obj                 84      0         0      
        exit.c.obj                   80      0         2      
        hostclose.c.obj              78      0         0      
+<<<<<<< HEAD
        lsr32.asm.obj                78      0         0      
        strncpy.c.obj                78      0         0      
        fs_ltof.asm.obj              74      0         0      
+=======
+       lsl32.asm.obj                78      0         0      
+       lsr32.asm.obj                78      0         0      
+       strncpy.c.obj                78      0         0      
+       fs_cmp.asm.obj               74      0         0      
+       fs_tou.asm.obj               70      0         0      
+>>>>>>> changed dataset
        hostunlink.c.obj             70      0         0      
        asr64.c.obj                  64      0         0      
        div32s.asm.obj               64      0         0      
        asr32.asm.obj                62      0         0      
        lseek.c.obj                  62      0         0      
+<<<<<<< HEAD
        lsl32.asm.obj                62      0         0      
+=======
+>>>>>>> changed dataset
        memcpy.c.obj                 60      0         0      
        write.c.obj                  60      0         0      
        lsl64.c.obj                  58      0         0      
        lsr64.c.obj                  58      0         0      
        fopen.c.obj                  54      0         0      
+<<<<<<< HEAD
+=======
+       fs_itof.asm.obj              54      0         0      
+>>>>>>> changed dataset
        memccpy.c.obj                52      0         0      
        memcmp.c.obj                 52      0         0      
        subd.c.obj                   50      0         0      
        unlink.c.obj                 48      0         0      
        negd.c.obj                   46      0         0      
        s_copysign.c.obj             46      0         0      
+<<<<<<< HEAD
+=======
+       div16s.asm.obj               44      0         0      
+>>>>>>> changed dataset
        mult3264_f5hw.asm.obj        44      0         0      
        fixdi.c.obj                  40      0         0      
        wcslen.c.obj                 40      0         0      
@@ -597,6 +876,7 @@ MODULE SUMMARY
        int54.asm.obj                0       2         0      
        startup.c.obj                2       0         0      
     +--+----------------------------+-------+---------+---------+
+<<<<<<< HEAD
        Total:                       20242   371       864    
                                                              
        Heap:                        0       0         400    
@@ -604,18 +884,37 @@ MODULE SUMMARY
        Linker Generated:            0       123       0      
     +--+----------------------------+-------+---------+---------+
        Grand Total:                 26138   504       24518  
+=======
+       Total:                       21892   371       864    
+                                                             
+       Heap:                        0       0         400    
+       Stack:                       0       0         320    
+       Linker Generated:            0       122       0      
+    +--+----------------------------+-------+---------+---------+
+       Grand Total:                 26350   497       33512  
+>>>>>>> changed dataset
 
 
 LINKER GENERATED COPY TABLES
 
+<<<<<<< HEAD
 __TI_cinit_table @ 00009dc6 records: 2, size/record: 8, table size: 16
 	.data: load addr=00009d5a, load size=00000059 bytes, run addr=00001c00, run size=0000019c bytes, compression=lzss
 	.bss: load addr=00009dc0, load size=00000006 bytes, run addr=00001d9c, run size=00000110 bytes, compression=zero_init
+=======
+__TI_cinit_table @ 0000c1be records: 2, size/record: 8, table size: 16
+	.data: load addr=0000c154, load size=00000058 bytes, run addr=00001c00, run size=00000194 bytes, compression=lzss
+	.bss: load addr=0000c1b8, load size=00000006 bytes, run addr=00001d94, run size=00000130 bytes, compression=zero_init
+>>>>>>> changed dataset
 
 
 LINKER GENERATED HANDLER TABLE
 
+<<<<<<< HEAD
 __TI_handler_table @ 00009db4 records: 3, size/record: 4, table size: 12
+=======
+__TI_handler_table @ 0000c1ac records: 3, size/record: 4, table size: 12
+>>>>>>> changed dataset
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -886,8 +1185,13 @@ address   name
 000004bc  BIN2BCD                                
 000004bd  BIN2BCD_H                              
 000004bc  BIN2BCD_L                              
+<<<<<<< HEAD
 000165e0  C$$EXIT                                
 0001615a  C$$IO$$                                
+=======
+000166b4  C$$EXIT                                
+000161be  C$$IO$$                                
+>>>>>>> changed dataset
 0000043e  CAPTIO0CTL                             
 0000043f  CAPTIO0CTL_H                           
 0000043e  CAPTIO0CTL_L                           
@@ -1077,6 +1381,7 @@ address   name
 00000146  GCCTL1                                 
 00000147  GCCTL1_H                               
 00000146  GCCTL1_L                               
+<<<<<<< HEAD
 000163f4  GetNewNode                             
 00015b08  HOSTclose                              
 00014d58  HOSTlseek                              
@@ -1085,6 +1390,15 @@ address   name
 0001542a  HOSTrename                             
 00015e02  HOSTunlink                             
 000156da  HOSTwrite                              
+=======
+00015c10  HOSTclose                              
+00015048  HOSTlseek                              
+000156f6  HOSTopen                               
+00015842  HOSTread                               
+0001559a  HOSTrename                             
+00015e20  HOSTunlink                             
+000157d6  HOSTwrite                              
+>>>>>>> changed dataset
 00000a80  LEACAP                                 
 00000a82  LEACAPH                                
 00000a80  LEACAPL                                
@@ -1595,7 +1909,11 @@ address   name
 000004b6  RTCYEAR                                
 000004b7  RTCYEAR_H                              
 000004b6  RTCYEAR_L                              
+<<<<<<< HEAD
 0001658c  RTC_start                              
+=======
+00016650  RTC_start                              
+>>>>>>> changed dataset
 00000100  SFRIE1                                 
 00000101  SFRIE1_H                               
 00000100  SFRIE1_L                               
@@ -2178,6 +2496,7 @@ address   name
 0000015c  WDTCTL                                 
 0000015d  WDTCTL_H                               
 0000015c  WDTCTL_L                               
+<<<<<<< HEAD
 00007f1a  X_test                                 
 00004000  X_train                                
 0000992a  _CIOBUF_                               
@@ -2202,6 +2521,32 @@ address   name
 0001072a  __TI_frcdivd                           
 000136ce  __TI_frcmpyd                           
 00001d94  __TI_ft_end                            
+=======
+00008cc0  X_test                                 
+00004000  X_train                                
+0000bc34  _CIOBUF_                               
+00002c00  __STACK_END                            
+00000140  __STACK_SIZE                           
+00000190  __SYSMEM_SIZE                          
+0000c1be  __TI_CINIT_Base                        
+0000c1ce  __TI_CINIT_Limit                       
+0000c1ce  __TI_CINIT_Warm                        
+0000c1ac  __TI_Handler_Table_Base                
+0000c1b8  __TI_Handler_Table_Limit               
+0000c020  __TI_ISR_TRAP                          
+00015434  __TI_auto_init_nobinit_nopinit_hold_wdt
+00016156  __TI_cleanup                           
+00001d7c  __TI_cleanup_ptr                       
+0001560e  __TI_closefile                         
+00015524  __TI_decompress_lzss                   
+000165d8  __TI_decompress_none                   
+00015aa2  __TI_doflush                           
+00001d80  __TI_dtors_ptr                         
+00001d90  __TI_enable_exit_profile_output        
+0001072a  __TI_frcdivd                           
+00013664  __TI_frcmpyd                           
+00001d8c  __TI_ft_end                            
+>>>>>>> changed dataset
 0000ffb4  __TI_int18                             
 0000ffb6  __TI_int19                             
 0000ffb8  __TI_int20                             
@@ -2239,6 +2584,7 @@ address   name
 0000fff8  __TI_int52                             
 0000fffa  __TI_int53                             
 0000fffc  __TI_int54                             
+<<<<<<< HEAD
 00014df2  __TI_ltoa                              
 ffffffff  __TI_pprof_out_hndl                    
 000118ee  __TI_printfi                           
@@ -2426,6 +2772,197 @@ ffffffff  __c_args__
 00016042  write                                  
 000096ca  y_test                                 
 000097fe  y_train                                
+=======
+000150e2  __TI_ltoa                              
+ffffffff  __TI_pprof_out_hndl                    
+00011888  __TI_printfi                           
+ffffffff  __TI_prof_data_size                    
+ffffffff  __TI_prof_data_start                   
+00016296  __TI_readmsg                           
+00001d94  __TI_tmpnams                           
+0001618c  __TI_writemsg                          
+00015328  __TI_wrt_ok                            
+000164dc  __TI_zero_init_nomemset                
+ffffffff  __c_args__                             
+00000001  __mpu_enable                           
+000163b8  __mpu_init                             
+00010000  __mspabi_addd                          
+00014264  __mspabi_addf                          
+0001479e  __mspabi_cmpd                          
+00015d8e  __mspabi_cmpf                          
+00014db0  __mspabi_cvtdf                         
+0001597a  __mspabi_cvtfd                         
+0001225a  __mspabi_divd                          
+00015298  __mspabi_divf                          
+00016410  __mspabi_divi                          
+00015f32  __mspabi_divli                         
+00016604  __mspabi_divu                          
+00015bb8  __mspabi_divul                         
+00010f6e  __mspabi_divull                        
+00016466  __mspabi_fixdi                         
+00015914  __mspabi_fixdli                        
+000158ac  __mspabi_fixfi                         
+00015eac  __mspabi_fixfu                         
+00016680  __mspabi_fltid                         
+000161f8  __mspabi_fltif                         
+00014faa  __mspabi_fltlid                        
+00016500  __mspabi_fltuf                         
+00011b36  __mspabi_mpyd                          
+00014adc  __mspabi_mpyf                          
+000165c0  __mspabi_mpyi_f5hw                     
+00016524  __mspabi_mpyl_f5hw                     
+00015b02  __mspabi_mpyll_f5hw                    
+000163e4  __mspabi_mpyull_f5hw                   
+0001635c  __mspabi_negd                          
+00016410  __mspabi_remi                          
+00015f32  __mspabi_remli                         
+00016604  __mspabi_remu                          
+00015bb8  __mspabi_remul                         
+00016660  __mspabi_slll                          
+00015fe8  __mspabi_slll_1                        
+00015fc4  __mspabi_slll_10                       
+00015fc0  __mspabi_slll_11                       
+00015fbc  __mspabi_slll_12                       
+00015fb8  __mspabi_slll_13                       
+00015fb4  __mspabi_slll_14                       
+00015fb0  __mspabi_slll_15                       
+00015fe4  __mspabi_slll_2                        
+00015fe0  __mspabi_slll_3                        
+00015fdc  __mspabi_slll_4                        
+00015fd8  __mspabi_slll_5                        
+00015fd4  __mspabi_slll_6                        
+00015fd0  __mspabi_slll_7                        
+00015fcc  __mspabi_slll_8                        
+00015fc8  __mspabi_slll_9                        
+000160e2  __mspabi_sllll                         
+00015faa  __mspabi_sral_1                        
+00015f86  __mspabi_sral_10                       
+00015f82  __mspabi_sral_11                       
+00015f7e  __mspabi_sral_12                       
+00015f7a  __mspabi_sral_13                       
+00015f76  __mspabi_sral_14                       
+00015f72  __mspabi_sral_15                       
+00015fa6  __mspabi_sral_2                        
+00015fa2  __mspabi_sral_3                        
+00015f9e  __mspabi_sral_4                        
+00015f9a  __mspabi_sral_5                        
+00015f96  __mspabi_sral_6                        
+00015f92  __mspabi_sral_7                        
+00015f8e  __mspabi_sral_8                        
+00015f8a  __mspabi_sral_9                        
+00015ef2  __mspabi_srall                         
+00016670  __mspabi_srll                          
+00016026  __mspabi_srll_1                        
+00016002  __mspabi_srll_10                       
+00015ffe  __mspabi_srll_11                       
+00015ffa  __mspabi_srll_12                       
+00015ff6  __mspabi_srll_13                       
+00015ff2  __mspabi_srll_14                       
+00015fee  __mspabi_srll_15                       
+00016022  __mspabi_srll_2                        
+0001601e  __mspabi_srll_3                        
+0001601a  __mspabi_srll_4                        
+00016016  __mspabi_srll_5                        
+00016012  __mspabi_srll_6                        
+0001600e  __mspabi_srll_7                        
+0001600a  __mspabi_srll_8                        
+00016006  __mspabi_srll_9                        
+0001611c  __mspabi_srlll                         
+000162c8  __mspabi_subd                          
+0001425e  __mspabi_subf                          
+0000c000  _c_int00_noargs_mpu                    
+0000c028  _ctypes_                               
+00001cc8  _device                                
+00001c00  _ftable                                
+00001d84  _lock                                  
+000166c2  _nop                                   
+0000fffe  _reset_vector                          
+00002ac0  _stack                                 
+00001d40  _stream                                
+0000bd54  _sys_memory                            
+000166c4  _system_post_cinit                     
+000166be  _system_pre_init                       
+00001d88  _unlock                                
+000166b4  abort                                  
+000166a4  abs                                    
+00013006  aligned_alloc                          
+000159de  atoi                                   
+00001e74  centroids                              
+00015b5e  close                                  
+00001e34  cluster_assignment                     
+000137c8  clustering                             
+0001638a  copysign                               
+0001638a  copysignl                              
+00001d8e  errno                                  
+00015cfa  exit                                   
+000161c2  finddevice                             
+00015208  fputc                                  
+00013a88  fputs                                  
+0000c000  fram_ipe_end                           
+0000c000  fram_ipe_start                         
+00004000  fram_rw_start                          
+0000c000  fram_rx_start                          
+00013e8c  free                                   
+00014e62  frexp                                  
+00014e62  frexpl                                 
+00015682  fseek                                  
+00015682  fseeko                                 
+00015a40  getdevice                              
+00014f08  initial_centroids                      
+00010b90  kmeans                                 
+00014390  kmeanspp                               
+00012c62  knn_classification                     
+00013be2  ldexp                                  
+00013be2  ldexpl                                 
+0001602c  lseek                                  
+00012688  main                                   
+0001668c  malloc                                 
+0000a000  max_samples                            
+00013006  memalign                               
+0001622e  memccpy                                
+00016548  memchr                                 
+00016262  memcmp                                 
+0001606a  memcpy                                 
+00016568  memset                                 
+0000a501  mpu_ctl0_value                         
+00001513  mpu_sam_value                          
+00000c00  mpu_segment_border1                    
+00000c00  mpu_segment_border2                    
+00001eb4  parmbuf                                
+0001494c  pipeline                               
+00001ec0  pred_class                             
+00001e94  prev_centroids                         
+00015d44  printf                                 
+00015208  putc                                   
+00013366  qsort                                  
+00012890  quicksort_idx                          
+00001ec2  random_num                             
+00016698  random_number                          
+00014120  realloc                                
+0001632c  remove                                 
+0000bc30  root                                   
+00013be2  scalbn                                 
+00013be2  scalbnl                                
+000145ba  setvbuf                                
+000115aa  sqrt                                   
+000115aa  sqrtl                                  
+00016588  strchr                                 
+000165a4  strcmp                                 
+0001661a  strcpy                                 
+0001662c  strlen                                 
+00015cac  strncpy                                
+000162fa  struct_cmp_by_score_dec                
+0001663e  toupper                                
+0001632c  unlink                                 
+00014cfc  update_centroids                       
+00015766  update_cluster_assignment              
+00013d3c  update_mem                             
+0001648e  wcslen                                 
+0000b2c0  weights                                
+000160a6  write                                  
+0000b770  y_test                                 
+0000b9d8  y_train                                
+>>>>>>> changed dataset
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -3979,6 +4516,8 @@ address   name
 00000afc  LEAIV                                  
 00000afc  LEAIVL                                 
 00000afe  LEAIVH                                 
+00000c00  mpu_segment_border1                    
+00000c00  mpu_segment_border2                    
 00001513  mpu_sam_value                          
 00001c00  _ftable                                
 00001cc8  _device                                
@@ -3987,6 +4526,7 @@ address   name
 00001d80  __TI_dtors_ptr                         
 00001d84  _lock                                  
 00001d88  _unlock                                
+<<<<<<< HEAD
 00001d8c  classes                                
 00001d90  counter                                
 00001d92  n                                      
@@ -4000,10 +4540,23 @@ address   name
 00001e9c  parmbuf                                
 00001ea8  pred_class                             
 00001eaa  random_num                             
+=======
+00001d8c  __TI_ft_end                            
+00001d8e  errno                                  
+00001d90  __TI_enable_exit_profile_output        
+00001d94  __TI_tmpnams                           
+00001e34  cluster_assignment                     
+00001e74  centroids                              
+00001e94  prev_centroids                         
+00001eb4  parmbuf                                
+00001ec0  pred_class                             
+00001ec2  random_num                             
+>>>>>>> changed dataset
 00002ac0  _stack                                 
 00002c00  __STACK_END                            
 00004000  X_train                                
 00004000  fram_rw_start                          
+<<<<<<< HEAD
 00006660  dt                                     
 00007f1a  X_test                                 
 000088ba  max_samples                            
@@ -4023,7 +4576,28 @@ address   name
 00009dc6  __TI_CINIT_Base                        
 00009dd6  __TI_CINIT_Limit                       
 00009dd6  __TI_CINIT_Warm                        
+=======
+00008cc0  X_test                                 
+0000a000  max_samples                            
+>>>>>>> changed dataset
 0000a501  mpu_ctl0_value                         
+0000b2c0  weights                                
+0000b770  y_test                                 
+0000b9d8  y_train                                
+0000bc30  root                                   
+0000bc34  _CIOBUF_                               
+0000bd54  _sys_memory                            
+0000c000  _c_int00_noargs_mpu                    
+0000c000  fram_ipe_end                           
+0000c000  fram_ipe_start                         
+0000c000  fram_rx_start                          
+0000c020  __TI_ISR_TRAP                          
+0000c028  _ctypes_                               
+0000c1ac  __TI_Handler_Table_Base                
+0000c1b8  __TI_Handler_Table_Limit               
+0000c1be  __TI_CINIT_Base                        
+0000c1ce  __TI_CINIT_Limit                       
+0000c1ce  __TI_CINIT_Warm                        
 0000ffb4  __TI_int18                             
 0000ffb6  __TI_int19                             
 0000ffb8  __TI_int20                             
@@ -4065,6 +4639,7 @@ address   name
 00010000  __mspabi_addd                          
 0001072a  __TI_frcdivd                           
 00010b90  kmeans                                 
+<<<<<<< HEAD
 00010f8e  __mspabi_divull                        
 000112dc  main                                   
 000118ee  __TI_printfi                           
@@ -4229,9 +4804,183 @@ address   name
 000165ea  _system_pre_init                       
 000165ee  _nop                                   
 000165f0  _system_post_cinit                     
+=======
+00010f6e  __mspabi_divull                        
+000115aa  sqrt                                   
+000115aa  sqrtl                                  
+00011888  __TI_printfi                           
+00011b36  __mspabi_mpyd                          
+0001225a  __mspabi_divd                          
+00012688  main                                   
+00012890  quicksort_idx                          
+00012c62  knn_classification                     
+00013006  aligned_alloc                          
+00013006  memalign                               
+00013366  qsort                                  
+00013664  __TI_frcmpyd                           
+000137c8  clustering                             
+00013a88  fputs                                  
+00013be2  ldexp                                  
+00013be2  ldexpl                                 
+00013be2  scalbn                                 
+00013be2  scalbnl                                
+00013d3c  update_mem                             
+00013e8c  free                                   
+00014120  realloc                                
+0001425e  __mspabi_subf                          
+00014264  __mspabi_addf                          
+00014390  kmeanspp                               
+000145ba  setvbuf                                
+0001479e  __mspabi_cmpd                          
+0001494c  pipeline                               
+00014adc  __mspabi_mpyf                          
+00014cfc  update_centroids                       
+00014db0  __mspabi_cvtdf                         
+00014e62  frexp                                  
+00014e62  frexpl                                 
+00014f08  initial_centroids                      
+00014faa  __mspabi_fltlid                        
+00015048  HOSTlseek                              
+000150e2  __TI_ltoa                              
+00015208  fputc                                  
+00015208  putc                                   
+00015298  __mspabi_divf                          
+00015328  __TI_wrt_ok                            
+00015434  __TI_auto_init_nobinit_nopinit_hold_wdt
+00015524  __TI_decompress_lzss                   
+0001559a  HOSTrename                             
+0001560e  __TI_closefile                         
+00015682  fseek                                  
+00015682  fseeko                                 
+000156f6  HOSTopen                               
+00015766  update_cluster_assignment              
+000157d6  HOSTwrite                              
+00015842  HOSTread                               
+000158ac  __mspabi_fixfi                         
+00015914  __mspabi_fixdli                        
+0001597a  __mspabi_cvtfd                         
+000159de  atoi                                   
+00015a40  getdevice                              
+00015aa2  __TI_doflush                           
+00015b02  __mspabi_mpyll_f5hw                    
+00015b5e  close                                  
+00015bb8  __mspabi_divul                         
+00015bb8  __mspabi_remul                         
+00015c10  HOSTclose                              
+00015cac  strncpy                                
+00015cfa  exit                                   
+00015d44  printf                                 
+00015d8e  __mspabi_cmpf                          
+00015e20  HOSTunlink                             
+00015eac  __mspabi_fixfu                         
+00015ef2  __mspabi_srall                         
+00015f32  __mspabi_divli                         
+00015f32  __mspabi_remli                         
+00015f72  __mspabi_sral_15                       
+00015f76  __mspabi_sral_14                       
+00015f7a  __mspabi_sral_13                       
+00015f7e  __mspabi_sral_12                       
+00015f82  __mspabi_sral_11                       
+00015f86  __mspabi_sral_10                       
+00015f8a  __mspabi_sral_9                        
+00015f8e  __mspabi_sral_8                        
+00015f92  __mspabi_sral_7                        
+00015f96  __mspabi_sral_6                        
+00015f9a  __mspabi_sral_5                        
+00015f9e  __mspabi_sral_4                        
+00015fa2  __mspabi_sral_3                        
+00015fa6  __mspabi_sral_2                        
+00015faa  __mspabi_sral_1                        
+00015fb0  __mspabi_slll_15                       
+00015fb4  __mspabi_slll_14                       
+00015fb8  __mspabi_slll_13                       
+00015fbc  __mspabi_slll_12                       
+00015fc0  __mspabi_slll_11                       
+00015fc4  __mspabi_slll_10                       
+00015fc8  __mspabi_slll_9                        
+00015fcc  __mspabi_slll_8                        
+00015fd0  __mspabi_slll_7                        
+00015fd4  __mspabi_slll_6                        
+00015fd8  __mspabi_slll_5                        
+00015fdc  __mspabi_slll_4                        
+00015fe0  __mspabi_slll_3                        
+00015fe4  __mspabi_slll_2                        
+00015fe8  __mspabi_slll_1                        
+00015fee  __mspabi_srll_15                       
+00015ff2  __mspabi_srll_14                       
+00015ff6  __mspabi_srll_13                       
+00015ffa  __mspabi_srll_12                       
+00015ffe  __mspabi_srll_11                       
+00016002  __mspabi_srll_10                       
+00016006  __mspabi_srll_9                        
+0001600a  __mspabi_srll_8                        
+0001600e  __mspabi_srll_7                        
+00016012  __mspabi_srll_6                        
+00016016  __mspabi_srll_5                        
+0001601a  __mspabi_srll_4                        
+0001601e  __mspabi_srll_3                        
+00016022  __mspabi_srll_2                        
+00016026  __mspabi_srll_1                        
+0001602c  lseek                                  
+0001606a  memcpy                                 
+000160a6  write                                  
+000160e2  __mspabi_sllll                         
+0001611c  __mspabi_srlll                         
+00016156  __TI_cleanup                           
+0001618c  __TI_writemsg                          
+000161be  C$$IO$$                                
+000161c2  finddevice                             
+000161f8  __mspabi_fltif                         
+0001622e  memccpy                                
+00016262  memcmp                                 
+00016296  __TI_readmsg                           
+000162c8  __mspabi_subd                          
+000162fa  struct_cmp_by_score_dec                
+0001632c  remove                                 
+0001632c  unlink                                 
+0001635c  __mspabi_negd                          
+0001638a  copysign                               
+0001638a  copysignl                              
+000163b8  __mpu_init                             
+000163e4  __mspabi_mpyull_f5hw                   
+00016410  __mspabi_divi                          
+00016410  __mspabi_remi                          
+00016466  __mspabi_fixdi                         
+0001648e  wcslen                                 
+000164dc  __TI_zero_init_nomemset                
+00016500  __mspabi_fltuf                         
+00016524  __mspabi_mpyl_f5hw                     
+00016548  memchr                                 
+00016568  memset                                 
+00016588  strchr                                 
+000165a4  strcmp                                 
+000165c0  __mspabi_mpyi_f5hw                     
+000165d8  __TI_decompress_none                   
+00016604  __mspabi_divu                          
+00016604  __mspabi_remu                          
+0001661a  strcpy                                 
+0001662c  strlen                                 
+0001663e  toupper                                
+00016650  RTC_start                              
+00016660  __mspabi_slll                          
+00016670  __mspabi_srll                          
+00016680  __mspabi_fltid                         
+0001668c  malloc                                 
+00016698  random_number                          
+000166a4  abs                                    
+000166b4  C$$EXIT                                
+000166b4  abort                                  
+000166be  _system_pre_init                       
+000166c2  _nop                                   
+000166c4  _system_post_cinit                     
+>>>>>>> changed dataset
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
+<<<<<<< HEAD
 [1801 symbols]
+=======
+[1802 symbols]
+>>>>>>> changed dataset

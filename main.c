@@ -143,6 +143,8 @@ int main(void)
 		if (acc_perm > acc)
 			acc = acc_perm;
 
+		printf("%d\n", acc);
+
         #ifdef PRINT
         #ifdef AUTO_DT
         printf ("^ Decision Tree:\n\n");

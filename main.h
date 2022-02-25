@@ -3,7 +3,12 @@
 
 #define FIFO
 
+<<<<<<< HEAD
 #define AUTO_DT
+=======
+//#define AUTO_DT
+# define AUTO_KNN
+>>>>>>> changed dataset
 
 // #define DEBUG
 
