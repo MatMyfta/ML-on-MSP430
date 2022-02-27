@@ -1,7 +1,7 @@
 #ifndef DATASET_H
 #define DATASET_H
 
-#define N_TRAIN 1228
+#define N_TRAIN 614
 
 #define N_FEATURE 8
 

@@ -41,6 +41,11 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
 			root->Right_group[right_counter] = sample_index;
 			right_counter++;
 		}
+<<<<<<< HEAD
+=======
+		root->left_counter = left_counter;
+		root->right_counter = right_counter;
+>>>>>>> dt fixes
 	}
     root->left_counter = left_counter;
     root->right_counter = right_counter;
@@ -66,13 +71,18 @@ fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 	float gini = 0;
 	float r_lc = F_TO_FLOAT(root->left_counter);
 	float r_rc = F_TO_FLOAT(root->right_counter);*/
-    fixed first_class_counter = 0;
-    fixed second_class_counter = 0;
+    uint16_t first_class_counter = 0;
+    uint16_t second_class_counter = 0;
     fixed score, score2;
     fixed gini = 0;
+<<<<<<< HEAD
     fixed r_lc = root->left_counter;
     fixed r_rc = root->right_counter;
 >>>>>>> changed dataset
+=======
+    uint16_t r_lc = root->left_counter;
+    uint16_t r_rc = root->right_counter;
+>>>>>>> dt fixes
 	uint16_t sample_index;
 	uint16_t j;
 
@@ -129,7 +139,11 @@ struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], str
 {
 	fixed b_score = F_LIT(999);
 	fixed gini, threshold;
+<<<<<<< HEAD
 	uint16_t left_ctr=0, right_ctr=0;
+=======
+	uint16_t left_ctr, right_ctr;
+>>>>>>> dt fixes
 	uint16_t left_grp[MEMORY_SIZE];
 	uint16_t right_grp[MEMORY_SIZE];
 	uint16_t sample_index;
@@ -184,7 +198,18 @@ struct Node* GetNewNode()
 struct Node* split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* node, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t max_depth, uint16_t min_size, uint16_t depth)
 {	
 	uint16_t out;
+<<<<<<< HEAD
 	if (node->left_counter == 0 || node->right_counter == 0 || depth >= max_depth) {
+=======
+	if (node->left_counter == 0 || node->right_counter == 0) {
+		out = to_terminal(node->Left_group, y_train, node->left_counter);
+		node->left_class = out;
+		out = to_terminal(node->Right_group, y_train, node->right_counter);
+		node->right_class = out;
+		return node;
+	}
+	if (depth >= max_depth) {
+>>>>>>> dt fixes
 		out = to_terminal(node->Left_group, y_train, node->left_counter);
 		node->left_class = out;
 		out = to_terminal(node->Right_group, y_train, node->right_counter);

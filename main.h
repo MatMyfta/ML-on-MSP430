@@ -4,11 +4,16 @@
 #define FIFO
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define AUTO_DT
 =======
 //#define AUTO_DT
 # define AUTO_KNN
 >>>>>>> changed dataset
+=======
+#define AUTO_DT
+//# define AUTO_KNN
+>>>>>>> dt fixes
 
 // #define DEBUG
 
