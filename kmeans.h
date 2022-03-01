@@ -3,7 +3,7 @@
 
 #define K 2
 #define CONFIDENCE
-#define CONFIDENCE_THR F_LIT(0.8)
+#define CONFIDENCE_THR F_LIT(0.9)
 
 #include <stdint.h>
 #include "fixed.h"

@@ -1,6 +1,8 @@
 #ifndef FIXED_H
 #define FIXED_H
 
+#include <stdint.h>
+
 //#define F_N CONFIG_FRAC_BITWIDTH
 #define F_N 5
 #define F_ONE (1 << F_N)
@@ -40,7 +42,7 @@
 #if CONFIG_BITWIDTH == 8
 typedef signed char fixed;
 #else
-typedef signed int fixed;
+typedef int32_t fixed;
 #endif
 
 // Comment out middle two lines for int arithmetic to work
@@ -48,7 +50,7 @@ static inline fixed f_mul(fixed a, fixed b) {
 #ifdef CONFIG_TEST
     return a * b;
 #else
-    signed int tmp = a * b;
+    int32_t tmp = a * b;
     tmp += F_K;
     tmp >>= F_N;
     return (fixed)tmp;

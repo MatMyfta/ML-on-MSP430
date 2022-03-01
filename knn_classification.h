@@ -11,7 +11,7 @@
 #include "kmeans.h"
 #include "pipeline.h"
 
-#define K_NEIGHBOR 13
+#define K_NEIGHBOR 5
 
 struct neighbour
 {

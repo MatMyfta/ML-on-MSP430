@@ -1,11 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define CONF
+#define FIFO
 
-#define AUTO_KNN
+#define AUTO_DT
 
-//#define DEBUG
+// #define DEBUG
 
 #ifdef DEBUG
 #define PRINT

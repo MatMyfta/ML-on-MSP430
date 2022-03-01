@@ -1,6 +1,6 @@
 #ifndef DEBUG
-#include <msp430.h>
 #include "pf_sim.h"
+#include <msp430.h>
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -103,7 +103,7 @@ int main(void)
 			#endif
 		}
 
-		root = (struct Node*)realloc(NULL, sizeof(struct Node));
+		root = (struct Node*)realloc(NULL, sizeof(struct Node*));
         #ifdef AUTO_DT
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
         #endif
@@ -131,8 +131,6 @@ int main(void)
 		if (acc_perm > acc)
 			acc = acc_perm;
 
-		printf("%d\n", acc);
-
         #ifdef PRINT
         #ifdef AUTO_DT
         printf ("^ Decision Tree:\n\n");
@@ -149,7 +147,7 @@ int main(void)
 		// acc = F_LIT((float) (F_TO_FLOAT(acc)/N_TEST * 100.0));
 
         #ifdef PRINT
-        printf("\t- Accuracy: %0.2f%s\n\n", acc, "%");
+        printf("\t- Accuracy: %0.2f%s\n\n", F_TO_FLOAT(acc)/N_TEST * 100.0, "%");
         #endif
 
         counter += UPDATE_THR;

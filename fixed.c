@@ -1,4 +1,3 @@
-#include <stdint.h>
 #include "fixed.h"
 
 fixed f_sqrt(fixed a) {

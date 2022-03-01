@@ -14,8 +14,8 @@ struct Node {
     uint16_t feature;
 	uint16_t Left_group[MEMORY_SIZE];
 	uint16_t Right_group[MEMORY_SIZE];
-	fixed left_counter;
-	fixed right_counter;
+	uint16_t left_counter;
+	uint16_t right_counter;
 	uint16_t left_class;
 	uint16_t right_class;
 	struct Node* left;

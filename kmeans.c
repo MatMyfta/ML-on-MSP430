@@ -144,14 +144,15 @@ void initial_centroids(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fix
 
 uint16_t kmeanspp(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed centroids[K][N_FEATURE], uint16_t n_samples, uint16_t next_centroid)
 {
-    float max = -1000;
-    uint16_t random, dist;
+    uint16_t max = 0;
+    uint16_t random; 
+    fixed dist;
     uint16_t i,k,j;
     for (i = 0; i < n_samples; i++) {
         for (k = 0; k < next_centroid; k++) {
             for (j = 0; j < N_FEATURE; j++) {
                 fixed tmp = max_samples[i][j]-centroids[k][j];
-                dist += F_TO_FLOAT(tmp) * F_TO_FLOAT(tmp);
+                dist += F_MUL(tmp,tmp);
             }
             if (dist > max) {
                 max = dist;
@@ -165,18 +166,19 @@ uint16_t kmeanspp(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], fixed ce
 
 uint16_t clustering(fixed X[], fixed centroids[K][N_FEATURE], fixed weights[MEMORY_SIZE][K], uint16_t samples_per_cluster[], uint16_t index)
 {
-    float y = 0, min_distance = 1000000;
+    uint64_t y = 0;
+    fixed min_distance = F_LIT(1000);
     uint16_t cluster = 0;
 
     uint16_t k,j;
     for (k = 0; k < K; k++) {
         for (j = 0; j < N_FEATURE; j++) {
-            float tmp = F_TO_FLOAT(X[j]-centroids[k][j]);
-            y += tmp*tmp;
+            fixed tmp = X[j]-centroids[k][j];
+            y += F_MUL(tmp,tmp);
         }
 
-        y = (y == 0 ? 0 : sqrt(y));
-        weights[index][k] = F_LIT(y);				// weight is the distance between index and centroid
+        y = (y == 0 ? 0 : F_SQRT(y));
+        weights[index][k] = y;				// weight is the distance between index and centroid
 
         if (y < min_distance) {
             min_distance = y;
