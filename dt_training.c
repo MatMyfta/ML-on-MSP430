@@ -2,11 +2,14 @@
 #include <string.h>
 #include "dt_training.h"
 
-uint16_t counter = 1;
+uint16_t counter = 0;
 uint16_t n = 0;
 
-#pragma PERSISTENT(newNode)
-struct Node* newNode = NULL;
+//#pragma PERSISTENT(newNode)
+//struct Node* newNode = NULL;
+
+#pragma PERSISTENT(dt)
+struct Node dt[DT_DIM] = {0};
 
 struct Node* decision_tree_training(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size)
 {
@@ -134,9 +137,17 @@ struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], str
 
 struct Node* GetNewNode()
 {
-	newNode = (struct Node*)malloc(sizeof(struct Node*));
+	/*newNode = (struct Node*)malloc(sizeof(struct Node*));
 	newNode->left = NULL;
 	newNode->right = NULL;
+	newNode->left_counter = 0;
+	newNode->right_counter = 0;*/
+
+    struct Node* newNode;
+	counter++;
+
+    newNode = &dt[counter];
+
 	return newNode;
 }
 

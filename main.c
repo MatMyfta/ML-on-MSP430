@@ -16,12 +16,10 @@ fixed centroids[K][N_FEATURE];
 #pragma PERSISTENT(weights)
 #pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
-#pragma PERSISTENT(root)
 #endif
 fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {{0}};
 uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {{0}};
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {{0}};
-struct Node* root = NULL;
 
 /**
  * main.c
@@ -103,8 +101,22 @@ int main(void)
 			#endif
 		}
 
-		root = (struct Node*)realloc(NULL, sizeof(struct Node*));
+		struct Node * root;
+
         #ifdef AUTO_DT
+		struct Node dt[DT_DIM];
+
+		for (i=0; i<DT_DIM; i++) {
+		    dt[i].threshold = 0;
+		    dt[i].feature = 0;
+		    dt[i].left_counter = 0;
+		    dt[i].right_counter = 0;
+		    dt[i].left = NULL;
+		    dt[i].right = NULL;
+		}
+
+		root = &dt[0];
+
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
         #endif
 
@@ -149,6 +161,8 @@ int main(void)
         #ifdef PRINT
         printf("\t- Accuracy: %0.2f%s\n\n", F_TO_FLOAT(acc)/N_TEST * 100.0, "%");
         #endif
+
+        printf("acc : %d\n", (int) acc);
 
         counter += UPDATE_THR;
 		acc = F_LIT(0);
