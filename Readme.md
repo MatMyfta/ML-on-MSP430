@@ -2,33 +2,6 @@
 
 Sample project of a Machine Learning algorithm running on MSP430FR5994 launchpad.
 
-## Dataset
-
-The dataset is composed of:
-
-| Class | number of Training Set samples | number of Test Set samples |
-|-------|----------------------|------------------|
-| sit5 | 777 | 197 |
-| wlk7 | 197 | 110 |
-
-## Results
-
-The following results are 
-
-| Iteration number | kNN Accuracy % |
-|------------------|------------|
-| 1 | 83.12% |
-| 2 | 86.06% |
-| 3 | 87.66% |
-| 4 | 86.36% |
-| 5 | 83.12% |
-| 6 | 80.52% |
-| 7 | 81.17% |
-| 8 | 76.95% |
-| 9 | 76.95% |
-| 10 | 74.68% |
-| 11 | 61.69% |
-
 
 ## References
 

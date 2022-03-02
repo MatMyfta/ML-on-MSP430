@@ -1,12 +1,7 @@
 #ifndef DT_TRAINING
 #define DT_TRAINING
 
-<<<<<<< HEAD
-#define MAX_DEPTH 3
-#define DT_DIM 15		// SUM(i=[0...MAX_DEPTH], 2^i)
-=======
 #define MAX_DEPTH 7
->>>>>>> changed dataset
 #define MIN_SIZE 10
 
 #include <stdint.h>
