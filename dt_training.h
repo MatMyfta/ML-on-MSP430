@@ -2,7 +2,7 @@
 #define DT_TRAINING
 
 #define MAX_DEPTH 3
-#define DT_DIM 15		// SUM(i=[0...MAX_DEPTH], 2^i)
+#define MAX_NODES 15		// SUM(i=[0...MAX_DEPTH], 2^i)
 #define MIN_SIZE 10
 
 #include <stdint.h>
@@ -21,16 +21,14 @@ struct Node {
 	uint16_t right_class;
 	struct Node* left;
 	struct Node* right;
+	uint16_t taken;
 };
-
-extern struct Node dt[DT_DIM];
-
 struct Node* decision_tree_training(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size);
 struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t* group, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size);
 struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t* group, uint16_t feature, fixed threshold, uint16_t size);
 fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR]);
 struct Node* split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* node, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t max_depth, uint16_t min_size, uint16_t depth);
-struct Node* GetNewNode();
+struct Node* GetNewNode(struct Node* node);
 uint16_t to_terminal(uint16_t *group, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size);
 
 #endif

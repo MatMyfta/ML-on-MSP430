@@ -8,8 +8,8 @@ uint16_t n = 0;
 //#pragma PERSISTENT(newNode)
 //struct Node* newNode = NULL;
 
-#pragma PERSISTENT(dt)
-struct Node dt[DT_DIM] = {0};
+#pragma PERSISTENT(newNode)
+struct Node* newNode = NULL;
 
 struct Node* decision_tree_training(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size)
 {
@@ -135,19 +135,18 @@ struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], str
 	return root;
 }
 
-struct Node* GetNewNode()
+struct Node* GetNewNode(struct Node *node)
 {
-	/*newNode = (struct Node*)malloc(sizeof(struct Node*));
+	uint16_t i;
+	for (i=0; i<MAX_NODES; i++) {
+		if (!node[i].taken) {
+			newNode = &node[i];
+			break;
+		}
+	}
+	newNode->taken = 1;
 	newNode->left = NULL;
 	newNode->right = NULL;
-	newNode->left_counter = 0;
-	newNode->right_counter = 0;*/
-
-    struct Node* newNode;
-	counter++;
-
-    newNode = &dt[counter];
-
 	return newNode;
 }
 
@@ -166,7 +165,7 @@ struct Node* split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct 
 		node->right_class = out;
 	}
 	else {
-		node->left = GetNewNode();
+		node->left = GetNewNode(node);
 		get_split(max_samples, node->left, node->Left_group, y_train, node->left_counter);
 		split(max_samples, node->left, y_train, max_depth, min_size, depth+1);
 	}
@@ -175,7 +174,7 @@ struct Node* split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct 
 		node->right_class = out;
 	}
 	else {
-		node->right = GetNewNode();
+		node->right = GetNewNode(node);
 		get_split(max_samples, node->right, node->Right_group, y_train, node->right_counter);
 		split(max_samples, node->right, y_train, max_depth, min_size, depth+1);
 	}

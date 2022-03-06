@@ -37,12 +37,12 @@ int main(void)
 
     // RTC
     RTC_start();
-	#endif
+	#endif // !DEBUG
 
 
     #ifdef PRINT
     printf("AEP initialization\n\n");
-    #endif
+    #endif // PRINT
 
 	uint16_t n_samples;
     uint16_t pred_class, pred_class_perm;
@@ -51,6 +51,8 @@ int main(void)
 	uint16_t counter = 0;
 	uint16_t increment = 0;
 	uint16_t i, j;
+    struct Node *root;
+    struct Node tree_node[MAX_NODES];
 
 	n_samples = INITIAL_THR; 		// MAX MEMORY ALLOCATION
 
@@ -66,13 +68,13 @@ int main(void)
     printf("* Decision Tree classifier: \n\n");
     printf("\t- Max Depth: %d\n", MAX_DEPTH);
     printf("\t- Min Size: %d\n\n", MIN_SIZE);
-    #endif
+    #endif // AUTO_DT
 
     #ifdef AUTO_KNN
     printf("* KNN classifier:\n\n");
     printf("\t- Number of neighbors: %d\n\n", K_NEIGHBOR);
-    #endif
-    #endif
+    #endif // AUTO_KNN
+    #endif // PRINT
 
 	counter = n_samples;
 
@@ -89,7 +91,7 @@ int main(void)
 
             quicksort_idx(y_train, indices, 0, n_samples-1);
             n_samples = update_mem(max_samples, indices, n_samples);
-            #endif
+            #endif // CONF
 
 			#ifdef FIFO
 			for(i = 0; i < MEMORY_SIZE; i++) {
@@ -98,27 +100,26 @@ int main(void)
 				y_train[i] = y_train[i+(n_samples - MEMORY_SIZE)];
 			}
 			n_samples = MEMORY_SIZE;
-			#endif
+			#endif // FIFO
 		}
 
-		struct Node * root;
+        for (i=0; i<MAX_NODES; i++) {
+            tree_node[i].threshold = 0;
+            tree_node[i].feature = 0;
+            tree_node[i].left_counter = 0;
+            tree_node[i].right_counter = 0;
+            tree_node[i].left_class = 0;
+            tree_node[i].right_class = 0;
+            tree_node[i].left = NULL;
+            tree_node[i].right = NULL;
+            tree_node[i].taken = 0;
+        }
 
+		root = &tree_node[0];
+        root->taken = 1;
         #ifdef AUTO_DT
-		struct Node dt[DT_DIM];
-
-		for (i=0; i<DT_DIM; i++) {
-		    dt[i].threshold = 0;
-		    dt[i].feature = 0;
-		    dt[i].left_counter = 0;
-		    dt[i].right_counter = 0;
-		    dt[i].left = NULL;
-		    dt[i].right = NULL;
-		}
-
-		root = &dt[0];
-
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
-        #endif
+        #endif // AUTO_DT
 
 
         // Compute classification
@@ -126,11 +127,11 @@ int main(void)
 
             #ifdef AUTO_DT
 			pred_class = decision_tree_classifier(root, X_test[j]);
-            #endif
+            #endif // AUTO_DT
 
             #ifdef AUTO_KNN
             pred_class = knn_classification(X_test[j], max_samples, y_train, n_samples);
-            #endif
+            #endif // AUTO_KNN
 
 			pred_class_perm = 1 - pred_class;
 

@@ -3,7 +3,7 @@
 
 #define FIFO
 
-#define AUTO_DT
+#define AUTO_KNN
 
 // #define DEBUG
 
