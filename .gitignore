@@ -3,3 +3,6 @@
 .vscode/
 Debug/
 targetConfigs/
+.ccsproject
+.cproject
+.project
