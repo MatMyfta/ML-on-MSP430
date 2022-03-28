@@ -2,7 +2,7 @@
 #include <string.h>
 #include "dt_training.h"
 
-uint16_t counter = 1;
+uint16_t counter = 0;
 uint16_t n = 0;
 
 #pragma PERSISTENT(newNode)
@@ -22,9 +22,6 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
     uint16_t j;
 
 	for(j = 0; j < size; j++) {
-		if (j == 133) {
-			printf("");
-		}
 		/* first split of the samples */
 		if(group == NULL)
 			sample_index = j;
@@ -40,24 +37,23 @@ struct Node* split_samples(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE],
 			root->Right_group[right_counter] = sample_index;
 			right_counter++;
 		}
-		root->left_counter = F_LIT(left_counter);
-		root->right_counter = F_LIT(right_counter);
 	}
+    root->left_counter = left_counter;
+    root->right_counter = right_counter;
 	
 	if(group != NULL)
 		return root;
-
 	return NULL;
 }
 
-fixed gini_index(struct Node*root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
+fixed gini_index(struct Node* root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 {
-	float first_class_counter = 0;
-	float second_class_counter = 0;
-	float score, score2;
-	float gini = 0;
-	float r_lc = F_TO_FLOAT(root->left_counter);
-	float r_rc = F_TO_FLOAT(root->right_counter);
+	fixed first_class_counter = 0;
+	fixed second_class_counter = 0;
+	fixed score, score2;
+	fixed gini = 0;
+	uint16_t r_lc = root->left_counter;
+	uint16_t r_rc = root->right_counter;
 	uint16_t sample_index;
 	uint16_t j;
 
@@ -65,12 +61,16 @@ fixed gini_index(struct Node*root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 		for (j = 0; j < r_lc; j++) {
 			sample_index = root->Left_group[j];
 			if (y_train[sample_index] == classes[0])
-				first_class_counter++;
+				first_class_counter+=F_LIT(1);
 			else
-				second_class_counter++;
+				second_class_counter+=F_LIT(1);
 		}
-		score =  (first_class_counter/r_lc)*(first_class_counter/r_lc) + (second_class_counter/r_lc)*(second_class_counter/r_lc);
-		gini = (1.0 - score) * (r_lc / (r_lc + r_rc));
+		//score =  (first_class_counter/r_lc)*(first_class_counter/r_lc) + (second_class_counter/r_lc)*(second_class_counter/r_lc);
+		fixed fcc = F_DIV(first_class_counter, F_LIT(r_lc));
+		fixed scc = F_DIV(second_class_counter, F_LIT(r_lc));
+		score = F_MUL(fcc,fcc) + F_MUL(scc,scc);
+		//gini = (1.0 - score) * (r_lc / (r_lc + r_rc));
+		gini = F_MUL(F_LIT(1)-score, F_DIV(F_LIT(r_lc), F_LIT(r_lc)+F_LIT(r_rc)));
 		first_class_counter = 0;
 		second_class_counter = 0;
 	}
@@ -78,21 +78,25 @@ fixed gini_index(struct Node*root, uint16_t y_train[MEMORY_SIZE+UPDATE_THR])
 		for (j = 0; j < r_rc; j++) {
 			sample_index = root->Right_group[j];
 			if (y_train[sample_index] == classes[0])
-				first_class_counter++;
+				first_class_counter+=F_LIT(1);
 			else
-				second_class_counter++;
+				second_class_counter+=F_LIT(1);
 		}
-		score2 =  (first_class_counter / r_rc)*(first_class_counter / r_rc) + (second_class_counter / r_rc)*(second_class_counter / r_rc);
-		gini += (1.0 - score2) * (r_rc/(r_lc + r_rc));
+		//score2 =  (first_class_counter / r_rc)*(first_class_counter / r_rc) + (second_class_counter / r_rc)*(second_class_counter / r_rc);
+		fixed fcc = F_DIV(first_class_counter, F_LIT(r_rc));
+		fixed scc = F_DIV(second_class_counter, F_LIT(r_rc));
+		score2 = F_MUL(fcc,fcc) + F_MUL(scc,scc);
+		//gini += (1.0 - score2) * (r_rc/(r_lc + r_rc));
+		gini += F_MUL(F_LIT(1)-score2, F_DIV(F_LIT(r_rc), F_LIT(r_lc)+F_LIT(r_rc)));
 	}
-	return F_LIT(gini);
+	return gini;
 }
 
 struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* root, uint16_t* group, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t size)
 {
 	fixed b_score = F_LIT(999);
 	fixed gini, threshold;
-	fixed left_ctr, right_ctr;
+	uint16_t left_ctr=0, right_ctr=0;
 	uint16_t left_grp[MEMORY_SIZE];
 	uint16_t right_grp[MEMORY_SIZE];
 	uint16_t sample_index;
@@ -128,9 +132,16 @@ struct Node* get_split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], str
 	return root;
 }
 
-struct Node* GetNewNode()
+struct Node* GetNewNode(struct Node *node)
 {
-	newNode = (struct Node*)malloc(sizeof(struct Node));
+	uint16_t i;
+	for (i=0; i<MAX_NODES; i++) {
+		if (!node[i].taken) {
+			newNode = &node[i];
+			break;
+		}
+	}
+	newNode->taken = 1;
 	newNode->left = NULL;
 	newNode->right = NULL;
 	return newNode;
@@ -139,36 +150,29 @@ struct Node* GetNewNode()
 struct Node* split(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct Node* node, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t max_depth, uint16_t min_size, uint16_t depth)
 {	
 	uint16_t out;
-	if (node->left_counter == F_LIT(0) || node->right_counter == F_LIT(0)) {
-		out = to_terminal(node->Left_group, y_train, F_TO_FLOAT(node->left_counter));
+	if (node->left_counter == 0 || node->right_counter == 0 || depth >= max_depth) {
+		out = to_terminal(node->Left_group, y_train, node->left_counter);
 		node->left_class = out;
-		out = to_terminal(node->Right_group, y_train, F_TO_FLOAT(node->right_counter));
+		out = to_terminal(node->Right_group, y_train, node->right_counter);
 		node->right_class = out;
 		return node;
 	}
-	if (depth >= max_depth) {
-		out = to_terminal(node->Left_group, y_train, F_TO_FLOAT(node->left_counter));
-		node->left_class = out;
-		out = to_terminal(node->Right_group, y_train, F_TO_FLOAT(node->right_counter));
-		node->right_class = out;
-		return node;
-	}
-	if(F_TO_FLOAT(node->left_counter) + F_TO_FLOAT(node->right_counter) <= min_size) {
-		out = to_terminal(node->Left_group, y_train, F_TO_FLOAT(node->left_counter));
+	if(node->left_counter + node->right_counter <= min_size) {
+		out = to_terminal(node->Left_group, y_train, node->left_counter);
 		node->right_class = out;
 	}
 	else {
-		node->left = GetNewNode();
-		get_split(max_samples, node->left, node->Left_group, y_train, F_TO_FLOAT(node->left_counter));
+		node->left = GetNewNode(node);
+		get_split(max_samples, node->left, node->Left_group, y_train, node->left_counter);
 		split(max_samples, node->left, y_train, max_depth, min_size, depth+1);
 	}
-	if(F_TO_FLOAT(node->right_counter) + F_TO_FLOAT(node->left_counter) <= min_size) {
-		out = to_terminal(node->Right_group, y_train, F_TO_FLOAT(node->right_counter));
+	if(node->right_counter + node->left_counter <= min_size) {
+		out = to_terminal(node->Right_group, y_train, node->right_counter);
 		node->right_class = out;
 	}
 	else {
-		node->right = GetNewNode();
-		get_split(max_samples, node->right, node->Right_group, y_train, F_TO_FLOAT(node->right_counter));
+		node->right = GetNewNode(node);
+		get_split(max_samples, node->right, node->Right_group, y_train, node->right_counter);
 		split(max_samples, node->right, y_train, max_depth, min_size, depth+1);
 	}
 	return node;
@@ -195,4 +199,3 @@ uint16_t to_terminal(uint16_t *group, uint16_t y_train[MEMORY_SIZE+UPDATE_THR], 
 		out = classes[1];
 	return out;
 }
-

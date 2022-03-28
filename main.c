@@ -1,6 +1,6 @@
 #ifndef DEBUG
-#include <msp430.h>
 #include "pf_sim.h"
+#include <msp430.h>
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,7 @@
 #include "main.h"
 #include "kmeans.h"
 #include "knn_classification.h"
+#include "perceptron.h"
 #include "test.h"
 
 fixed centroids[K][N_FEATURE];
@@ -16,12 +17,12 @@ fixed centroids[K][N_FEATURE];
 #pragma PERSISTENT(weights)
 #pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
-#pragma PERSISTENT(root)
+#pragma PERSISTENT(tree_node)
 #endif
 fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {{0}};
 uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {{0}};
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {{0}};
-struct Node* root = NULL;
+struct Node tree_node[MAX_NODES] = {0};
 
 /**
  * main.c
@@ -39,12 +40,12 @@ int main(void)
 
     // RTC
     RTC_start();
-	#endif
+	#endif // !DEBUG
 
 
     #ifdef PRINT
     printf("AEP initialization\n\n");
-    #endif
+    #endif // PRINT
 
 	uint16_t n_samples;
     uint16_t pred_class, pred_class_perm;
@@ -53,6 +54,7 @@ int main(void)
 	uint16_t counter = 0;
 	uint16_t increment = 0;
 	uint16_t i, j;
+    struct Node *root;
 
 	n_samples = INITIAL_THR; 		// MAX MEMORY ALLOCATION
 
@@ -68,13 +70,13 @@ int main(void)
     printf("* Decision Tree classifier: \n\n");
     printf("\t- Max Depth: %d\n", MAX_DEPTH);
     printf("\t- Min Size: %d\n\n", MIN_SIZE);
-    #endif
+    #endif // AUTO_DT
 
     #ifdef AUTO_KNN
     printf("* KNN classifier:\n\n");
     printf("\t- Number of neighbors: %d\n\n", K_NEIGHBOR);
-    #endif
-    #endif
+    #endif // AUTO_KNN
+    #endif // PRINT
 
 	counter = n_samples;
 
@@ -91,7 +93,7 @@ int main(void)
 
             quicksort_idx(y_train, indices, 0, n_samples-1);
             n_samples = update_mem(max_samples, indices, n_samples);
-            #endif
+            #endif // CONF
 
 			#ifdef FIFO
 			for(i = 0; i < MEMORY_SIZE; i++) {
@@ -100,25 +102,45 @@ int main(void)
 				y_train[i] = y_train[i+(n_samples - MEMORY_SIZE)];
 			}
 			n_samples = MEMORY_SIZE;
-			#endif
+			#endif // FIFO
 		}
 
-		root = (struct Node*)realloc(NULL, sizeof(struct Node));
+        for (i=0; i<MAX_NODES; i++) {
+            tree_node[i].threshold = 0;
+            tree_node[i].feature = 0;
+            tree_node[i].left_counter = 0;
+            tree_node[i].right_counter = 0;
+            tree_node[i].left_class = 0;
+            tree_node[i].right_class = 0;
+            tree_node[i].left = NULL;
+            tree_node[i].right = NULL;
+            tree_node[i].taken = 0;
+        }
+
+		root = &tree_node[0];
+        root->taken = 1;
         #ifdef AUTO_DT
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
-        #endif
+        #endif // AUTO_DT
 
+        #ifdef AUTO_PRC
+        perceptron_training(max_samples, y_train, n_samples);
+        #endif  
 
         // Compute classification
 		for (j = 0; j < N_TEST; j++) {
 
             #ifdef AUTO_DT
 			pred_class = decision_tree_classifier(root, X_test[j]);
-            #endif
+            #endif // AUTO_DT
 
             #ifdef AUTO_KNN
             pred_class = knn_classification(X_test[j], max_samples, y_train, n_samples);
-            #endif
+            #endif // AUTO_KNN
+            
+            #ifdef AUTO_PRC
+            pred_class = perceptron_classification(X_test[j]);
+            #endif // AUTO_PRC
 
 			pred_class_perm = 1 - pred_class;
 
@@ -130,8 +152,6 @@ int main(void)
 
 		if (acc_perm > acc)
 			acc = acc_perm;
-
-		printf("%d\n", acc);
 
         #ifdef PRINT
         #ifdef AUTO_DT
@@ -149,8 +169,10 @@ int main(void)
 		// acc = F_LIT((float) (F_TO_FLOAT(acc)/N_TEST * 100.0));
 
         #ifdef PRINT
-        printf("\t- Accuracy: %0.2f%s\n\n", acc, "%");
+        printf("\t- Accuracy: %0.2f%s\n\n", F_TO_FLOAT(acc)/N_TEST * 100.0, "%");
         #endif
+
+        printf("acc : %d\n", (int) acc);
 
         counter += UPDATE_THR;
 		acc = F_LIT(0);

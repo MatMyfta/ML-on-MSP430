@@ -3,7 +3,7 @@
 
 #define CONF
 
-#define AUTO_KNN
+#define AUTO_DT
 
 //#define DEBUG
 

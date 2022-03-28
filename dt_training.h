@@ -2,6 +2,7 @@
 #define DT_TRAINING
 
 #define MAX_DEPTH 3
+#define MAX_NODES 20
 #define MIN_SIZE 10
 
 #include <stdint.h>
@@ -18,6 +19,7 @@ struct Node {
 	fixed right_counter;
 	uint16_t left_class;
 	uint16_t right_class;
+	uint16_t taken;
 	struct Node* left;
 	struct Node* right;
 };
