@@ -2,6 +2,7 @@
 #define KMEANS_H
 
 #define K 2
+#define ITERATION
 #define CONFIDENCE
 #define CONFIDENCE_THR F_LIT(0.8)
 

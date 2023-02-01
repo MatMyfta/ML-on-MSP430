@@ -6,7 +6,7 @@
 #include "dataset.h"
 #include "pipeline.h"
 
-#define EPOCHS 10
+#define EPOCHS 20
 #define LEARNING_RATE F_LIT(0.2)
 
 void perceptron_training(fixed X_train[MEMORY_SIZE+UPDATE_THR][N_FEATURE], uint16_t y_train[MEMORY_SIZE+UPDATE_THR], uint16_t n);

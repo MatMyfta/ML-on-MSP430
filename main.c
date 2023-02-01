@@ -11,18 +11,45 @@
 #include "knn_classification.h"
 #include "perceptron.h"
 #include "test.h"
+#include "inferenceset.h"
+
+#define ACCURACIES 40
 
 fixed centroids[K][N_FEATURE];
 #ifndef DEBUG
 #pragma PERSISTENT(weights)
 #pragma PERSISTENT(y_train)
 #pragma PERSISTENT(max_samples)
+#ifdef AUTO_DT
 #pragma PERSISTENT(tree_node)
+#endif
 #endif
 fixed weights[MEMORY_SIZE+UPDATE_THR][K] = {{0}};
 uint16_t y_train[MEMORY_SIZE+UPDATE_THR] = {{0}};
 fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE] = {{0}};
+#ifdef AUTO_DT
 struct Node tree_node[MAX_NODES] = {0};
+#endif
+
+void set_freq(int f){
+    CSCTL0_H = CSKEY_H; //Unlock clock configuration register
+    //1 MHz by default
+    if (f == 4) {
+        CSCTL1 = DCOFSEL_3; //Clock frequency is set to 4 MHz (DCOFWEL = 3h, (R/W) = If DCORSEL = 0: 4 MHz; If DCORSEL = 1: 8 MHz)
+        CSCTL3 = DIVM_0 | DIVS_0 | DIVA_0; //Clock prescaler is set to /1
+    } else if (f == 8) {
+        CSCTL1 = DCORSEL | DCOFSEL_3; //Clock frequency is set to 8 MHz (DCOFWEL = 3h, (R/W) = If DCORSEL = 0: 4 MHz; If DCORSEL = 1: 8 MHz)
+        CSCTL3 = DIVM_0 | DIVS_0 | DIVA_0; //Clock prescaler is set to /1
+    } else if (f == 16) {
+        FRCTL0 = 0xA500 | ((1) << 4); // FRCTLPW | NWAITS_1;    // Disable FRAM wait cycles to allow clock operation over 8MHz
+        __delay_cycles(3);
+        FRCTL0_H |= (FWPW) >> 8; // init FRAM
+        __delay_cycles(3);
+        CSCTL1 = DCORSEL | DCOFSEL_4; //Clock frequency is set to 16 MHz (DCOFWEL = 4h, (R/W) = If DCORSEL = 0: 5.33 MHz; If DCORSEL = 1: 16 MHz)
+        CSCTL3 = DIVM_0 | DIVS_0 | DIVA_0; //Clock prescaler is set to /1
+    }
+    CSCTL0_H = 0; //Lock clock configuration register
+}
 
 /**
  * main.c
@@ -33,6 +60,12 @@ int main(void)
 	#ifndef DEBUG
 	// Stop watchdog timer
 	WDTCTL = WDTPW | WDTHOLD;
+
+	// Change frequency
+	// Default frequency is 1MHz
+    // set_freq(4);             // 4MHz
+    // set_freq(8);             // 8MHz
+    set_freq(16);               // 16MHz
 
     // Disable the GPIO power-on default high-impedance mode to activate
     // previously configured port settings
@@ -55,6 +88,9 @@ int main(void)
 	uint16_t increment = 0;
 	uint16_t i, j;
     struct Node *root;
+
+    uint16_t index = 0;
+    fixed accs[ACCURACIES] = {0};
 
 	n_samples = INITIAL_THR; 		// MAX MEMORY ALLOCATION
 
@@ -105,6 +141,7 @@ int main(void)
 			#endif // FIFO
 		}
 
+        #ifdef AUTO_DT
         for (i=0; i<MAX_NODES; i++) {
             tree_node[i].threshold = 0;
             tree_node[i].feature = 0;
@@ -119,13 +156,14 @@ int main(void)
 
 		root = &tree_node[0];
         root->taken = 1;
-        #ifdef AUTO_DT
 		root = decision_tree_training(max_samples, root, y_train, n_samples);
         #endif // AUTO_DT
 
         #ifdef AUTO_PRC
         perceptron_training(max_samples, y_train, n_samples);
         #endif  
+
+        if (false) break;
 
         // Compute classification
 		for (j = 0; j < N_TEST; j++) {
@@ -172,7 +210,11 @@ int main(void)
         printf("\t- Accuracy: %0.2f%s\n\n", F_TO_FLOAT(acc)/N_TEST * 100.0, "%");
         #endif
 
-        printf("acc : %d\n", (int) acc);
+
+        // printf("acc : %d\n", acc);
+
+        accs[index] = acc;
+        index++;
 
         counter += UPDATE_THR;
 		acc = F_LIT(0);
@@ -181,13 +223,40 @@ int main(void)
 		if(counter > N_TRAIN)
 			break;
 
-		n_samples = pipeline(max_samples, root, y_train, n_samples, counter);
+ 		n_samples = pipeline(max_samples, root, y_train, n_samples, counter);
 
 		if(counter - INITIAL_THR == MEMORY_SIZE)
 			increment = INITIAL_THR;
 		else if(counter > MEMORY_SIZE)
 			increment += UPDATE_THR;
 
+	}
+
+	if (0 == 0) index = ACCURACIES;
+
+	for (i = 0; i < ACCURACIES; i++) {
+        printf("%d;\n", accs[i]);
+	}
+
+	uint8_t inference[N_TEST];
+
+	for(i = 0; i < N_TEST; i++) {
+
+        #ifdef AUTO_DT
+	    inference[i] = decision_tree_classifier(root, X_test[i]);
+        #endif // AUTO_DT
+
+        #ifdef AUTO_KNN
+        inference[i] = knn_classification(X_test[i], max_samples, y_train, n_samples);
+        #endif // AUTO_KNN
+
+        #ifdef AUTO_PRC
+        inference[i] = perceptron_classification(X_test[i]);
+        #endif // AUTO_PRC
+	}
+
+	for (i = 0; i < N_TEST; i++) {
+        printf("%d\n", inference[i]);
 	}
 
 	return 0;

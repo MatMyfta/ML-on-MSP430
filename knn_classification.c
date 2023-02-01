@@ -39,24 +39,26 @@ uint16_t knn_classification(fixed X[], fixed training_samples[MEMORY_SIZE+UPDATE
 
     qsort(neighbours, n_samples, sizeof(struct neighbour), struct_cmp_by_score_dec);
 
-    uint16_t n;
-    fixed scores[K];
-    memset(scores, 0, K*sizeof(fixed));
+    {
+        uint16_t n;
+        fixed scores[K];
+        memset(scores, 0, K*sizeof(fixed));
 
-    for(n = 0; n < K_NEIGHBOR; n++)
-        scores[y_train[neighbours[n].id]] += neighbours[n].score;
+        for(n = 0; n < K_NEIGHBOR; n++)
+            scores[y_train[neighbours[n].id]] += neighbours[n].score;
 
-    fixed bestScore = F_LIT(0);
-    uint16_t bestClass;
+        fixed bestScore = F_LIT(0);
+        uint16_t bestClass;
 
-    for(n = 0; n < K; n++) {
-        if (scores[n] > bestScore) {
-            bestScore = scores[n];
-            bestClass = n;
+        for(n = 0; n < K; n++) {
+            if (scores[n] > bestScore) {
+                bestScore = scores[n];
+                bestClass = n;
+            }
         }
-    }
 
-    return bestClass;
+        return bestClass;
+    }
 }
 
 int struct_cmp_by_score_dec(const void *a, const void *b)

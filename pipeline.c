@@ -14,6 +14,10 @@ uint16_t pipeline(fixed max_samples[MEMORY_SIZE+UPDATE_THR][N_FEATURE], struct N
         #ifdef AUTO_KNN
         pred_class = knn_classification(X_train[i + counter - UPDATE_THR], max_samples, y_train, n_samples);
         #endif
+
+        #ifdef AUTO_PRC
+        pred_class = perceptron_classification(X_train[i + counter - UPDATE_THR]);
+        #endif
     }
 
     for(i = 0; i < UPDATE_THR; i++) {
