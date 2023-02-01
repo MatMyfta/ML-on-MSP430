@@ -1,8 +1,8 @@
-.launches/
-.settings/
-.vscode/
-Debug/
-targetConfigs/
+.launches/*
+.settings/*
+.vscode/*
+Debug/*
+targetConfigs/*
 .ccsproject
 .cproject
 .project
