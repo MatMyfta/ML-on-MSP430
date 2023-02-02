@@ -63,9 +63,9 @@ int main(void)
 
 	// Change frequency
 	// Default frequency is 1MHz
-    // set_freq(4);             // 4MHz
-    // set_freq(8);             // 8MHz
-    set_freq(16);               // 16MHz
+     set_freq(4);             // 4MHz
+//     set_freq(8);             // 8MHz
+//    set_freq(16);               // 16MHz
 
     // Disable the GPIO power-on default high-impedance mode to activate
     // previously configured port settings
@@ -234,16 +234,16 @@ int main(void)
 
 	if (0 == 0) index = ACCURACIES;
 
-	for (i = 0; i < ACCURACIES; i++) {
-        printf("%d;\n", accs[i]);
-	}
+//	for (i = 0; i < ACCURACIES; i++) {
+//        printf("%d;\n", accs[i]);
+//	}
 
 	uint8_t inference[N_TEST];
 
 	for(i = 0; i < N_TEST; i++) {
 
         #ifdef AUTO_DT
-	    inference[i] = decision_tree_classifier(root, X_test[i]);
+        inference[i] = decision_tree_classifier(root, X_test[i]);
         #endif // AUTO_DT
 
         #ifdef AUTO_KNN
