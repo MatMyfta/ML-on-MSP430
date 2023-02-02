@@ -17,6 +17,10 @@
 
 |Frequency [MHz]|MEM Points|UPD Points|INI Points|Mean accuracy [%]|Learning Time [s]|Learning Energy [mJ]|Inference Time [s]|Inference Energy [mJ]|
 |-|-|-|-|-|-|-|-|-|
-|4|100|50|50||||||
+|4|100|50|50|67.10|77.116|202,241|||
 |8|100|50|50||||||
 |16|100|50|50||||||
+
+<!--
+[3296,3584,3264,3360,3296,3296,3264,3328,3232,3232,3232,3296]
+-->
