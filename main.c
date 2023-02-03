@@ -63,9 +63,9 @@ int main(void)
 
 	// Change frequency
 	// Default frequency is 1MHz
-     set_freq(4);             // 4MHz
-//     set_freq(8);             // 8MHz
-//    set_freq(16);               // 16MHz
+//    set_freq(4);             // 4MHz
+    set_freq(8);             // 8MHz
+//    set_freq(16);            // 16MHz
 
     // Disable the GPIO power-on default high-impedance mode to activate
     // previously configured port settings

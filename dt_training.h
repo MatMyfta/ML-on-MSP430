@@ -1,9 +1,9 @@
 #ifndef DT_TRAINING
 #define DT_TRAINING
 
-#define MAX_DEPTH 3
-#define MAX_NODES 20
-#define MIN_SIZE 10
+#define MAX_DEPTH 5
+#define MAX_NODES 40
+#define MIN_SIZE 20
 
 #include <stdint.h>
 #include "fixed.h"
